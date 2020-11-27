@@ -1,0 +1,4 @@
+C:\Users\irush\OneDrive\Desktop\Gam3a =(\ProgLabs\PT Project F2020 - Logic Sim - student\PT Project F2020 - Logic Sim - student\Phase1 - Code\Debug\graphics_prj.exe
+C:\Users\irush\OneDrive\Desktop\Gam3a =(\ProgLabs\PT Project F2020 - Logic Sim - student\PT Project F2020 - Logic Sim - student\Phase1 - Code\Debug\graphics_prj.pdb
+E:\Sophomore\Programming Teqhnicues\Logisim_Project\Logic-Simulator\PT Project F2020 - Logic Sim - student\Phase1 - Code\Debug\graphics_prj.exe
+E:\Sophomore\Programming Teqhnicues\Logisim_Project\Logic-Simulator\PT Project F2020 - Logic Sim - student\Phase1 - Code\Debug\graphics_prj.pdb

@@ -15,7 +15,8 @@ enum keytype {
 	ASCII,
 	ARROW,
 	FUNCTION,
-	ESCAPE
+	ESCAPE,
+	BACKSPACE
 };
 
 
