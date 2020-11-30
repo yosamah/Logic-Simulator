@@ -16,7 +16,8 @@ enum keytype {
 	ARROW,
 	FUNCTION,
 	ESCAPE,
-	BACKSPACE
+	BACK,
+	RETURN
 };
 
 

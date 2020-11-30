@@ -6,8 +6,6 @@
 //All possible actions
 enum ActionType 
 {
-	ADD_Buff,			//Add 1-input Buffer gate
-	ADD_INV,			//Add 1-input Inverter gate
 	ADD_AND_GATE_2,		//Add 2-input AND gate
 	ADD_OR_GATE_2,		//Add 2-input OR gate
 	ADD_NAND_GATE_2,	//Add 2-input NAND gate
@@ -17,8 +15,10 @@ enum ActionType
 	ADD_AND_GATE_3,		//Add 3-input AND gate
 	ADD_NOR_GATE_3,		//Add 3-input NOR gate
 	ADD_XOR_GATE_3,		//Add 3-input XOR gate
+	ADD_Buff,			//Add 1-input Buffer gate
+	ADD_INV,			//Add 1-input Inverter gate
 	ADD_Switch,			//Add Switch
-	ADD_LED,			//Add LED
+	ADD_LED,	        //Add LED
 	ADD_CONNECTION,		//Add Wire Connection
 
 	ADD_Label,			//Add Label to a Component, a Connection
@@ -69,7 +69,7 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_AND2,		//AND gate item in menu
 	ITM_OR2,		//OR gate item in menu
 	ITM_NAND2,
-    ITM_NOR2,
+	ITM_NOR2,
 	ITM_XOR2,
 	ITM_XNOR2,
 	ITM_AND3,
@@ -77,8 +77,9 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_XOR3,
 	ITM_BUFFER,
 	ITM_INVERTER,
-	ITM_SWITCH, 
-	ITM_EXIT,	//Exit item
+	ITM_LED,
+	ITM_WIRE,
+	ITM_SWITCH,
 	//TODO: Add more items names here
 	
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
@@ -89,9 +90,13 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
-	ITM_SIM,	//Simulate menu item
+	//ITM_SIM,	//Simulate menu item
+	ITM_COPY,
+	ITM_PASTE,
+	ITM_DELETE,
 	ITM_TRUTH,	//Truth table menu item
-	
+	ITM_EXIT,	//Exit item
+	//ITM_CUT,
 	//TODO:Add more items names here
 	
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum

@@ -7,8 +7,9 @@ int main()
 {
 	int x,y;
 
+
 	//Create Input and Output objects to test
-	Output *pOut = new Output();;
+	Output *pOut = new Output();
 	Input *pIn = pOut->CreateInput();
 
 	//Starting the test
@@ -39,11 +40,11 @@ int main()
 	pOut->PrintMsg("Drawing 2-input AND gate, Normal and Highlighted,  Click to continue");
 	
 	//Drawing Normal AND2 gate
-	GfxInfo.x1 = 100;	GfxInfo.y1 = 100;
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
 	pOut->DrawAND2(GfxInfo);
 
 	//Drawing Highlighted AND2 gate
-	GfxInfo.x1 = 100;	GfxInfo.y1 = 200;
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
 	pOut->DrawAND2(GfxInfo, true);
 
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -54,6 +55,14 @@ int main()
 
 	///TODO: Add code to draw 2-input NAND gate, Normal and Highlighted
 
+	//Drawing Normal NAND2 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawNAND2(GfxInfo);
+
+	//Drawing Highlighted NAND2 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawNAND2(GfxInfo, true);
+
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
 
@@ -61,6 +70,22 @@ int main()
 	pOut->PrintMsg("Drawing 2-input OR and NOR gates, Normal and Highlighted,  Click to continue");
 	
 	///TODO: Add code to draw 2-input OR and NOR gates, Normal and Highlighted for each
+
+	//Drawing Normal OR2 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawOR2(GfxInfo);
+
+	//Drawing Highlighted OR2 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawOR2(GfxInfo, true);
+
+	//Drawing Normal NOR2 gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 200;
+	pOut->DrawNOR2(GfxInfo);
+
+	//Drawing Highlighted NAND2 gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 300;
+	pOut->DrawNOR2(GfxInfo, true);
 
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
@@ -70,6 +95,22 @@ int main()
 	
 	///TODO: Add code to draw 2-input XOR and XNOR gates, Normal and Highlighted for each
 
+	//Drawing Normal XOR2 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawXOR2(GfxInfo);
+
+	//Drawing Highlighted OR2 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawXOR2(GfxInfo, true);
+
+	//Drawing Normal XNOR2 gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 200;
+	pOut->DrawXNOR2(GfxInfo);
+
+	//Drawing Highlighted NAND2 gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 300;
+	pOut->DrawXNOR2(GfxInfo, true);
+
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
 
@@ -77,6 +118,22 @@ int main()
 	pOut->PrintMsg("Drawing Buffer and Inverter Gates, Normal and Highlighted,  Click to continue");
 	
 	///TODO: Add code to draw Buffer and Inverter Gates, Normal and Highlighted for each
+
+	//Drawing Normal BUFFER gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawBUFFER(GfxInfo);
+
+	//Drawing Highlighted BUFFER gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawBUFFER(GfxInfo, true);
+
+	//Drawing Normal INVERTER gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 200;
+	pOut->DrawINVERTER(GfxInfo);
+
+	//Drawing Highlighted INVERTER gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 300;
+	pOut->DrawINVERTER(GfxInfo, true);
 
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
@@ -87,6 +144,30 @@ int main()
 	
 	///TODO: Add code to draw 3-input AND, NOR, and XOR Gates, Normal and Highlighted for each
 
+	//Drawing Normal AND3 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawAND3(GfxInfo);
+
+	//Drawing Highlighted AND3 gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawAND3(GfxInfo, true);
+
+	//Drawing Normal NOR3 gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 200;
+	pOut->DrawNOR3(GfxInfo);
+
+	//Drawing Highlighted NOR3 gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 300;
+	pOut->DrawNOR3(GfxInfo, true);
+
+	//Drawing Normal XOR3 gate
+	GfxInfo.x1 = 600;	GfxInfo.y1 = 200;
+	pOut->DrawXOR3(GfxInfo);
+
+	//Drawing Highlighted XOR3 gate
+	GfxInfo.x1 = 600;	GfxInfo.y1 = 300;
+	pOut->DrawXOR3(GfxInfo, true);
+
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
 
@@ -95,13 +176,58 @@ int main()
 	
 	///TODO: Add code to draw Switch and LED, Normal and Highlighted for each
 
+	//Drawing Normal LED gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawLED(GfxInfo);
+
+	//Drawing Highlighted LED gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawLED(GfxInfo, true);
+
+	//Drawing Normal Switch gate 
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 200;
+	pOut->DrawSWITCH(GfxInfo);
+
+	//Drawing Highlighted Switch gate
+	GfxInfo.x1 = 400;	GfxInfo.y1 = 300;
+	pOut->DrawSWITCH(GfxInfo, true);
+
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
 
 
 	/// 2.8- Connections
 	pOut->PrintMsg("Drawing connections, Normal, Highlighted, straight, and broken,  Click to continue");
+
+	//Drawing Normal Connection gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 200;
+	pOut->DrawConnection(GfxInfo);
+
+	//Drawing Highlighted Connection gate
+	GfxInfo.x1 = 200;	GfxInfo.y1 = 300;
+	pOut->DrawConnection(GfxInfo, true);
 	
+	GfxInfo.x1 = 500;	GfxInfo.y1 = 300;  GfxInfo.x2 = 600;	GfxInfo.y2 = 300;
+	pOut->DrawConnection(GfxInfo, true, true);
+
+	GfxInfo.x1 = 500;	GfxInfo.y1 = 400;  GfxInfo.x2 = 600;	GfxInfo.y2 = 500;
+	pOut->DrawConnection(GfxInfo, true, true);
+
+
+	/*do
+	{
+		pIn->GetPointClicked(x, y);
+
+	} while (y <= 75 || y >= 700);
+	GfxInfo.x1 = x;	GfxInfo.y1 = y;
+	do
+	{
+		pIn->GetPointClicked(x, y);
+
+	} while (y <= 75 || y >= 700);
+	GfxInfo.x2 = x;	GfxInfo.y2 = y;*/
+	//pOut->DrawConnection(GfxInfo, true);
+
 	///TODO: Add code to draw connections, Normal, Highlighted, straight, and broken (all combinations) 
 
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -122,8 +248,10 @@ int main()
 
 	///TODO: Add code here to 
 	// 1- Read a string from the user on the status bar and print it inside the drawing area
+	
+	pIn->GetSrting(pOut);
 
-
+	
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
 
@@ -173,6 +301,30 @@ int main()
 		case ADD_XNOR_GATE_2:
 				pOut->PrintMsg("Action: add 2-input XNOR gate , Click anywhere");
 				break;
+
+		case ADD_AND_GATE_3:
+			pOut->PrintMsg("Action: add 3-input AND gate , Click anywhere");
+			break;
+
+		case ADD_NOR_GATE_3:
+			pOut->PrintMsg("Action: add 3-input NOR gate , Click anywhere");
+			break;
+
+		case ADD_XOR_GATE_3:
+			pOut->PrintMsg("Action: add 3-input XOR gate , Click anywhere");
+			break;
+
+		case ADD_Switch:
+			pOut->PrintMsg("Action: add Switch , Click anywhere");
+			break;
+
+		case ADD_LED:
+			pOut->PrintMsg("Action: add LED , Click anywhere");
+			break;
+
+		case ADD_CONNECTION:
+			pOut->PrintMsg("Action: add Wire , Click anywhere");
+			break;
 
 		case SELECT:
 				pOut->PrintMsg("Action: a click on the Drawing area, Click anywhere");

@@ -11,7 +11,7 @@ void Input::GetPointClicked(int &x, int &y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetSrting(Output *pOut)
+string Input::GetSrting(Output *pOut) 
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
@@ -19,7 +19,50 @@ string Input::GetSrting(Output *pOut)
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 
-	return NULL;
+	pWind->FlushKeyQueue();
+
+	keytype k;
+	char c;
+	string m = "";
+	
+
+	do
+	{
+		pOut->PrintMsg(m);
+		k = pWind->WaitKeyPress(c);
+
+		switch (k)
+		{
+		
+		case BACK:
+			if (m.length() != 0)
+			{
+				m.pop_back();
+			}
+			break;
+
+		case ESCAPE:
+			m.clear();
+			pOut->PrintMsg(m);
+			break;
+		
+		case RETURN:
+			pWind->DrawString(500, 500, m);
+			break;
+		
+		default:
+			if (c == '\b')
+				break;
+			m.push_back(c);
+			break;
+		}
+
+	} while (k != RETURN && k != ESCAPE);
+
+	pWind->FlushMouseQueue();
+	return m;
+
+
 }
 
 //This function reads the position where the user clicks to determine the desired action
@@ -28,14 +71,14 @@ ActionType Input::GetUserAction() const
 	int x,y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
-	if(UI.AppMode == DESIGN )	//application is in design mode
+	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
-		if ( y >= 0 && y < UI.ToolBarHeight)
-		{	
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			int ClickedItemOrder = (x / (UI.ToolItemWidth + 11));
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
@@ -43,8 +86,19 @@ ActionType Input::GetUserAction() const
 			{
 			case ITM_AND2: return ADD_AND_GATE_2;
 			case ITM_OR2: return ADD_OR_GATE_2;
-			case ITM_EXIT: return EXIT;	
-			
+			case ITM_NAND2: return ADD_NAND_GATE_2;
+			case ITM_NOR2: return ADD_NOR_GATE_2;
+			case ITM_XOR2: return ADD_XOR_GATE_2;
+			case ITM_XNOR2: return ADD_XNOR_GATE_2;
+			case ITM_AND3: return ADD_AND_GATE_3;
+			case ITM_NOR3: return ADD_NOR_GATE_3;
+			case ITM_XOR3: return ADD_XOR_GATE_3;
+			case ITM_BUFFER: return ADD_Buff;
+			case ITM_INVERTER: return ADD_INV;
+			case ITM_SWITCH: return ADD_Switch;
+			case ITM_WIRE: return ADD_CONNECTION;
+			case ITM_LED: return ADD_LED;
+
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
