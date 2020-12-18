@@ -13,7 +13,7 @@ protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
-	virtual void Operate() = 0;	//Calculates the output according to the inputs
+	virtual void Operate() = 0;	  //Calculates the output according to the inputs
 	virtual void Draw(Output* pOut) = 0;	//for each component to Draw itself
 	
 	
