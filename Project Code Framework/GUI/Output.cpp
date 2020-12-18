@@ -19,7 +19,7 @@ Output::Output()
 
 	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateStatusBar();		//Create Status bar
-	//CreateSimulationToolBar();  //Create Simulation bar
+	CreateSimulationToolBar();  //Create Simulation bar
 
 }
 
@@ -155,30 +155,35 @@ void Output::CreateDesignToolBar() const
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
 {
-	UI.AppMode = SIMULATION;	//Simulation Mode
+	/*UI.AppMode = SIMULATION;*/	//Simulation Mode
 
 	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
 
-	string MenuItemImages[ITM_SIM_CNT];
-	MenuItemImages[ITM_TRUTH] = "images\\Menu\\Menu_TRUTH.jpg";
-	MenuItemImages[ITM_COPY] = "images\\Menu\\Menu_COPY.jpg";
-	MenuItemImages[ITM_PASTE] = "images\\Menu\\Menu_PASTE.jpg";
-	MenuItemImages[ITM_DELETE] = "images\\Menu\\Menu_DELETE.jpg";
-	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_EXIT.jpg";
+	string MenuItemImages[ITM_SIM_CNT+ MODE_CNT];
+	MenuItemImages[DESIGN] = "images\\Menu\\Menu_DES.jpg";
+	MenuItemImages[SIMULATION] = "images\\Menu\\Menu_SIM.jpg";
+	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_TRUTH.jpg";
+	MenuItemImages[ITM_COPY + MODE_CNT] = "images\\Menu\\Menu_COPY.jpg";
+	MenuItemImages[ITM_PASTE + MODE_CNT] = "images\\Menu\\Menu_PASTE.jpg";
+	MenuItemImages[ITM_DELETE + MODE_CNT] = "images\\Menu\\Menu_DELETE.jpg";
+	MenuItemImages[ITM_UNDO + MODE_CNT] = "images\\Menu\\Menu_UNDO.jpg";
+	MenuItemImages[ITM_REDO + MODE_CNT] = "images\\Menu\\Menu_REDO.jpg";
+	MenuItemImages[ITM_MOVE + MODE_CNT] = "images\\Menu\\Menu_MOVE.jpg";
+	MenuItemImages[ITM_EXIT + MODE_CNT] = "images\\Menu\\Menu_EXIT.jpg";
 
 	//MenuItemImages[ITM_CUT] = "images	\\Menu\\Menu_CUT.jpg";
 
 	pWind->SetPen(WHITE);
 	int tempx = 10;
-	int tempy = UI.ToolBarHeight + 150;
+	int tempy = UI.ToolBarHeight + 135;
 
 	//pWind->DrawImage(MenuItemImages[3], tempx, tempy + 20);
 
-	for (int i = 0; i < ITM_SIM_CNT; i++)
+	for (int i = 0; i < ITM_SIM_CNT+MODE_CNT; i++)
 	{
-		pWind->DrawImage(MenuItemImages[i], 10, tempy);
-		tempy += UI.ToolBarHeight;
-		pWind->DrawRectangle(10, tempy, UI.ToolItemWidth, tempy + 11, FILLED);
+		pWind->DrawImage(MenuItemImages[i], 10, tempy, 30, 30);
+		tempy += UI.SimItemHeight;
+		pWind->DrawRectangle(10, tempy, UI.ToolItemWidth, tempy +11 , FILLED);
 		tempy += 11;
 
 	}

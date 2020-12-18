@@ -58,7 +58,8 @@ enum STATUS
 enum  MODE	//Modes of operation
 {
 	DESIGN,
-	SIMULATION
+	SIMULATION,
+	MODE_CNT
 };
 
 
@@ -87,6 +88,7 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 };
 
 
+
 enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
@@ -95,6 +97,9 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_PASTE,
 	ITM_DELETE,
 	ITM_TRUTH,	//Truth table menu item
+	ITM_UNDO,
+	ITM_REDO,
+	ITM_MOVE,
 	ITM_EXIT,	//Exit item
 	//ITM_CUT,
 	//TODO:Add more items names here

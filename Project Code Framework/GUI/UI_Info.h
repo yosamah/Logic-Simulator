@@ -20,7 +20,7 @@ struct UI_Info	//User Interface Info.
 		ToolBarHeight = 50,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
 		ToolItemWidth = 80,		//Width of each item in toolbar menu
 		SimItemWidth = 50,
-		SimItemHeight = 50;
+		SimItemHeight = 30;
 
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color

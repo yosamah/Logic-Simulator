@@ -70,11 +70,25 @@ ActionType Input::GetUserAction() const
 {
 	int x, y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
+	
+	int temp = UI.ToolBarHeight + 135;
+	int ClickedItemOrderSim = (y / (UI.SimItemHeight + 11 + temp));
+	if (x <= UI.ToolItemWidth && y > temp && y < temp + 2*(UI.SimItemHeight+11))
+	{
+		if (ClickedItemOrderSim == 1)
+			UI.AppMode = SIMULATION;
+		if (ClickedItemOrderSim == 0)
+		{
+			UI.AppMode = DESIGN;
+			pWind->WaitMouseClick(x, y);
+		}
+			
+	}
+	
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
-		if (y >= 0 && y < UI.ToolBarHeight)
+		if (y >= 0 && y < UI.ToolBarHeight )
 		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
@@ -102,9 +116,11 @@ ActionType Input::GetUserAction() const
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
-
+		
+		if((y < temp && y >= UI.ToolBarHeight && x <= UI.ToolItemWidth) || ((y >(ITM_SIM_CNT + MODE_CNT)*41-11))&& (y < UI.height - UI.StatusBarHeight) && x <= UI.ToolItemWidth)
+			return SELECT;
 		//[2] User clicks on the drawing area
-		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight && x >= UI.ToolItemWidth)
 		{
 			return SELECT;	//user want to select/unselect a component
 		}
@@ -114,6 +130,12 @@ ActionType Input::GetUserAction() const
 	}
 	else	//Application is in Simulation mode
 	{
+		
+		if (x <= UI.ToolItemWidth)
+		{
+
+		}
+		
 		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 	}
 
