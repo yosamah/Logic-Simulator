@@ -19,7 +19,7 @@ Output::Output()
 
 	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateStatusBar();		//Create Status bar
-	CreateSimulationToolBar();  //Create Simulation bar
+	//CreateSimulationToolBar();  //Create Simulation bar
 
 }
 
