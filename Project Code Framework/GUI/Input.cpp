@@ -72,7 +72,7 @@ ActionType Input::GetUserAction() const
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 	
 	int temp = UI.ToolBarHeight + 135;
-	int ClickedItemOrderSim = (y / (UI.SimItemHeight + 11 + temp));
+	int ClickedItemOrderSim = ((y-temp) / (UI.SimItemHeight +11));
 	if (x <= UI.ToolItemWidth && y > temp && y < temp + 2*(UI.SimItemHeight+11))
 	{
 		if (ClickedItemOrderSim == 1)
@@ -135,14 +135,14 @@ ActionType Input::GetUserAction() const
 		{
 			switch (ClickedItemOrderSim)
 			{
-			case ITM_COPY: return COPY;
-			case ITM_PASTE: return PASTE;
-			case ITM_DELETE: return DEL;
-			case ITM_TRUTH: return TRUTH;
-			case ITM_UNDO: return UNDO;
-			case ITM_REDO: return REDO;
-			case ITM_MOVE: return MOVE;
-			case ITM_EXIT: return EXIT;
+			case (ITM_COPY + MODE_CNT): return COPY;
+			case (ITM_PASTE + MODE_CNT): return PASTE;
+			case (ITM_DELETE + MODE_CNT): return DEL;
+			case (ITM_TRUTH + MODE_CNT): return TRUTH;
+			case (ITM_UNDO + MODE_CNT): return UNDO;
+			case (ITM_REDO + MODE_CNT): return REDO;
+			case (ITM_MOVE + MODE_CNT): return MOVE;
+			case (ITM_EXIT + MODE_CNT): return EXIT;
 			}
 				
 
