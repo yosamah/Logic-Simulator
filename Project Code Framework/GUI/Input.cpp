@@ -131,14 +131,26 @@ ActionType Input::GetUserAction() const
 	else	//Application is in Simulation mode
 	{
 		
-		if (x <= UI.ToolItemWidth)
+		if (x <= UI.ToolItemWidth )
 		{
+			switch (ClickedItemOrderSim)
+			{
+			case ITM_COPY: return COPY;
+			case ITM_PASTE: return PASTE;
+			case ITM_DELETE: return DEL;
+			case ITM_TRUTH: return TRUTH;
+			case ITM_UNDO: return UNDO;
+			case ITM_REDO: return REDO;
+			case ITM_MOVE: return MOVE;
+			case ITM_EXIT: return EXIT;
+			}
+				
 
 		}
 		
 		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 	}
-
+	
 }
 
 
