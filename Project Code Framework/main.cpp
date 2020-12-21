@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <sstream>
 #include <cmath>
@@ -28,4 +27,3 @@ int main()
 		
 	return 0;
 }
-

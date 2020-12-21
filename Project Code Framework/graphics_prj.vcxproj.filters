@@ -146,6 +146,12 @@
     <ClCompile Include="Components\OR2.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\AddNANDgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\NAND2.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -252,6 +258,12 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Components\OR2.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddNANDgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\NAND2.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
