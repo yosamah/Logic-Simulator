@@ -2,6 +2,9 @@
 #include "Actions\AddANDgate2.h"
 #include "Actions\AddORgate2.h"
 #include "Actions\AddNANDgate2.h"
+#include "Actions\AddNORgate2.h"
+#include "Actions\AddXORgate2.h"
+#include "Actions\AddXNORgate2.h"
 
 
 
@@ -60,6 +63,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddNANDgate2(this);
 			break;
 
+		case ADD_NOR_GATE_2:
+			pAct = new AddNORgate2(this);
+			break;
+
+		case ADD_XOR_GATE_2:
+			pAct = new AddXORgate2(this);
+			break;
+
+		case ADD_XNOR_GATE_2:
+			pAct = new AddXNORgate2(this);
+			break;
 
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here

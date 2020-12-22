@@ -1,0 +1,2 @@
+C:\Users\irush\OneDrive\Desktop\GitHubLogic\Project Code Framework\Debug\graphics_prj.exe
+C:\Users\irush\OneDrive\Desktop\GitHubLogic\Project Code Framework\Debug\graphics_prj.pdb

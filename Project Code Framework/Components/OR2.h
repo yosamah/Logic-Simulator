@@ -1,5 +1,5 @@
-#ifndef _AND2_H
-#define _AND2_H
+#ifndef _OR2_H
+#define _OR2_H
 
 /*
   Class AND2
