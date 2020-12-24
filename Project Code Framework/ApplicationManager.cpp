@@ -10,6 +10,10 @@
 #include "Actions\AddXORgate3.h"
 #include "Actions\AddBUFF.h"
 #include "Actions\AddINVERTER.h"
+#include "Actions\AddLED.h"
+#include "Actions\AddSWITCH.h"
+
+
 
 
 
@@ -98,6 +102,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case ADD_INV:
 			pAct = new AddINVERTER(this);
+			break;
+
+		case ADD_LED:
+			pAct = new AddLED(this);
+			break;
+
+		case ADD_Switch:
+			pAct = new AddSWITCH(this);
 			break;
 
 		case ADD_CONNECTION:
