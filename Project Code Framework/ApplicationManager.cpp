@@ -5,6 +5,11 @@
 #include "Actions\AddNORgate2.h"
 #include "Actions\AddXORgate2.h"
 #include "Actions\AddXNORgate2.h"
+#include "Actions\AddANDgate3.h"
+#include "Actions\AddNORgate3.h"
+#include "Actions\AddXORgate3.h"
+#include "Actions\AddBUFF.h"
+#include "Actions\AddINVERTER.h"
 
 
 
@@ -32,7 +37,7 @@ ActionType ApplicationManager::GetUserAction()
 	return InputInterface->GetUserAction(); 	
 }
 ////////////////////////////////////////////////////////////////////
-//ADD_AND_GATE_2,		//Add 2-input AND gate
+// ADD_AND_GATE_2,		//Add 2-input AND gate
 //ADD_OR_GATE_2,		//Add 2-input OR gate
 //ADD_NAND_GATE_2,	//Add 2-input NAND gate
 //ADD_NOR_GATE_2,		//Add 2-input NOR gate
@@ -73,6 +78,26 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case ADD_XNOR_GATE_2:
 			pAct = new AddXNORgate2(this);
+			break;
+
+		case ADD_AND_GATE_3:
+			pAct = new AddANDgate3(this);
+			break;
+
+		case ADD_NOR_GATE_3:
+			pAct = new AddNORgate3(this);
+			break;
+
+		case ADD_XOR_GATE_3:
+			pAct = new AddXORgate3(this);
+			break;
+
+		case ADD_Buff:
+			pAct = new AddBUFFER(this);
+			break;
+
+		case ADD_INV:
+			pAct = new AddINVERTER(this);
 			break;
 
 		case ADD_CONNECTION:
