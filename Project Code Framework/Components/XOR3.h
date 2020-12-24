@@ -1,18 +1,18 @@
-#ifndef _NOR2_H
-#define _NOR2_H
+#ifndef _XOR3_H
+#define _XOR3_H
 
 /*
-  Class NOR2
+  Class XOR3
   -----------
-  represent the 2-input NOR gate
+  represent the 3-input XOR gate
 */
 
 #include "Gate.h"
 
-class NOR2 :public Gate
+class XOR3 :public Gate
 {
 public:
-	NOR2(const GraphicsInfo& r_GfxInfo, int r_FanOut);
+	XOR3(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate
 	virtual void Draw(Output* pOut);	//Draws 2-input gate
 

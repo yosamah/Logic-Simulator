@@ -1,5 +1,5 @@
-#ifndef _ADD_OR_GATE_H
-#define _ADD_OR_GATE_H
+#ifndef _ADD_OR_GATE_2_H
+#define _ADD_OR_GATE_2_H
 
 #include "action.h"
 #include "..\Components\OR2.h"

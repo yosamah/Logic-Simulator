@@ -1,5 +1,5 @@
-#ifndef _ADD_XNOR_GATE_H
-#define _ADD_XNOR_GATE_H
+#ifndef _ADD_XNOR_GATE_2_H
+#define _ADD_XNOR_GATE_2_H
 
 #include "action.h"
 #include "..\Components\XNOR2.h"

@@ -1,20 +1,20 @@
-#ifndef _NOR2_H
-#define _NOR2_H
+#ifndef _INVERTER_H
+#define _INVERTER_H
 
 /*
-  Class NOR2
+  Class INVERTER
   -----------
-  represent the 2-input NOR gate
+  represent the INVERTER gate
 */
 
 #include "Gate.h"
 
-class NOR2 :public Gate
+class INVERTER :public Gate
 {
 public:
-	NOR2(const GraphicsInfo& r_GfxInfo, int r_FanOut);
+	INVERTER(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate
-	virtual void Draw(Output* pOut);	//Draws 2-input gate
+	virtual void Draw(Output* pOut);	//Draws 1-input gate
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1

@@ -1,18 +1,18 @@
-#ifndef _NOR2_H
-#define _NOR2_H
+#ifndef _BUFFER_H
+#define _BUFFER_H
 
 /*
-  Class NOR2
+  Class BUFFER
   -----------
-  represent the 2-input NOR gate
+  represent the Buffer gate
 */
 
 #include "Gate.h"
 
-class NOR2 :public Gate
+class BUFFER :public Gate
 {
 public:
-	NOR2(const GraphicsInfo& r_GfxInfo, int r_FanOut);
+	BUFFER(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate
 	virtual void Draw(Output* pOut);	//Draws 2-input gate
 

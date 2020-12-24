@@ -1,5 +1,5 @@
-#ifndef _ADD_NAND_GATE_H
-#define _ADD_NAND_GATE_H
+#ifndef _ADD_NAND_2_GATE_H
+#define _ADD_NAND_2_GATE_H
 
 #include "action.h"
 #include "..\Components\NAND2.h"
