@@ -1,6 +1,6 @@
 #include "LED.h"
 
-LED::LED(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
+LED::LED(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, 0)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
@@ -28,7 +28,8 @@ void LED::Draw(Output* pOut)
 //returns status of outputpin
 int LED::GetOutPinStatus()
 {
-	return m_OutputPin.getStatus();
+	// There is no output in the led
+	return HIGH;
 }
 
 

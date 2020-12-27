@@ -1,6 +1,6 @@
 #include "SWITCH.h"
 
-SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
+SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(0, r_FanOut) 
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
@@ -35,7 +35,7 @@ int SWITCH::GetOutPinStatus()
 //returns status of Inputpin #n
 int SWITCH::GetInputPinStatus(int n)
 {
-	return m_InputPins[n - 1].getStatus();	//n starts from 1 but array index starts from 0.
+	return HIGH;	//No input pins in the switch.
 }
 
 //Set status of an input pin ot HIGH or LOW
