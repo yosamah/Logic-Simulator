@@ -74,7 +74,7 @@ ActionType Input::GetUserAction() const
 	int ClickedItemOrderSim = ((y-UI.SimItemCoordinate) / (UI.SimItemHeight +11));
 	if (x <= UI.ToolItemWidth && y > UI.SimItemCoordinate && y < UI.SimItemCoordinate + 2*(UI.SimItemHeight+11))
 	{
-		if (ClickedItemOrderSim == 1)
+		if (ClickedItemOrderSim == 1 && y<(temp+ 2 * (UI.SimItemHeight + 11)))
 			UI.AppMode = SIMULATION;
 		if (ClickedItemOrderSim == 0)
 		{
@@ -111,7 +111,6 @@ ActionType Input::GetUserAction() const
 			case ITM_SWITCH: return ADD_Switch;
 			case ITM_WIRE: return ADD_CONNECTION;
 			case ITM_LED: return ADD_LED;
-				//case ITM_DELETE: return DEL;
 
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}

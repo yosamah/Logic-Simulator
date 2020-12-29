@@ -45,6 +45,8 @@ public:
 	void Save();
 
 	void Load();
+	//Deletes a component in the list of components
+	void DeleteComponent(Component*pComp);
 
 	//destructor
 	~ApplicationManager();

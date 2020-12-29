@@ -8,11 +8,14 @@
 #include "Actions\AddANDgate3.h"
 #include "Actions\AddNORgate3.h"
 #include "Actions\AddXORgate3.h"
+#include "Actions\AddConnection.h"
 #include "Actions\AddBUFF.h"
 #include "Actions\AddINVERTER.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
 #include <fstream>
+
+
 
 ApplicationManager::ApplicationManager()
 {
@@ -28,19 +31,28 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	CompList[CompCount++] = pComp;		
+	CompList[CompCount++] = pComp;
+}
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::DeleteComponent(Component* pComp)
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		CompList[i] = CompList[CompCount];
+	}
 }
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is reuired from the user
-	return InputInterface->GetUserAction(); 	
+	return InputInterface->GetUserAction();
 }
 ////////////////////////////////////////////////////////////////////
 // ADD_AND_GATE_2,		//Add 2-input AND gate
 //ADD_OR_GATE_2,		//Add 2-input OR gate
-//ADD_NAND_GATE_2,	//Add 2-input NAND gate
+//ADD_NAND_GATE_2,	    //Add 2-input NAND gate
 //ADD_NOR_GATE_2,		//Add 2-input NOR gate
 //ADD_XOR_GATE_2,		//Add 2-input XOR gate
 //ADD_XNOR_GATE_2,	//Add 2-input XNOR gate
@@ -110,7 +122,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_CONNECTION:
-			//TODO: Create AddConection Action here
+			//pAct = new AddConnection(this);
 			break;
 		
 		case SAVE:
@@ -201,7 +213,7 @@ void ApplicationManager::Load()
 ApplicationManager::~ApplicationManager()
 {
 	for(int i=0; i<CompCount; i++)
-		delete CompList[i];
+	delete CompList[i];
 	delete OutputInterface;
 	delete InputInterface;
 	
