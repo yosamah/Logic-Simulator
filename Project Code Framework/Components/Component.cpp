@@ -11,3 +11,7 @@ Component::Component()
 Component::~Component()
 {}
 
+GraphicsInfo Component::getDrawPoint()
+{
+	return m_GfxInfo;
+}

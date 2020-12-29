@@ -33,12 +33,34 @@ void ApplicationManager::AddComponent(Component* pComp)
 }
 ////////////////////////////////////////////////////////////////////
 
-void ApplicationManager::DeleteComponent(Component* pComp)
+void ApplicationManager::DeleteComponent()
+{
+	int x, y;
+	InputInterface->GetPointClicked(x, y);
+	Component** c1 = getComponent(x, y);
+	
+	if (c1 != NULL)
+	{
+		*c1 = CompList[CompCount - 1];
+		CompList[CompCount--] = NULL;
+	}
+	
+	
+
+}
+
+
+Component** ApplicationManager::getComponent(int x, int y)
 {
 	for (int i = 0; i < CompCount; i++)
 	{
-		CompList[i] = CompList[CompCount];
+		GraphicsInfo gInfo = CompList[i]->getDrawPoint();
+		bool z = (x >= gInfo.x1 && x <= gInfo.x2) ? true : false;
+		bool f = (y >= gInfo.y1 && y <= gInfo.y2) ? true : false;
+		if (z && f)
+			return &CompList[i]; 
 	}
+	return NULL;
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -48,19 +70,7 @@ ActionType ApplicationManager::GetUserAction()
 	return InputInterface->GetUserAction();
 }
 ////////////////////////////////////////////////////////////////////
-// ADD_AND_GATE_2,		//Add 2-input AND gate
-//ADD_OR_GATE_2,		//Add 2-input OR gate
-//ADD_NAND_GATE_2,	    //Add 2-input NAND gate
-//ADD_NOR_GATE_2,		//Add 2-input NOR gate
-//ADD_XOR_GATE_2,		//Add 2-input XOR gate
-//ADD_XNOR_GATE_2,	//Add 2-input XNOR gate
-//ADD_AND_GATE_3,		//Add 3-input AND gate
-//ADD_NOR_GATE_3,		//Add 3-input NOR gate
-//ADD_XOR_GATE_3,		//Add 3-input XOR gate
-//ADD_Buff,			//Add 1-input Buffer gate
-//ADD_INV,			//Add 1-input Inverter gate
-//ADD_Switch,			//Add Switch
-//ADD_LED,	        //Add LED
+
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
@@ -122,7 +132,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			//pAct = new AddConnection(this);
 			break;
-	
+		case DEL:
+			DeleteComponent();
+			
+			break;
 
 		case EXIT:
 			///TODO: create ExitAction here
@@ -139,9 +152,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-		for(int i=0; i<CompCount; i++)
-			CompList[i]->Draw(OutputInterface);
+	//OutputInterface->ClearDrawingArea();
+	for (int i = 0; i < CompCount; i++)
+		CompList[i]->Draw(OutputInterface);
+		
 
+}
+string ApplicationManager::getString()
+{
+	return InputInterface->GetSrting(OutputInterface);
 }
 
 ////////////////////////////////////////////////////////////////////

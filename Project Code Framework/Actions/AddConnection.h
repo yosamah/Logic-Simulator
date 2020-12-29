@@ -1,5 +1,5 @@
-#ifndef _ADD_AND_GATE_2_H
-#define _ADD_AND_GATE_2_H
+#ifndef _ADD_Connction_H
+#define _ADD_Connction_H
 
 
 #include "action.h"
