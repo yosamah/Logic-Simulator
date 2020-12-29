@@ -11,6 +11,9 @@ void Input::GetPointClicked(int& x, int& y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
+
+
+
 string Input::GetSrting(Output* pOut)
 {
 	///TODO: Implement this Function
@@ -25,6 +28,7 @@ string Input::GetSrting(Output* pOut)
 	char c;
 	string m = "";
 
+	
 
 	do
 	{
