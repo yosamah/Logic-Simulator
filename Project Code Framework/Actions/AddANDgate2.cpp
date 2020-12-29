@@ -1,8 +1,9 @@
 #include "AddANDgate2.h"
 #include "..\ApplicationManager.h"
 
-AddANDgate2::AddANDgate2(ApplicationManager *pApp):Action(pApp)
+AddANDgate2::AddANDgate2(ApplicationManager *pApp ):Action(pApp)
 {
+
 }
 
 AddANDgate2::~AddANDgate2(void)
@@ -42,8 +43,12 @@ void AddANDgate2::Execute()
 	GInfo.y1 = Cy - Wdth/2;
 	GInfo.y2 = Cy + Wdth/2;
 	AND2 *pA=new AND2(GInfo, AND2_FANOUT); 
-	pManager->AddComponent(pA);
+
+	if(pA->InDrawingArea(Cx,Cy))
+		pManager->AddComponent(pA);
+
 }
+
 
 void AddANDgate2::Undo()
 {}

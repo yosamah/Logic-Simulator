@@ -12,10 +12,7 @@
 #include "Actions\AddINVERTER.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
-
-
-
-
+#include <fstream>
 
 ApplicationManager::ApplicationManager()
 {
@@ -115,7 +112,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
-	
+		
+		case SAVE:
+			Save();
+			break;
+
+		case LOAD:
+			Load();
+			break;
 
 		case EXIT:
 			///TODO: create ExitAction here
@@ -147,6 +151,49 @@ Input* ApplicationManager::GetInput()
 Output* ApplicationManager::GetOutput()
 {
 	return OutputInterface;
+}
+
+///////////////////////////////////////////////////////////////////
+
+void ApplicationManager::Save()
+{
+	ofstream file;
+	file.open("Info.txt");
+	file.clear();
+	for (int i = 0; i < CompCount; i++)
+	{
+		CompList[i]->Save(file);
+	}
+	file << "-1 ";
+}
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::Load()
+{
+	ifstream file;
+	file.open("Info.txt");
+
+	Action* pAct = NULL;
+
+	string CompName;
+	GraphicsInfo GfxInfo;
+
+	if (file.is_open())
+	{
+		while (file >> CompName)
+		{
+			file >> GfxInfo.x1 >> GfxInfo.y1;
+
+			if (CompName == "AND2")
+				pAct = new AddANDgate2(this);
+		}
+	}
+	else
+	{
+	}
+
+	pAct->Execute();
+	delete pAct;
 }
 
 ////////////////////////////////////////////////////////////////////
