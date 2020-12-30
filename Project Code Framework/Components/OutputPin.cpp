@@ -20,3 +20,9 @@ bool OutputPin::ConnectTo(Connection *r_Conn)
 	
 	return false;	//can't connect to any more connections
 }
+
+void OutputPin::setPinLocation(int a, int b)
+{
+	x = a;
+	y = b;
+}

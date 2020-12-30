@@ -35,19 +35,20 @@ public:
 	
 	void UpdateInterface();	//Redraws all the drawing window
 
+	string getString();
+
+	Component** getComponent(int x, int y);
+
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
 	Input* GetInput();
 
+	void DeleteComponent();
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
-
 	void Save();
-
 	void Load();
-	//Deletes a component in the list of components
-	void DeleteComponent(Component*pComp);
-
+	
 	//destructor
 	~ApplicationManager();
 };

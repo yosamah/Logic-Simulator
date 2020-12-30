@@ -20,3 +20,11 @@ Component::Component()
 Component::~Component()
 {}
 
+bool Component:: drawArea(int x, int y)
+{
+	bool z = (x >= m_GfxInfo.x1 && x <= m_GfxInfo.x2) ? true : false;
+	bool f = (y >= m_GfxInfo.y1 && y <= m_GfxInfo.y2) ? true : false;
+	if (z && f)
+		return true;
+	return false;
+}

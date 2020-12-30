@@ -19,9 +19,11 @@ private:
 	Connection* m_Connections[MAX_CONNS];	
 	int m_FanOut;	//Maximum No. of connections connected to that output pin (depends on the component)
 	int m_Conn;		//Actual No. of connections connected to that output pin
+	int x, y;
 public:
 	OutputPin(int r_FanOut);	
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
+	void setPinLocation(int a, int b);
 };
 
 #endif

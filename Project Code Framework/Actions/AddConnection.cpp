@@ -21,7 +21,6 @@ void AddConnection::ReadActionParameters()
 	//Wait for User Input
 	pIn->GetPointClicked(GInfo.x1, GInfo.y1);
 	pIn->GetPointClicked(GInfo.x2, GInfo.y2);
-
 	//Clear Status Bar
 	pOut->ClearStatusBar();
 
@@ -31,14 +30,24 @@ void AddConnection::Execute()
 {
 	//Get two points of the connection.
 	
-	ReadActionParameters();
+	//ReadActionParameters();
+	//Component* comp1 = pManager->getComponent(GInfo.x1, GInfo.y1);
+	//if (comp1 != NULL)
+	//{
+	//	string x = pManager->getString();
+	//	int pinNumber;
+	//	// function to change string to number.
+	//	sscanf(x.c_str(), "%d", &pinNumber);
+	//	if (!(comp1->GetOutPinStatus()))
+	//		comp1->
+	//		
+	//}
 
 
+	////Gfx info to be used to construct the AND2 gate
 
-	//Gfx info to be used to construct the AND2 gate
-
-	Connection* pA = new Connection(GInfo, pSrcPin, pDstPin);
-	pManager->AddComponent(pA);
+	//Connection* pA = new Connection(GInfo, pSrcPin, pDstPin);
+	/*pManager->AddComponent(pA);*/
 }
 
 void AddConnection::Undo()
