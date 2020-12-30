@@ -21,7 +21,7 @@ struct UI_Info	//User Interface Info.
 						ToolItemWidth = 80,		//Width of each item in toolbar menu
 						SimItemWidth = 50,
 						SimItemHeight = 30,
-						SimItemCoordinate = ToolBarHeight + 100,
+						SimItemCoordinate = ToolBarHeight + 100,  //tempy
 						GateMarginY = 35,
 						GateMarginX=40;
 	

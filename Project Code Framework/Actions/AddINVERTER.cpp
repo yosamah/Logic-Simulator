@@ -3,6 +3,14 @@
 
 AddINVERTER::AddINVERTER(ApplicationManager* pApp) :Action(pApp)
 {
+	Loaded = false;
+}
+AddINVERTER::AddINVERTER(ApplicationManager* pApp, GraphicsInfo* G) : Action(pApp)
+{
+	if (G != NULL)
+		Loaded = true;
+	LoadC.x1 = G->x1;
+	LoadC.y1 = G->y1;
 }
 
 AddINVERTER::~AddINVERTER(void)
@@ -28,22 +36,42 @@ void AddINVERTER::ReadActionParameters()
 
 void AddINVERTER::Execute()
 {
-	//Get Center point of the Gate
-	ReadActionParameters();
+	if (!Loaded)
+	{
+		//Get Center point of the Gate
+		ReadActionParameters();
 
-	//Calculate the rectangle Corners
-	int Len = UI.AND2_Width;
-	int Wdth = UI.AND2_Height;
+		//Calculate the rectangle Corners
+		int Len = UI.AND2_Width;
+		int Wdth = UI.AND2_Height;
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the INVERTER2 gate
+		GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
 
-	GInfo.x1 = Cx - Len / 2;
-	GInfo.x2 = Cx + Len / 2;
-	GInfo.y1 = Cy - Wdth / 2;
-	GInfo.y2 = Cy + Wdth / 2;
-	INVERTER* pA = new INVERTER(GInfo, AND2_FANOUT);
-	if (pA->InDrawingArea(Cx, Cy))
-		pManager->AddComponent(pA);
+		GInfo.x1 = Cx - Len / 2;
+		GInfo.x2 = Cx + Len / 2;
+		GInfo.y1 = Cy - Wdth / 2;
+		GInfo.y2 = Cy + Wdth / 2;
+		INVERTER* pA = new INVERTER(GInfo, AND2_FANOUT);
+
+		if (pA->InDrawingArea(Cx, Cy))
+			pManager->AddComponent(pA);
+	}
+	else
+	{
+		int Len = UI.AND2_Width;
+		int Wdth = UI.AND2_Height;
+
+		GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
+
+		GInfo.x1 = LoadC.x1 - Len / 2;
+		GInfo.x2 = LoadC.x1 + Len / 2;
+		GInfo.y1 = LoadC.y1 - Wdth / 2;
+		GInfo.y2 = LoadC.y1 + Wdth / 2;
+		INVERTER* pA = new INVERTER(GInfo, AND2_FANOUT);
+
+		if (pA->InDrawingArea(LoadC.x1, LoadC.y1))
+			pManager->AddComponent(pA);
+	}
 }
 
 void AddINVERTER::Undo()

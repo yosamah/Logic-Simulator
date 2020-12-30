@@ -74,7 +74,7 @@ ActionType Input::GetUserAction() const
 	int ClickedItemOrderSim = ((y-UI.SimItemCoordinate) / (UI.SimItemHeight +11));
 	if (x <= UI.ToolItemWidth && y > UI.SimItemCoordinate && y < UI.SimItemCoordinate + 2*(UI.SimItemHeight+11))
 	{
-		if (ClickedItemOrderSim == 1 && y<(temp+ 2 * (UI.SimItemHeight + 11)))
+		if (ClickedItemOrderSim == 1 && y<(UI.SimItemCoordinate+ 2 * (UI.SimItemHeight + 11)))
 			UI.AppMode = SIMULATION;
 		if (ClickedItemOrderSim == 0)
 		{
