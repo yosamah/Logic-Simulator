@@ -131,10 +131,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_CONNECTION:
-			//pAct = new AddConnection(this);
+			pAct = new AddConnection(this);
 			break;
 		case DEL:
 			DeleteComponent();
+			break;
 		
 		case SAVE:
 			Save();

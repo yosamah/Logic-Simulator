@@ -368,12 +368,10 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 //TODO: Add similar functions to draw all components
 
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool line) const
+void Output::DrawConnection(GraphicsInfo r_GfxInfo) const
 {
 	//TODO: Add code to draw connection
 
-	if (line)
-	{
 		pWind->SetPen(BLACK, 3);
 		pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2 - 20, r_GfxInfo.y1);
 		if (r_GfxInfo.y1 != r_GfxInfo.y2)
@@ -382,21 +380,6 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool line) co
 			pWind->DrawLine(r_GfxInfo.x2 - 20, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
 
 		}
-	}
-	else
-	{
-		string GateImage;
-		if (selected)	//use image in the highlighted case
-		{
-			GateImage = "Images\\Menu\\Menu_Wire_Hi.jpg";
-			pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
-		}
-		else
-		{
-			GateImage = "Images\\Menu\\Menu_Wire.jpg";
-			pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
-		}
-	}
 	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
 }
 

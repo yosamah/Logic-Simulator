@@ -28,3 +28,80 @@ bool Component:: drawArea(int x, int y)
 		return true;
 	return false;
 }
+
+int Component::checkMargin(int y, int n)
+{
+	if (n == 3)
+	{
+		int y1 = 15 + m_GfxInfo.y1;
+		int y2 = 35 + m_GfxInfo.y1;
+		if (y - y1 < 0)
+			return 0;
+		else if (y - y2 < 0)
+			return 1;
+		else
+			return 2;
+	}
+	else if (n==2)
+	{
+		int y1 = 25 + m_GfxInfo.y1;
+		if (y - y1 < 0)
+			return 0;
+		else
+			return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int Component::getInPinLocationX(int n)
+{ 
+	return -1;
+}
+int Component::getInPinLocationY(int n)
+{
+	return -1;
+}
+int Component::getOutPinLocationX() 
+{
+	return -1; 
+}
+int Component::getOutPinLocationY() 
+{
+	return -1; 
+}
+int Component::getNoOfInPins() 
+{ 
+	return -1; 
+}
+
+
+OutputPin* Component::getOutputPin()
+{ 
+	return NULL; 
+}
+InputPin* Component::getInputPin(int n) 
+{
+	return NULL;
+}
+
+void Component::setXConnection(int& x)
+{
+	x += m_GfxInfo.x1;
+}
+void Component::setYConnection(int& y)
+{
+	y += m_GfxInfo.y1;
+}
+
+void Component::setXOutConnection(int& x)
+{
+	x = m_GfxInfo.x2;
+}
+void Component::setYOutConnection(int& y)
+{
+	y = m_GfxInfo.y2 -y;
+}
+

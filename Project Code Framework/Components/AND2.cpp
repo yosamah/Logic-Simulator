@@ -17,6 +17,8 @@ void AND2::Operate()
 }
 
 
+
+
 // Function Draw
 // Draws 2-input AND gate
 void AND2::Draw(Output* pOut)

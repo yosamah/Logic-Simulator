@@ -13,6 +13,8 @@ public:
 	void setComponent(Component* pCmp);	//sets the component of this input pin
 	Component* getComponent();	//returns the component of this input pin
 	void setPinLocation(int a, int b);
+	int getXPinLocation();
+	int getYPinLocation();
 
 };
 

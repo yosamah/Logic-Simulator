@@ -26,3 +26,12 @@ void OutputPin::setPinLocation(int a, int b)
 	x = a;
 	y = b;
 }
+
+int  OutputPin::getXPinLocation()
+{
+	return x;
+}
+int  OutputPin::getYPinLocation()
+{
+	return y;
+}

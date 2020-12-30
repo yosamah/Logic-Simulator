@@ -22,6 +22,14 @@ protected:
 public:
 	Gate(int r_Inputs, int r_FanOut);
 	
+	InputPin* getInputPin(int n);
+
+	int getInPinLocationX(int n);
+	int getInPinLocationY(int n);
+	int getOutPinLocationX();
+	int getOutPinLocationY();
+	int getNoOfInPins();
+	OutputPin* getOutputPin();
 
 };
 
