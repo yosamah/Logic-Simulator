@@ -13,6 +13,8 @@
 #include "Actions\AddINVERTER.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
+#include <fstream>
+
 
 
 ApplicationManager::ApplicationManager()
@@ -54,10 +56,9 @@ Component** ApplicationManager::getComponent(int x, int y)
 {
 	for (int i = 0; i < CompCount; i++)
 	{
-		GraphicsInfo gInfo = CompList[i]->getDrawPoint();
-		bool z = (x >= gInfo.x1 && x <= gInfo.x2) ? true : false;
-		bool f = (y >= gInfo.y1 && y <= gInfo.y2) ? true : false;
-		if (z && f)
+		bool z= CompList[i]->drawArea(x, y);
+	
+		if (z )
 			return &CompList[i]; 
 	}
 	return NULL;
@@ -134,7 +135,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case DEL:
 			DeleteComponent();
-			
+		
+		case SAVE:
+			Save();
+			break;
+
+		case LOAD:
+			Load();
 			break;
 
 		case EXIT:
@@ -173,6 +180,49 @@ Input* ApplicationManager::GetInput()
 Output* ApplicationManager::GetOutput()
 {
 	return OutputInterface;
+}
+
+///////////////////////////////////////////////////////////////////
+
+void ApplicationManager::Save()
+{
+	ofstream file;
+	file.open("Info.txt");
+	file.clear();
+	for (int i = 0; i < CompCount; i++)
+	{
+		CompList[i]->Save(file);
+	}
+	file << "-1 ";
+}
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::Load()
+{
+	ifstream file;
+	file.open("Info.txt");
+
+	Action* pAct = NULL;
+
+	string CompName;
+	GraphicsInfo GfxInfo;
+
+	if (file.is_open())
+	{
+		while (file >> CompName)
+		{
+			file >> GfxInfo.x1 >> GfxInfo.y1;
+
+			if (CompName == "AND2")
+				pAct = new AddANDgate2(this);
+		}
+	}
+	else
+	{
+	}
+
+	pAct->Execute();
+	delete pAct;
 }
 
 ////////////////////////////////////////////////////////////////////

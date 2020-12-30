@@ -42,7 +42,8 @@ void AddORgate2::Execute()
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	OR2* pA = new OR2(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
 }
 
 void AddORgate2::Undo()

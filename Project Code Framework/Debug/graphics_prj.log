@@ -1,3 +1,94 @@
-﻿  ApplicationManager.cpp
+﻿  AddANDgate2.cpp
+  AddANDgate3.cpp
+  AddBUFF.cpp
+  AddConnection.cpp
+  AddINVERTER.cpp
+  AddLED.cpp
+  AddNANDgate2.cpp
+  AddNORgate2.cpp
+  AddNORgate3.cpp
+  AddORgate2.cpp
+  AddSWITCH.cpp
+  AddXNORgate2.cpp
+  AddXORgate2.cpp
+  AddXORgate3.cpp
+  auxil.cpp
+  CMUgraphics.cpp
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\CMUgraphics.cpp(751,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\CMUgraphics.cpp(1164,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\CMUgraphics.cpp(1171,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\CMUgraphics.cpp(1202,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\CMUgraphics.cpp(1210,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\CMUgraphics.cpp(1357,23): warning C4018: '>': signed/unsigned mismatch
+  image.cpp
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\image.cpp(115,29): warning C4018: '<': signed/unsigned mismatch
+  keyqueue.cpp
+  mousequeue.cpp
+  windowinput.cpp
+  Generating Code...
+  Compiling...
+  AND2.cpp
+  AND3.cpp
+  BUFFER.cpp
+  Component.cpp
+  Connection.cpp
+  Gate.cpp
+  InputPin.cpp
+  INVERTER.cpp
+  LED.cpp
+  NAND2.cpp
+  NOR2.cpp
+  NOR3.cpp
+  OR2.cpp
+  OutputPin.cpp
+  Pin.cpp
+  ApplicationManager.cpp
+  SWITCH.cpp
+  XNOR2.cpp
+  XOR2.cpp
+  XOR3.cpp
+  Generating Code...
+  Compiling...
+  Input.cpp
+  Output.cpp
+  main.cpp
+  Generating Code...
+  jpegload.c
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\jpegload.c(23,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  jcomapi.c
+  jcparam.c
+  jdapimin.c
+  jdapistd.c
+  jdatasrc.c
+  jdcoefct.c
+  jdcolor.c
+  jddctmgr.c
+  jdhuff.c
+  jdinput.c
+  jdmainct.c
+  jdmarker.c
+  jdmaster.c
+  jdmerge.c
+  jdphuff.c
+  jdpostct.c
+  jdsample.c
+  jdtrans.c
+  jerror.c
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\jpeg\jerror.c(169,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\jpeg\jerror.c(171,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generating Code...
+  Compiling...
+  jidctflt.c
+  jidctfst.c
+  jidctint.c
+  jidctred.c
+  jmemmgr.c
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\jpeg\jmemmgr.c(1103,19): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\CMUgraphicsLib\jpeg\jmemmgr.c(1106,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  jmemnobs.c
+  jquant1.c
+  jquant2.c
+  jutils.c
+  Generating Code...
 AddANDgate2.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
-  graphics_prj.vcxproj -> C:\Users\irush\OneDrive\Desktop\GitHubLogic\Project Code Framework\Debug\graphics_prj.exe
+  graphics_prj.vcxproj -> E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\.\Debug\graphics_prj.exe

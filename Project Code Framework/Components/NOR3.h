@@ -16,6 +16,8 @@ public:
 	virtual void Operate();	//Calculates the output of the NOR gate
 	virtual void Draw(Output* pOut);	//Draws 3-input gate
 
+	virtual void Save(ofstream& file);
+
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 

@@ -169,13 +169,15 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_UNDO + MODE_CNT] = "images\\Menu\\Menu_UNDO.jpg";
 	MenuItemImages[ITM_REDO + MODE_CNT] = "images\\Menu\\Menu_REDO.jpg";
 	MenuItemImages[ITM_MOVE + MODE_CNT] = "images\\Menu\\Menu_MOVE.jpg";
+	MenuItemImages[ITM_SAVE + MODE_CNT] = "images\\Menu\\Menu_SAVE.jpg";
+	MenuItemImages[ITM_LOAD + MODE_CNT] = "images\\Menu\\Menu_LOAD.jpg";
 	MenuItemImages[ITM_EXIT + MODE_CNT] = "images\\Menu\\Menu_EXIT.jpg";
 
 	//MenuItemImages[ITM_CUT] = "images	\\Menu\\Menu_CUT.jpg";
 
 	pWind->SetPen(WHITE);
 	int tempx = 10;
-	int tempy = UI.ToolBarHeight + 135;
+	int tempy = UI.SimItemCoordinate;
 
 	//pWind->DrawImage(MenuItemImages[3], tempx, tempy + 20);
 

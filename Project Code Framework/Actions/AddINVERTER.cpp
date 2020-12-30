@@ -42,7 +42,8 @@ void AddINVERTER::Execute()
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	INVERTER* pA = new INVERTER(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
 }
 
 void AddINVERTER::Undo()

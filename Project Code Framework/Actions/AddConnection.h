@@ -1,5 +1,7 @@
-#ifndef _ADD_Connction_H
-#define _ADD_Connction_H
+
+#ifndef _ADD_CONNECTION_H
+#define _ADD_CONNECTION_H
+
 
 
 #include "action.h"
