@@ -194,13 +194,13 @@ void ApplicationManager::Save()
 	{
 		CompList[i]->Save(file);
 	}
-	file << "-1 ";
+	file << "-1 ";  //ADD close file
 }
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::Load()
 {
-	ifstream file;
+	ifstream file;   //clear drawing area
 	file.open("Info.txt");
 
 	Action* pAct = NULL;
@@ -210,20 +210,48 @@ void ApplicationManager::Load()
 
 	if (file.is_open())
 	{
-		while (file >> CompName)
+		while (file >> CompName && CompName != "-1")
 		{
+
 			file >> GfxInfo.x1 >> GfxInfo.y1;
 
 			if (CompName == "AND2")
-				pAct = new AddANDgate2(this);
+				pAct = new AddANDgate2(this, &GfxInfo);
+			else if (CompName == "AND3")
+				pAct = new AddANDgate3(this, &GfxInfo);
+			else if (CompName == "BUFFER")
+				pAct = new AddBUFFER(this, &GfxInfo);
+			else if (CompName == "INVERTER")
+				pAct = new AddINVERTER(this, &GfxInfo);
+			else if (CompName == "LED")
+				pAct = new AddLED(this, &GfxInfo);
+			else if (CompName == "NAND2")
+				pAct = new AddNANDgate2(this, &GfxInfo);
+			else if (CompName == "NOR2")
+				pAct = new AddNORgate2(this, &GfxInfo);
+			else if (CompName == "NOR3")
+				pAct = new AddNORgate3(this, &GfxInfo);
+			else if (CompName == "OR2")
+				pAct = new AddORgate2(this, &GfxInfo);
+			else if (CompName == "SWITCH")
+				pAct = new AddSWITCH(this, &GfxInfo);
+			else if (CompName == "XNOR2")
+				pAct = new AddXNORgate2(this, &GfxInfo);
+			else if (CompName == "XOR2")
+				pAct = new AddXORgate2(this, &GfxInfo);
+			else if (CompName == "XOR3")
+				pAct = new AddXORgate3(this, &GfxInfo);
+
+
+			pAct->Execute();
+			delete pAct;
 		}
 	}
 	else
 	{
 	}
 
-	pAct->Execute();
-	delete pAct;
+
 }
 
 ////////////////////////////////////////////////////////////////////

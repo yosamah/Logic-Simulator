@@ -13,7 +13,7 @@
 #include "OutputPin.h"
 #include "Component.h"
 
-class Gate:public Component
+class Gate :public Component
 {
 protected:
 	InputPin* m_InputPins;	//Array of input pins of the Gate
@@ -21,7 +21,7 @@ protected:
 	int m_Inputs;		//No. of input pins of that Gate.
 public:
 	Gate(int r_Inputs, int r_FanOut);
-	
+
 	InputPin* getInputPin(int n);
 
 	int getInPinLocationX(int n);
