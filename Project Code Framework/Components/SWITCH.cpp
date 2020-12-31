@@ -35,7 +35,7 @@ int SWITCH::GetOutPinStatus()
 //returns status of Inputpin #n
 int SWITCH::GetInputPinStatus(int n)
 {
-	return HIGH;	//No input pins in the switch.
+	return -1;	//No input pins in the switch.
 }
 
 //Set status of an input pin ot HIGH or LOW

@@ -37,6 +37,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 
 void ApplicationManager::DeleteComponent()
 {
+	OutputInterface->PrintMsg("Press on any item to delete it!");
 	int x, y;
 	InputInterface->GetPointClicked(x, y);
 	Component** c1 = getComponent(x, y);
@@ -46,7 +47,10 @@ void ApplicationManager::DeleteComponent()
 		*c1 = CompList[CompCount - 1];
 		CompList[CompCount--] = NULL;
 	}
-	
+	else
+	{
+		OutputInterface->PrintMsg("No pressed item! To try again press on Delete.");
+	}
 	
 
 }

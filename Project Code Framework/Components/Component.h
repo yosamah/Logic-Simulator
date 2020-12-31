@@ -34,6 +34,8 @@ public:
 	void setXOutConnection(int& x);
 	void setYOutConnection(int& y);
 
+	virtual int ConnectToOut(Connection* c);
+
 	virtual int getInPinLocationX(int n) ;
 	virtual int getInPinLocationY(int n);
 	virtual int getOutPinLocationX();

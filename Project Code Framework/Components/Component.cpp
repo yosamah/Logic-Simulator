@@ -82,6 +82,11 @@ OutputPin* Component::getOutputPin()
 { 
 	return NULL; 
 }
+
+int  Component::ConnectToOut(Connection* c)
+{
+	return -1;
+}
 InputPin* Component::getInputPin(int n) 
 {
 	return NULL;

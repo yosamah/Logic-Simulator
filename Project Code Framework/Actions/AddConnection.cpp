@@ -33,30 +33,41 @@ void AddConnection::Execute()
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 	Component** comp1 = pManager->getComponent(GInfo.x2, GInfo.y2);
-	// remove z
-	int z;
+	
 	if (comp1 != NULL)
 	{
 		int j = (*comp1)->getNoOfInPins();
-	
-		int n = (*comp1)->checkMargin(GInfo.y2, j);
-		int u = (*comp1)->GetInputPinStatus(n+1);
-		if (u == LOW)
+		if (j != 0)
 		{
-			pDstPin = (*comp1)->getInputPin(u);
-			(*comp1)->setInputPinStatus(n+1, HIGH);
+			int n = (*comp1)->checkMargin(GInfo.y2, j);
+			int u = (*comp1)->GetInputPinStatus(n + 1);
+			if (u == LOW)
+			{
+				pDstPin = (*comp1)->getInputPin(u);
+				(*comp1)->setInputPinStatus(n + 1, HIGH);
+			}
+			else
+			{
+				v = true;
+				pOut->PrintMsg("This pin has connection already! To reconnect press on connection.");
+			}
+
+			GInfo.x2 = (*comp1)->getInPinLocationX(n);
+			GInfo.y2 = (*comp1)->getInPinLocationY(n);
+			(*comp1)->setXConnection(GInfo.x2);
+			(*comp1)->setYConnection(GInfo.y2);
 		}
 		else
 		{
+			pOut->PrintMsg("Swich has no input pins!");
 			v = true;
-			pOut->PrintMsg("This pin has connection already! To reconnect press on connection.");
-		}
-		z = n;
 
-		GInfo.x2 = (*comp1)->getInPinLocationX(z);
-		GInfo.y2 = (*comp1)->getInPinLocationY(z);
-		(*comp1)->setXConnection(GInfo.x2);
-		(*comp1)->setYConnection(GInfo.y2);
+		}
+			
+	}
+	else
+	{
+		pOut->PrintMsg("No input gate pressed!");
 	}
 		
 		
@@ -64,16 +75,32 @@ void AddConnection::Execute()
 	Component** comp2 = pManager->getComponent(GInfo.x1, GInfo.y1);
 	if (comp2 != NULL)
 	{
-		if ((*comp2)->GetOutPinStatus() == LOW)
+		int u = (*comp2)->GetOutPinStatus();
+		if (u != -1)
 		{
-			pSrcPin = (*comp2)->getOutputPin();
+			if (u == LOW)
+			{
+				pSrcPin = (*comp2)->getOutputPin();
+
+			}
+
+			GInfo.x1 = (*comp2)->getOutPinLocationX();
+			GInfo.y1 = (*comp2)->getOutPinLocationY();
+			(*comp2)->setXOutConnection(GInfo.x1);
+			(*comp2)->setYOutConnection(GInfo.y1);
+		}
+		else
+		{
+			pOut->PrintMsg("LED has no output pins!");
+			v = true;
 		}
 			
-		GInfo.x1 = (*comp2)->getOutPinLocationX();
-		GInfo.y1 = (*comp2)->getOutPinLocationY();
-		(*comp2)->setXOutConnection(GInfo.x1);
-		(*comp2)->setYOutConnection(GInfo.y1);
 
+	}
+	else
+	{
+		pOut->PrintMsg("No Output gate pressed!");
+		v = true;
 	}
 	
 
@@ -81,7 +108,15 @@ void AddConnection::Execute()
 	if (!v)
 	{
 		Connection* pA = new Connection(GInfo, pSrcPin, pDstPin);
-		pManager->AddComponent(pA);
+		if (comp2 != NULL)
+		{
+			int m = (*comp2)->ConnectToOut(pA);
+			if (m)
+				pManager->AddComponent(pA);
+			else
+				pOut->PrintMsg("This Output pin has max number of connections! To reconnect press on connection.");
+		}
+		
 	}
 	
 }

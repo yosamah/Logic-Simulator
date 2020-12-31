@@ -18,21 +18,35 @@ Gate::Gate(int r_Inputs, int r_FanOut) :m_OutputPin(r_FanOut)
 		m_InputPins[i].setStatus(LOW);
 	}
 
-
-	m_InputPins[0].setPinLocation(0, 13);
-	if (m_Inputs == 2)
+	if (m_Inputs != 1)
 	{
-		m_InputPins[1].setPinLocation(0, 36);
+		m_InputPins[0].setPinLocation(0, 13);
+		if (m_Inputs == 2)
+		{
+			m_InputPins[1].setPinLocation(0, 36);
+		}
+		if (m_Inputs == 3)
+		{
+			m_InputPins[1].setPinLocation(0, 25);
+			m_InputPins[2].setPinLocation(0, 36);
+		}
+	
 	}
-	if (m_Inputs == 3)
+	else
 	{
-		m_InputPins[1].setPinLocation(0, 25);
-		m_InputPins[2].setPinLocation(0, 36);
+		m_InputPins[0].setPinLocation(0, 25);
 	}
-
 	m_OutputPin.setPinLocation(80, 25);
 }
 
+
+int Gate::ConnectToOut(Connection* c)
+{
+	bool x = m_OutputPin.ConnectTo(c);
+	if (x)
+		return 1;
+	return 0;
+}
 int Gate::getInPinLocationX(int n)
 {
 	return m_InputPins[n].getXPinLocation();

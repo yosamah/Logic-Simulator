@@ -24,6 +24,8 @@ public:
 
 	InputPin* getInputPin(int n);
 
+
+	int ConnectToOut(Connection* c);
 	int getInPinLocationX(int n);
 	int getInPinLocationY(int n);
 	int getOutPinLocationX();
