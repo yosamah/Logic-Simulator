@@ -38,7 +38,9 @@ void AddConnection::Execute()
 	Component** comp1 = pManager->getComponent(GInfo.x2, GInfo.y2);
 	// To display the accurate message.
 	int messageNumber = 0;
-	
+	//If the output gate is invalid we will need to reset the status of the input pin. 
+	int numberOfInputPin = -1;
+
 	if (comp1 != NULL)
 	{
 		messageNumber = -1;
@@ -48,6 +50,7 @@ void AddConnection::Execute()
 		{
 			//Return the number of the pin pressed according to the pressed margin.
 			int pinNumber = (*comp1)->checkMargin(GInfo.y2, pinCount);
+			numberOfInputPin = pinNumber;
 			//Check the status of the pin.
 			int pinStatus = (*comp1)->GetInputPinStatus(pinNumber + 1);
 			if (pinStatus == LOW)
@@ -118,6 +121,8 @@ void AddConnection::Execute()
 			}
 			else
 			{
+				if (comp1 != NULL)
+					(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 				messageNumber = 1;
 				valid = false;
 			}
@@ -126,6 +131,8 @@ void AddConnection::Execute()
 		}
 		else
 		{
+			if (comp1 != NULL)
+				(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 			messageNumber = 2;
 			valid = false;
 		}
@@ -133,7 +140,8 @@ void AddConnection::Execute()
 	else
 	{
 		valid = false;
-		
+		if (comp1 != NULL)
+			(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 	}
 	if (messageNumber == 0)
 		pOut->PrintMsg("You can't take input and output from the same gate!");
@@ -157,7 +165,11 @@ void AddConnection::Execute()
 			if (fanoutValidity)
 				pManager->AddComponent(pA);
 			else
+			{
 				pOut->PrintMsg("This Output pin has max number of connections! To reconnect press on connection.");
+				(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
+			}
+				
 		}
 		
 	}
