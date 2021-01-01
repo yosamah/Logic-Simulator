@@ -21,7 +21,10 @@ void LED::Operate()
 
 	//Add you code here
 }
-
+int LED::getNoOfInPins()
+{
+	return 1;
+}
 int LED::getInPinLocationX(int n)
 {
 	return m_InputPin.getXPinLocation();

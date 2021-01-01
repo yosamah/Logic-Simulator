@@ -26,6 +26,8 @@ public:
 
 	int getInPinLocationX(int n);
 	int getInPinLocationY(int n);
+	int getNoOfInPins();
+	
 
 	InputPin* getInputPin(int n);
 
