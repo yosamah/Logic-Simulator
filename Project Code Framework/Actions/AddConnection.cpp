@@ -57,8 +57,6 @@ void AddConnection::Execute()
 			{
 				//Set pDstPin.
 				pDstPin = (*comp1)->getInputPin(pinNumber);
-				//Set this pin High.
-				(*comp1)->setInputPinStatus(pinNumber + 1, HIGH);
 				//Set x, y coordinates of the pin pressed.
 				GInfo.x2 = (*comp1)->getInPinLocationX(pinNumber);
 				GInfo.y2 = (*comp1)->getInPinLocationY(pinNumber);
@@ -121,8 +119,6 @@ void AddConnection::Execute()
 			}
 			else
 			{
-				if (comp1 != NULL)
-					(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 				messageNumber = 1;
 				valid = false;
 			}
@@ -131,8 +127,6 @@ void AddConnection::Execute()
 		}
 		else
 		{
-			if (comp1 != NULL)
-				(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 			messageNumber = 2;
 			valid = false;
 		}
@@ -140,8 +134,6 @@ void AddConnection::Execute()
 	else
 	{
 		valid = false;
-		if (comp1 != NULL)
-			(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 	}
 	if (messageNumber == 0)
 		pOut->PrintMsg("You can't take input and output from the same gate!");
@@ -158,16 +150,20 @@ void AddConnection::Execute()
 	if (valid)
 	{
 		Connection* pA = new Connection(GInfo, pSrcPin, pDstPin);
-		if (comp2 != NULL)
+		if (comp2 != NULL && comp1 != NULL)
 		{
 			//Check the number of pins connected to the pressed output gate.
 			int fanoutValidity = (*comp2)->ConnectToOut(pA);
 			if (fanoutValidity)
+			{
 				pManager->AddComponent(pA);
+				//Set this pin High.
+				(*comp1)->setInputPinStatus(numberOfInputPin + 1, HIGH);
+			}
+				
 			else
 			{
 				pOut->PrintMsg("This Output pin has max number of connections! To reconnect press on connection.");
-				(*comp1)->setInputPinStatus(numberOfInputPin + 1, LOW);
 			}
 				
 		}
