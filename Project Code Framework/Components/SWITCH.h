@@ -27,7 +27,7 @@ public:
 	OutputPin* getOutputPin();
 	int getOutPinLocationX();
 	int getOutPinLocationY();
-
+	int ConnectToOut(Connection* c);
 
 };
 

@@ -19,6 +19,14 @@ void SWITCH::Operate()
 }
 
 
+int SWITCH::ConnectToOut(Connection* c)
+{
+	bool x = m_OutputPin.ConnectTo(c);
+	if (x)
+		return 1;
+	return 0;
+}
+
 // Function Draw
 // Draws SWITCH gate
 void SWITCH::Draw(Output* pOut)
