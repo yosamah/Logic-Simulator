@@ -170,10 +170,10 @@ void ApplicationManager::UpdateInterface()
 		
 
 }
-string ApplicationManager::getString()
-{
-	return InputInterface->GetSrting(OutputInterface);
-}
+//string ApplicationManager::getString()
+//{
+//	return InputInterface->GetSrting(OutputInterface,"","");
+//}
 
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
@@ -191,6 +191,10 @@ Output* ApplicationManager::GetOutput()
 
 void ApplicationManager::Save()
 {
+	//Get a Pointer to the Input / Output Interfaces
+	Output* pOut = GetOutput();
+
+
 	ofstream file;
 	file.open("Info.txt");
 	file.clear();
@@ -199,11 +203,19 @@ void ApplicationManager::Save()
 		CompList[i]->Save(file);
 	}
 	file << "-1 ";  //ADD close file
+	file.close();
+
+	//Print Action Message
+	pOut->PrintMsg("File saved!");
 }
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::Load()
 {
+	//Get a Pointer to the Input / Output Interfaces
+	OutputInterface = GetOutput();
+	InputInterface = GetInput();
+
 	ifstream file;   //clear drawing area
 	file.open("Info.txt");
 
@@ -212,50 +224,58 @@ void ApplicationManager::Load()
 	string CompName;
 	GraphicsInfo GfxInfo;
 
-	if (file.is_open())
+	string Check = InputInterface->GetSrting(OutputInterface, "All unsaved data will be removed. Do you want to continue (y/n):");
+
+	if (Check == "y")
 	{
-		while (file >> CompName && CompName != "-1")
+		if (file.is_open())
 		{
+			while (file >> CompName && CompName != "-1")
+			{
 
-			file >> GfxInfo.x1 >> GfxInfo.y1;
+				file >> GfxInfo.x1 >> GfxInfo.y1;
 
-			if (CompName == "AND2")
-				pAct = new AddANDgate2(this, &GfxInfo);
-			else if (CompName == "AND3")
-				pAct = new AddANDgate3(this, &GfxInfo);
-			else if (CompName == "BUFFER")
-				pAct = new AddBUFFER(this, &GfxInfo);
-			else if (CompName == "INVERTER")
-				pAct = new AddINVERTER(this, &GfxInfo);
-			else if (CompName == "LED")
-				pAct = new AddLED(this, &GfxInfo);
-			else if (CompName == "NAND2")
-				pAct = new AddNANDgate2(this, &GfxInfo);
-			else if (CompName == "NOR2")
-				pAct = new AddNORgate2(this, &GfxInfo);
-			else if (CompName == "NOR3")
-				pAct = new AddNORgate3(this, &GfxInfo);
-			else if (CompName == "OR2")
-				pAct = new AddORgate2(this, &GfxInfo);
-			else if (CompName == "SWITCH")
-				pAct = new AddSWITCH(this, &GfxInfo);
-			else if (CompName == "XNOR2")
-				pAct = new AddXNORgate2(this, &GfxInfo);
-			else if (CompName == "XOR2")
-				pAct = new AddXORgate2(this, &GfxInfo);
-			else if (CompName == "XOR3")
-				pAct = new AddXORgate3(this, &GfxInfo);
+				if (CompName == "AND2")
+					pAct = new AddANDgate2(this, &GfxInfo);
+				else if (CompName == "AND3")
+					pAct = new AddANDgate3(this, &GfxInfo);
+				else if (CompName == "BUFFER")
+					pAct = new AddBUFFER(this, &GfxInfo);
+				else if (CompName == "INVERTER")
+					pAct = new AddINVERTER(this, &GfxInfo);
+				else if (CompName == "LED")
+					pAct = new AddLED(this, &GfxInfo);
+				else if (CompName == "NAND2")
+					pAct = new AddNANDgate2(this, &GfxInfo);
+				else if (CompName == "NOR2")
+					pAct = new AddNORgate2(this, &GfxInfo);
+				else if (CompName == "NOR3")
+					pAct = new AddNORgate3(this, &GfxInfo);
+				else if (CompName == "OR2")
+					pAct = new AddORgate2(this, &GfxInfo);
+				else if (CompName == "SWITCH")
+					pAct = new AddSWITCH(this, &GfxInfo);
+				else if (CompName == "XNOR2")
+					pAct = new AddXNORgate2(this, &GfxInfo);
+				else if (CompName == "XOR2")
+					pAct = new AddXORgate2(this, &GfxInfo);
+				else if (CompName == "XOR3")
+					pAct = new AddXORgate3(this, &GfxInfo);
 
 
-			pAct->Execute();
-			delete pAct;
+				pAct->Execute();
+				delete pAct;
+				//Print Action Message
+				OutputInterface->PrintMsg("File loaded!");
+			}
+		}
+		else
+		{
+			OutputInterface->PrintMsg("File not found!");
 		}
 	}
 	else
-	{
-	}
-
-
+		OutputInterface->PrintMsg("File not loaded!");
 }
 
 ////////////////////////////////////////////////////////////////////
