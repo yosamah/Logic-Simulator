@@ -28,93 +28,144 @@ void AddConnection::ReadActionParameters()
 
 void AddConnection::Execute()
 {
-	bool v = false;
-	/*Get two points of the connection.*/
+	//Boolean variable to check the validity of the connection.
+	bool valid = true;
+	//Output pointer to print validty message to the user.
 	Output* pOut = pManager->GetOutput();
+	//Get two points of the connection.
 	ReadActionParameters();
+	//To check the clicked component of the input gate.
 	Component** comp1 = pManager->getComponent(GInfo.x2, GInfo.y2);
-	
+	// To display the accurate message.
+	int messageNumber = 0;
+	//If the output gate is invalid we will need to reset the status of the input pin. 
+	int numberOfInputPin = -1;
+
 	if (comp1 != NULL)
 	{
-		int j = (*comp1)->getNoOfInPins();
-		if (j != 0)
+		messageNumber = -1;
+		int pinCount = (*comp1)->getNoOfInPins();
+		//Checking switch gate. 
+		if (pinCount != -1)
 		{
-			int n = (*comp1)->checkMargin(GInfo.y2, j);
-			int u = (*comp1)->GetInputPinStatus(n + 1);
-			if (u == LOW)
+			//Return the number of the pin pressed according to the pressed margin.
+			int pinNumber = (*comp1)->checkMargin(GInfo.y2, pinCount);
+			numberOfInputPin = pinNumber;
+			//Check the status of the pin.
+			int pinStatus = (*comp1)->GetInputPinStatus(pinNumber + 1);
+			if (pinStatus == LOW)
 			{
-				pDstPin = (*comp1)->getInputPin(u);
-				(*comp1)->setInputPinStatus(n + 1, HIGH);
+				//Set pDstPin.
+				pDstPin = (*comp1)->getInputPin(pinNumber);
+				//Set x, y coordinates of the pin pressed.
+				GInfo.x2 = (*comp1)->getInPinLocationX(pinNumber);
+				GInfo.y2 = (*comp1)->getInPinLocationY(pinNumber);
+				(*comp1)->setXConnection(GInfo.x2);
+				(*comp1)->setYConnection(GInfo.y2);
 			}
 			else
 			{
-				v = true;
-				pOut->PrintMsg("This pin has connection already! To reconnect press on connection.");
+				valid = false;
+				messageNumber = 1;
 			}
 
-			GInfo.x2 = (*comp1)->getInPinLocationX(n);
-			GInfo.y2 = (*comp1)->getInPinLocationY(n);
-			(*comp1)->setXConnection(GInfo.x2);
-			(*comp1)->setYConnection(GInfo.y2);
+			
 		}
 		else
 		{
-			pOut->PrintMsg("Swich has no input pins!");
-			v = true;
-
+			valid = false;
+			messageNumber = 2;
 		}
 			
 	}
 	else
 	{
-		pOut->PrintMsg("No input gate pressed!");
+		valid = false;
 	}
+	if (messageNumber == 0)
+		pOut->PrintMsg("No input gate pressed!");
+	else if (messageNumber == 1)
+		pOut->PrintMsg("This pin has connection already! To reconnect press on connection.");
+	else if (messageNumber == 2)
+		pOut->PrintMsg("Swich has no input pins!");
 		
 		
+	//Reseting the message number.
+	messageNumber = 0;
 
 	Component** comp2 = pManager->getComponent(GInfo.x1, GInfo.y1);
-	if (comp2 != NULL)
+	//Check if the clicked points are on the same gate.
+	if (comp1 != comp2)
 	{
-		int u = (*comp2)->GetOutPinStatus();
-		if (u != -1)
+		messageNumber = -1;
+		if (comp2 != NULL)
 		{
-			if (u == LOW)
+			messageNumber = -2;
+			int pinStatus = (*comp2)->GetOutPinStatus();
+			//Return -1 for LED.
+			if (pinStatus != -1)
 			{
-				pSrcPin = (*comp2)->getOutputPin();
+				if (pinStatus == LOW)
+				{
+					//Set pSrcPin.
+					pSrcPin = (*comp2)->getOutputPin();
 
+				}
+
+				GInfo.x1 = (*comp2)->getOutPinLocationX();
+				GInfo.y1 = (*comp2)->getOutPinLocationY();
+				(*comp2)->setXOutConnection(GInfo.x1);
+				(*comp2)->setYOutConnection(GInfo.y1);
+			}
+			else
+			{
+				messageNumber = 1;
+				valid = false;
 			}
 
-			GInfo.x1 = (*comp2)->getOutPinLocationX();
-			GInfo.y1 = (*comp2)->getOutPinLocationY();
-			(*comp2)->setXOutConnection(GInfo.x1);
-			(*comp2)->setYOutConnection(GInfo.y1);
+
 		}
 		else
 		{
-			pOut->PrintMsg("LED has no output pins!");
-			v = true;
+			messageNumber = 2;
+			valid = false;
 		}
-			
-
 	}
 	else
 	{
-		pOut->PrintMsg("No Output gate pressed!");
-		v = true;
+		valid = false;
 	}
+	if (messageNumber == 0)
+		pOut->PrintMsg("You can't take input and output from the same gate!");
+	else if (messageNumber == 1)
+		pOut->PrintMsg("LED has no output pins!");
+	else if (messageNumber == 2)
+		pOut->PrintMsg("No Output gate pressed!");
+
+		
+	
 	
 
 	//Gfx info to be used to construct the AND2 gate
-	if (!v)
+	if (valid)
 	{
 		Connection* pA = new Connection(GInfo, pSrcPin, pDstPin);
-		if (comp2 != NULL)
+		if (comp2 != NULL && comp1 != NULL)
 		{
-			int m = (*comp2)->ConnectToOut(pA);
-			if (m)
+			//Check the number of pins connected to the pressed output gate.
+			int fanoutValidity = (*comp2)->ConnectToOut(pA);
+			if (fanoutValidity)
+			{
 				pManager->AddComponent(pA);
+				//Set this pin High.
+				(*comp1)->setInputPinStatus(numberOfInputPin + 1, HIGH);
+			}
+				
 			else
+			{
 				pOut->PrintMsg("This Output pin has max number of connections! To reconnect press on connection.");
+			}
+				
 		}
 		
 	}

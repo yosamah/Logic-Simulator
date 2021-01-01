@@ -155,6 +155,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 	if(pAct)
 	{
+
 		pAct->Execute();
 		delete pAct;
 		pAct = NULL;
