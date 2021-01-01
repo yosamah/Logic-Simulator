@@ -50,7 +50,7 @@ void AddLED::Execute()
 		GInfo.x2 = Cx + Len / 2;
 		GInfo.y1 = Cy - Wdth / 2;
 		GInfo.y2 = Cy + Wdth / 2;
-		LED* pA = new LED(GInfo, AND2_FANOUT);
+		LED* pA = new LED(GInfo);
 
 		if (pA->InDrawingArea(Cx, Cy))
 			pManager->AddComponent(pA);
@@ -66,7 +66,7 @@ void AddLED::Execute()
 		GInfo.x2 = LoadC.x1 + Len / 2;
 		GInfo.y1 = LoadC.y1 - Wdth / 2;
 		GInfo.y2 = LoadC.y1 + Wdth / 2;
-		LED* pA = new LED(GInfo, AND2_FANOUT);
+		LED* pA = new LED(GInfo);
 
 		if (pA->InDrawingArea(LoadC.x1, LoadC.y1))
 			pManager->AddComponent(pA);

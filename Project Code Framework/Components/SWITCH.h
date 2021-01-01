@@ -7,10 +7,11 @@
   represent the SWITCH gate
 */
 
-#include "Gate.h"
+#include "Component.h"
 
-class SWITCH :public Gate
+class SWITCH :public Component
 {
+	OutputPin m_OutputPin;	//The Gate output pin
 public:
 	SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate
@@ -22,6 +23,10 @@ public:
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
+
+	OutputPin* getOutputPin();
+	int getOutPinLocationX();
+	int getOutPinLocationY();
 
 
 };
