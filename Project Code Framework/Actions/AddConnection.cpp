@@ -149,10 +149,10 @@ void AddConnection::Execute()
 	//Gfx info to be used to construct the AND2 gate
 	if (valid)
 	{
-		int InputgateIndex = pManager->getGateNumber(*comp1);
-		int OutputgateIndex = pManager->getGateNumber(*comp2);
+		/*int InputgateIndex = pManager->getGateNumber(*comp1);
+		int OutputgateIndex = pManager->getGateNumber(*comp2);*/
 
-		Connection* pA = new Connection(GInfo, pSrcPin, pDstPin, *comp1, *comp2, numberOfInputPin, InputgateIndex, OutputgateIndex);
+		Connection* pA = new Connection(GInfo, pSrcPin, pDstPin, *comp1, *comp2, numberOfInputPin);
 		if (comp2 != NULL && comp1 != NULL)
 		{
 			//Check the number of pins connected to the pressed output gate.

@@ -36,15 +36,15 @@ void ApplicationManager::AddComponent(Component* pComp)
 }
 ////////////////////////////////////////////////////////////////////
 
-int ApplicationManager::getGateNumber(Component* comp)
-{
-	for (int i = 0; i < CompCount; i++)
-	{
-		if (comp == CompList[i])
-			return i;
-	}
-	return -1;
-}
+//int ApplicationManager::getGateNumber(Component* comp)
+//{
+//	for (int i = 0; i < CompCount; i++)
+//	{
+//		if (comp == CompList[i])
+//			return i;
+//	}
+//	return -1;
+//}
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::DeleteComponent()
 {
