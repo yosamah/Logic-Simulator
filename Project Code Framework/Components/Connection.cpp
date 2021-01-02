@@ -7,7 +7,7 @@ Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPi
 	DstPin = pDstPin;
 }
 void Connection::setSourcePin(OutputPin *pSrcPin)
-{	SrcPin = pSrcPin;	}
+{	SrcPin = pSrcPin;}
 
 OutputPin* Connection::getSourcePin()
 {	return SrcPin;	}

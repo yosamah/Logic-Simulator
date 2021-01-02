@@ -109,7 +109,6 @@ void AddConnection::Execute()
 				{
 					//Set pSrcPin.
 					pSrcPin = (*comp2)->getOutputPin();
-
 				}
 
 				GInfo.x1 = (*comp2)->getOutPinLocationX();

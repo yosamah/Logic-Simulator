@@ -22,6 +22,7 @@ public:
 	void setDestPin(InputPin *pDstPin);
 	OutputPin* getSourcePin();
 	InputPin* getDestPin();
+	
 
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
