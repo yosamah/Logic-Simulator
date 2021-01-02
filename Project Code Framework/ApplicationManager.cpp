@@ -31,10 +31,21 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	CompList[CompCount++] = pComp;
+	CompList[CompCount] = pComp;
+	CompList[CompCount++]->SetID(CompCount);
 }
 ////////////////////////////////////////////////////////////////////
 
+int ApplicationManager::getGateNumber(Component* comp)
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (comp == CompList[i])
+			return i;
+	}
+	return -1;
+}
+////////////////////////////////////////////////////////////////////
 void ApplicationManager::DeleteComponent()
 {
 	OutputInterface->PrintMsg("Press on any item to delete it!");
@@ -192,38 +203,49 @@ Output* ApplicationManager::GetOutput()
 
 void ApplicationManager::Save()
 {
-	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = GetOutput();
-
-
 	ofstream file;
+
 	file.open("Info.txt");
 	file.clear();
+
 	for (int i = 0; i < CompCount; i++)
 	{
-		CompList[i]->Save(file);
+		Component* c = dynamic_cast<Connection*>(CompList[i]);
+		if (c == NULL)
+			CompList[i]->Save(file);
 	}
-	file << "-1 ";  //ADD close file
+
+	file << "CONNECTIONS" << endl;
+
+	for (int i = 0; i < CompCount; i++)
+	{
+		Component* c = dynamic_cast<Connection*>(CompList[i]);
+		if (c != NULL)
+			CompList[i]->Save(file);
+	}
+
+	file << "-1 ";
 	file.close();
 
 	//Print Action Message
-	pOut->PrintMsg("File saved!");
+	OutputInterface->PrintMsg("File saved!");
 }
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::Load()
 {
-	//Get a Pointer to the Input / Output Interfaces
-	OutputInterface = GetOutput();
-	InputInterface = GetInput();
-
 	ifstream file;   //clear drawing area
 	file.open("Info.txt");
+	CompCount = 0;
 
 	Action* pAct = NULL;
 
 	string CompName;
 	GraphicsInfo GfxInfo;
+	GfxInfo.x1 = -1;
+	GfxInfo.y1 = -1;
+	GfxInfo.x2 = -1;
+	GfxInfo.y2 = -1;
 
 	string Check = InputInterface->GetSrting(OutputInterface, "All unsaved data will be removed. Do you want to continue (y/n):");
 
@@ -234,39 +256,85 @@ void ApplicationManager::Load()
 			while (file >> CompName && CompName != "-1")
 			{
 
-				file >> GfxInfo.x1 >> GfxInfo.y1;
-
 				if (CompName == "AND2")
-					pAct = new AddANDgate2(this, &GfxInfo);
+				{
+					AND2* pA = new AND2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "AND3")
-					pAct = new AddANDgate3(this, &GfxInfo);
+				{
+					AND3* pA = new AND3(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "BUFFER")
-					pAct = new AddBUFFER(this, &GfxInfo);
+				{
+					BUFFER* pA = new BUFFER(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "INVERTER")
-					pAct = new AddINVERTER(this, &GfxInfo);
+				{
+					INVERTER* pA = new INVERTER(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "LED")
-					pAct = new AddLED(this, &GfxInfo);
+				{
+					LED* pA = new LED(GfxInfo);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "NAND2")
-					pAct = new AddNANDgate2(this, &GfxInfo);
+				{
+					NAND2* pA = new NAND2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "NOR2")
-					pAct = new AddNORgate2(this, &GfxInfo);
+				{
+					NOR2* pA = new NOR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "NOR3")
-					pAct = new AddNORgate3(this, &GfxInfo);
+				{
+					NOR3* pA = new NOR3(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "OR2")
-					pAct = new AddORgate2(this, &GfxInfo);
+				{
+					OR2* pA = new OR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "SWITCH")
-					pAct = new AddSWITCH(this, &GfxInfo);
+				{
+					SWITCH* pA = new SWITCH(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "XNOR2")
-					pAct = new AddXNORgate2(this, &GfxInfo);
+				{
+					XNOR2* pA = new XNOR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "XOR2")
-					pAct = new AddXORgate2(this, &GfxInfo);
+				{
+					XOR2* pA = new XOR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 				else if (CompName == "XOR3")
-					pAct = new AddXORgate3(this, &GfxInfo);
+				{
+					XOR3* pA = new XOR3(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA);
+				}
 
-
-				pAct->Execute();
-				delete pAct;
-				//Print Action Message
 				OutputInterface->PrintMsg("File loaded!");
 			}
 		}

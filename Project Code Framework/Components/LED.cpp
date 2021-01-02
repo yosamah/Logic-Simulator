@@ -67,3 +67,16 @@ void LED::Save(ofstream& file)
 {
 	file << "LED " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
+
+void LED::Load(ifstream& file)
+{
+	int Cx, Cy;
+	file >> Cx >> Cy;
+	int Len = UI.AND2_Width;
+	int Wdth = UI.AND2_Height;
+
+	m_GfxInfo.x1 = Cx - Len / 2;
+	m_GfxInfo.x2 = Cx + Len / 2;
+	m_GfxInfo.y1 = Cy - Wdth / 2;
+	m_GfxInfo.y2 = Cy + Wdth / 2;
+}

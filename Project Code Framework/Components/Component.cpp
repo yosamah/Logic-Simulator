@@ -110,3 +110,11 @@ void Component::setYOutConnection(int& y)
 	y = m_GfxInfo.y2 -y;
 }
 
+void Component::SetID(int ID)
+{
+	m_ID = ID;
+}
+int Component::GetID()
+{
+	return m_ID;
+}
