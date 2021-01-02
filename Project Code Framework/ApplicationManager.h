@@ -36,9 +36,9 @@ public:
 	void UpdateInterface();	//Redraws all the drawing window
 
 	//string getString();
-	int getGateNumber(Component* comp);
+	//int getGateNumber(Component* comp);
 
-	\
+
 
 	Component** getComponent(int x, int y);
 
