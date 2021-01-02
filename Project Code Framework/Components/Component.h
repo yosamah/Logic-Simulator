@@ -13,6 +13,7 @@ class Component
 {
 private:
 	string m_Label;
+	int m_ID;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
 public:
@@ -44,10 +45,13 @@ public:
 
 	int checkMargin(int y, int n);
 
+	void SetID(int ID);
+	int GetID();
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 
 	virtual void Save(ofstream& file) = 0;
+	virtual void Load(ifstream& file) = 0;
 	
 	Component();	
 	

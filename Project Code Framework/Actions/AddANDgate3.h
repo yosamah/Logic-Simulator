@@ -12,11 +12,8 @@ private:
 	int Cx, Cy;	//Center point of the gate
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area
 
-	bool Loaded;  //Checking if the Adding is from the user click or loaded from external file
-	GraphicsInfo LoadC;
 public:
 	AddANDgate3(ApplicationManager* pApp);
-	AddANDgate3(ApplicationManager* pApp, GraphicsInfo* G);
 
 	virtual ~AddANDgate3(void);
 

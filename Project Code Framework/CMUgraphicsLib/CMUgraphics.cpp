@@ -112,6 +112,18 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 			}
 			break;
 
+		  case VK_RETURN:
+			  if (wipInput != NULL) {
+				  wipInput->SetKeyInfo(hwnd, RETURN, 1);
+			  }
+			  break;
+
+		  case VK_BACK:
+			  if (wipInput != NULL) {
+				  wipInput->SetKeyInfo(hwnd, BACK, 1);
+			  }
+			  break;
+
 		  case VK_F1:
             if(wipInput != NULL) {
                 wipInput->SetKeyInfo(hwnd, FUNCTION, 1);
