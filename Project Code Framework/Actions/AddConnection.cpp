@@ -1,8 +1,13 @@
 #include "AddConnection.h"
 #include "..\ApplicationManager.h"
 
-AddConnection::AddConnection(ApplicationManager* pApp) :Action(pApp)
+AddConnection::AddConnection(ApplicationManager* pApp, bool IsLoaded, Component* SrcCmpnt, Component* DstCmpnt, int PinNo) :Action(pApp)
 {
+	this->IsLoaded = IsLoaded;
+
+	this->SrcCmpnt = SrcCmpnt;
+	this->DstCmpnt = DstCmpnt;
+	this->PinNo = PinNo-1;
 }
 
 AddConnection::~AddConnection(void)
@@ -32,10 +37,21 @@ void AddConnection::Execute()
 	bool valid = true;
 	//Output pointer to print validty message to the user.
 	Output* pOut = pManager->GetOutput();
-	//Get two points of the connection.
-	ReadActionParameters();
-	//To check the clicked component of the input gate.
-	Component** comp1 = pManager->getComponent(GInfo.x2, GInfo.y2);
+
+	Component** comp1;
+
+	if (IsLoaded == false)
+	{
+		//Get two points of the connection.
+		ReadActionParameters();
+		//To check the clicked component of the input gate.
+		comp1 = pManager->getComponent(GInfo.x2, GInfo.y2);
+	}
+	else
+	{
+		comp1 = &SrcCmpnt;
+	}
+
 	// To display the accurate message.
 	int messageNumber = 0;
 	//If the output gate is invalid we will need to reset the status of the input pin. 
@@ -49,7 +65,15 @@ void AddConnection::Execute()
 		if (pinCount != -1)
 		{
 			//Return the number of the pin pressed according to the pressed margin.
-			int pinNumber = (*comp1)->checkMargin(GInfo.y2, pinCount);
+			int pinNumber;
+			if (IsLoaded == false)
+			{
+				pinNumber = (*comp1)->checkMargin(GInfo.y2, pinCount);
+			}
+			else
+			{
+				pinNumber = PinNo;
+			}
 			numberOfInputPin = pinNumber;
 			//Check the status of the pin.
 			int pinStatus = (*comp1)->GetInputPinStatus(pinNumber + 1);
@@ -93,7 +117,16 @@ void AddConnection::Execute()
 	//Reseting the message number.
 	messageNumber = 0;
 
-	Component** comp2 = pManager->getComponent(GInfo.x1, GInfo.y1);
+	Component** comp2;
+	if (IsLoaded == false)
+	{
+		comp2 = pManager->getComponent(GInfo.x1, GInfo.y1);
+	}
+	else
+	{
+		comp2 = &DstCmpnt;
+	}
+
 	//Check if the clicked points are on the same gate.
 	if (comp1 != comp2)
 	{

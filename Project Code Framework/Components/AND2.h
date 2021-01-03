@@ -23,7 +23,7 @@ public:
 	
 
 	virtual void Save(ofstream& file);
-	virtual void Load(ifstream& file);
+	virtual void Load(ifstream& file, int* IDgate1 = NULL, int* IDgate2 = NULL, int* PinNo = NULL);
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
 

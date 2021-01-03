@@ -29,10 +29,15 @@ ApplicationManager::ApplicationManager()
 	InputInterface = OutputInterface->CreateInput();
 }
 ////////////////////////////////////////////////////////////////////
-void ApplicationManager::AddComponent(Component* pComp)
+void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 {
-	CompList[CompCount] = pComp;
-	CompList[CompCount++]->SetID(CompCount);
+	if (IsLoad)
+	{
+		CompList[CompCount] = pComp;
+		CompList[CompCount++]->SetID(CompCount);
+	}
+	else
+		CompList[CompCount++] = pComp;
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -148,6 +153,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			pAct = new AddConnection(this);
 			break;
+
 		case DEL:
 			DeleteComponent();
 			break;
@@ -187,6 +193,15 @@ void ApplicationManager::UpdateInterface()
 //	return InputInterface->GetSrting(OutputInterface,"","");
 //}
 
+////////////////////////////////////////////////////////////////////
+Component* ApplicationManager::GetIDGate(int ID)
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (ID == CompList[i]->GetID())
+			return CompList[i];
+	}
+}
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
 {
@@ -255,8 +270,25 @@ void ApplicationManager::Load()
 		{
 			while (file >> CompName && CompName != "-1")
 			{
+				if (CompName == "CONNECTIONS")
+				{
+					while (!file.eof())
+					{
+						int IDgate1, IDgate2, PinNo;
+						Connection* pA = new Connection();
+						pA->Load(file, &IDgate1, &IDgate2, &PinNo);
+						if (IDgate1 == -1)
+							break;
+						Component* SrcCmpnt = GetIDGate(IDgate1);
+						Component* DstCmpnt = GetIDGate(IDgate2);
+						delete pA;
+						pAct = new AddConnection(this, true, SrcCmpnt, DstCmpnt, PinNo);
+						pAct->Execute();
+					}
+					break;
+				}
 
-				if (CompName == "AND2")
+				else if (CompName == "AND2")
 				{
 					AND2* pA = new AND2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
@@ -334,9 +366,9 @@ void ApplicationManager::Load()
 					pA->Load(file);
 					AddComponent(pA);
 				}
-
-				OutputInterface->PrintMsg("File loaded!");
 			}
+			
+			OutputInterface->PrintMsg("File loaded!");
 		}
 		else
 		{

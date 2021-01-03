@@ -46,11 +46,15 @@ void NOR2::setInputPinStatus(int n, STATUS s)
 
 void NOR2::Save(ofstream& file)
 {
-	file << "NOR2 " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "NOR2 "<< GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
 
-void NOR2::Load(ifstream& file)
+void NOR2::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
 {
+	int ID;
+	file >> ID;
+	SetID(ID);
+
 	int Cx, Cy;
 	file >> Cx >> Cy;
 	int Len = UI.AND2_Width;

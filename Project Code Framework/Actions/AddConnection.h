@@ -13,9 +13,14 @@ private:
 	GraphicsInfo GInfo; //Two points of connection.
 	OutputPin* pSrcPin;
 	InputPin* pDstPin;
-	
+
+	Component* SrcCmpnt;
+	Component* DstCmpnt;
+	int PinNo;
+	bool IsLoaded;
 public:
-	AddConnection(ApplicationManager* pApp);
+	AddConnection(ApplicationManager* pApp , bool IsLoaded = false , Component* SrcCmpnt = NULL , Component* DstCmpnt = NULL, int PinNo = 0);
+
 	virtual ~AddConnection(void);
 
 	//Reads parameters required for action to execute

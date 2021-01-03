@@ -11,6 +11,9 @@ Connection::Connection(const GraphicsInfo& r_GfxInfo, OutputPin* pSrcPin, InputP
 	OutputGateIndex = OGI;*/
 }
 
+Connection::Connection()
+{
+}
 //Connection::Connection(const GraphicsInfo& r_GfxInfo, Component* pS = NULL, Component* pD = NULL, int Pin = 0) :Component(r_GfxInfo)
 //{
 //	SrcCmpnt = pS;
@@ -79,7 +82,23 @@ void Connection::Save(ofstream& file)
 	file << SrcCmpnt->GetID() << " " << DstCmpnt->GetID() << " " << DestPin+1 << endl;
 }
 
-void Connection::Load(ifstream& file)
+void Connection::Load(ifstream& file, int* IDgate1, int* IDgate2 , int* PinNo )
 {
+	int ID1, ID2;
+	file >> ID1;
+	if (ID1 == -1)
+	{
+		*IDgate1 = -1;
+		return;
+	}
+	file >> ID2;
 
+	*IDgate1 = ID1;
+	*IDgate2 = ID2;
+
+	//SrcCmpnt->GetIDGate(ID1);
+	//DstCmpnt->GetIDGate(ID2);
+	int PinNumber;
+	file >> PinNumber;
+	*PinNo = PinNumber;
 }
