@@ -47,11 +47,15 @@ void AND3::setInputPinStatus(int n, STATUS s)
 
 void AND3::Save(ofstream& file)
 {
-	file << "AND3 " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "AND3 " << GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
 
-void AND3::Load(ifstream& file)
+void AND3::Load(ifstream& file, int* IDgate1 , int* IDgate2, int* PinNo)
 {
+	int ID;
+	file >> ID;
+	SetID(ID);
+
 	int Cx, Cy;
 	file >> Cx >> Cy;
 	int Len = UI.AND2_Width;

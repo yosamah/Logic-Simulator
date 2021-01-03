@@ -114,7 +114,14 @@ void Component::SetID(int ID)
 {
 	m_ID = ID;
 }
+
 int Component::GetID()
 {
 	return m_ID;
+}
+
+Component* Component::GetIDGate(int ID)
+{
+	if (m_ID == ID)
+		return this;
 }

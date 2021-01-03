@@ -47,11 +47,12 @@ public:
 
 	void SetID(int ID);
 	int GetID();
+	Component* GetIDGate(int ID);
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 
 	virtual void Save(ofstream& file) = 0;
-	virtual void Load(ifstream& file) = 0;
+	virtual void Load(ifstream& file , int *IDgate1 = NULL, int *IDgate2 = NULL, int *PinNo = NULL) = 0;
 	
 	Component();	
 	
