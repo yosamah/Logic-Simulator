@@ -14,7 +14,7 @@ void Input::GetPointClicked(int& x, int& y)
 
 
 
-string Input::GetSrting(Output* pOut)
+string Input::GetSrting(Output* pOut , string msg , string ms)
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
@@ -26,11 +26,11 @@ string Input::GetSrting(Output* pOut)
 
 	keytype k;
 	char c;
-	string m = "";
 
+	string m = ms;
 	do
 	{
-		pOut->PrintMsg(m);
+		pOut->PrintMsg(msg +" "+ m);
 		k = pWind->WaitKeyPress(c);
 
 		switch (k)
@@ -48,6 +48,9 @@ string Input::GetSrting(Output* pOut)
 			break;
 
 		case RETURN:
+
+			//pWind->DrawString(500, 500, m);
+
 			break;
 
 		default:

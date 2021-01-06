@@ -46,5 +46,22 @@ void BUFFER::setInputPinStatus(int n, STATUS s)
 
 void BUFFER::Save(ofstream& file)
 {
-	file << "BUFFER " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "BUFFER " << GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+}
+
+void BUFFER::Load(ifstream& file, int* IDgate1 , int* IDgate2, int* PinNo )
+{
+	int ID;
+	file >> ID;
+	SetID(ID);
+
+	int Cx, Cy;
+	file >> Cx >> Cy;
+	int Len = UI.AND2_Width;
+	int Wdth = UI.AND2_Height;
+
+	m_GfxInfo.x1 = Cx - Len / 2;
+	m_GfxInfo.x2 = Cx + Len / 2;
+	m_GfxInfo.y1 = Cy - Wdth / 2;
+	m_GfxInfo.y2 = Cy + Wdth / 2;
 }

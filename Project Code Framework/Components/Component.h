@@ -14,6 +14,7 @@ class Component
 {
 private:
 	string m_Label;
+	int m_ID;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
 public:
@@ -45,6 +46,9 @@ public:
 
 	int checkMargin(int y, int n);
 
+	void SetID(int ID);
+	int GetID();
+	Component* GetIDGate(int ID);
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 
@@ -52,6 +56,9 @@ public:
 
     void SetLabel(string &label); //Set label of component
 	string GetLabel();            //Get label of component
+
+	virtual void Load(ifstream& file , int *IDgate1 = NULL, int *IDgate2 = NULL, int *PinNo = NULL) = 0;
+	
 	Component();	
 	
 	//Destructor must be virtual

@@ -8,6 +8,7 @@
 */
 
 #include "Gate.h"
+#include <fstream>
 
 class AND2:public Gate
 {
@@ -20,6 +21,7 @@ public:
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1        
 
 	virtual void Save(ofstream& file);
+	virtual void Load(ifstream& file, int* IDgate1 = NULL, int* IDgate2 = NULL, int* PinNo = NULL);
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
 };
