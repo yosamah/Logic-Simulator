@@ -25,6 +25,7 @@ void XOR3::Draw(Output* pOut)
 	pOut->DrawXOR3(m_GfxInfo);
 }
 
+
 //returns status of outputpin
 int XOR3::GetOutPinStatus()
 {

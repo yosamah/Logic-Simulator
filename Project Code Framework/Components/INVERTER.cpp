@@ -25,6 +25,7 @@ void INVERTER::Draw(Output* pOut)
 	pOut->DrawINVERTER(m_GfxInfo);
 }
 
+
 //returns status of outputpin
 int INVERTER::GetOutPinStatus()
 {

@@ -28,8 +28,6 @@ string Input::GetSrting(Output* pOut)
 	char c;
 	string m = "";
 
-	
-
 	do
 	{
 		pOut->PrintMsg(m);
@@ -37,7 +35,6 @@ string Input::GetSrting(Output* pOut)
 
 		switch (k)
 		{
-
 		case BACK:
 			if (m.length() != 0)
 			{
@@ -51,7 +48,6 @@ string Input::GetSrting(Output* pOut)
 			break;
 
 		case RETURN:
-			pWind->DrawString(500, 500, m);
 			break;
 
 		default:
@@ -65,7 +61,6 @@ string Input::GetSrting(Output* pOut)
 
 	pWind->FlushMouseQueue();
 	return m;
-
 
 }
 
@@ -122,10 +117,12 @@ ActionType Input::GetUserAction() const
 
 		if ((y < UI.SimItemCoordinate && y >= UI.ToolBarHeight && x <= UI.ToolItemWidth))
 			return SELECT;
-		if (((y > (ITM_SIM_CNT + MODE_CNT) * (41 - 11))) && (y < UI.height - UI.StatusBarHeight) && x <= UI.ToolItemWidth)
+		if (((y > (ITM_SIM_CNT + MODE_CNT) * (29 - 11))) && (y < UI.height - UI.StatusBarHeight) && x <= UI.ToolItemWidth)
 		{
 			switch (ClickedItemOrderSim)
 			{
+			case (ITM_LABEL + MODE_CNT): return ADD_Label;
+			case (ITM_EDIT + MODE_CNT): return EDIT_Label;
 			case (ITM_COPY + MODE_CNT): return COPY;
 			case (ITM_PASTE + MODE_CNT): return PASTE;
 			case (ITM_DELETE + MODE_CNT): return DEL;

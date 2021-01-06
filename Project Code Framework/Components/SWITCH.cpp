@@ -25,6 +25,7 @@ void SWITCH::Draw(Output* pOut)
 	pOut->DrawSWITCH(m_GfxInfo);
 }
 
+
 //returns status of outputpin
 int SWITCH::GetOutPinStatus()
 {

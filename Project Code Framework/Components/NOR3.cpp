@@ -25,6 +25,7 @@ void NOR3::Draw(Output* pOut)
 	pOut->DrawNOR3(m_GfxInfo);
 }
 
+
 //returns status of outputpin
 int NOR3::GetOutPinStatus()
 {

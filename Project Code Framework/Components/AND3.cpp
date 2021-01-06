@@ -25,6 +25,7 @@ void AND3::Draw(Output* pOut)
 	pOut->DrawAND3(m_GfxInfo);
 }
 
+
 //returns status of outputpin
 int AND3::GetOutPinStatus()
 {

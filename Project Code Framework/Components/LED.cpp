@@ -27,6 +27,8 @@ void LED::Draw(Output* pOut)
 	pOut->DrawLED(m_GfxInfo);
 }
 
+
+
 //returns status of outputpin
 int LED::GetOutPinStatus()
 {

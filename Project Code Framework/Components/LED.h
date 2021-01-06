@@ -15,7 +15,6 @@ public:
 	LED(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate
 	virtual void Draw(Output* pOut);	//Draws 1-input gate
-
 	virtual void Save(ofstream& file);
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1

@@ -15,7 +15,6 @@ public:
 	NAND2(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the NAND gate
 	virtual void Draw(Output* pOut);	//Draws 2-input gate
-
 	virtual void Save(ofstream& file);
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1

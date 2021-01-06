@@ -17,13 +17,10 @@ public:
 	virtual void Draw(Output* pOut);	//Draws 2-input gate
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
-	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
-
-	
+	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1        
 
 	virtual void Save(ofstream& file);
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
-
 
 };
 

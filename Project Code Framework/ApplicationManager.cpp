@@ -41,7 +41,7 @@ void ApplicationManager::DeleteComponent()
 	int x, y;
 	InputInterface->GetPointClicked(x, y);
 	Component** c1 = getComponent(x, y);
-	
+	OutputInterface->ClearStatusBar();
 	if (c1 != NULL)
 	{
 		*c1 = CompList[CompCount - 1];
@@ -84,6 +84,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		case ADD_AND_GATE_2:
 			pAct= new AddANDgate2(this);
+	
 			break;
 
 		case ADD_OR_GATE_2:
@@ -137,6 +138,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			pAct = new AddConnection(this);
 			break;
+
+		case ADD_Label:
+			EditLabel();
+			break;
+
+		case EDIT_Label:
+			EditLabel();
+			break;
+
 		case DEL:
 			DeleteComponent();
 			break;
@@ -149,12 +159,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			Load();
 			break;
 
+
 		case EXIT:
 			///TODO: create ExitAction here
 			break;
 	}
 	if(pAct)
 	{
+
 		pAct->Execute();
 		delete pAct;
 		pAct = NULL;
@@ -166,13 +178,31 @@ void ApplicationManager::UpdateInterface()
 {
 	OutputInterface->ClearDrawingArea();
 	for (int i = 0; i < CompCount; i++)
+	{
 		CompList[i]->Draw(OutputInterface);
-		
+		CompList[i]->Draw_Label(OutputInterface);
+	}
 
 }
-string ApplicationManager::getString()
+void ApplicationManager::EditLabel()
 {
-	return InputInterface->GetSrting(OutputInterface);
+	int x, y;
+	OutputInterface->PrintMsg("Click on a component to label");
+	InputInterface->GetPointClicked(x, y);
+	Component** c = getComponent(x,y);
+	OutputInterface->ClearStatusBar();
+	
+	if (c != NULL)
+	{
+		string l = InputInterface->GetSrting(OutputInterface);
+		(*c)->SetLabel(l);
+		OutputInterface->ClearStatusBar();
+		
+	}
+	else
+	{
+		OutputInterface->PrintMsg("No Clicked Component!");
+	}
 }
 
 ////////////////////////////////////////////////////////////////////
