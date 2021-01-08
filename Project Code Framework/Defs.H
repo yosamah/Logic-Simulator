@@ -97,6 +97,8 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	//Note: Items are ordered here as they appear in menu
 	//ITM_SIM,	//Simulate menu item
 	ITM_TRUTH,	//Truth table menu item
+	ITM_LABEL,
+	ITM_EDIT,
 	ITM_COPY,
 	ITM_PASTE,
 	ITM_DELETE,

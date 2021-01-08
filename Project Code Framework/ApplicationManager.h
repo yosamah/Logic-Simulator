@@ -3,7 +3,6 @@
 
 #include "Defs.h"
 #include "GUI\Output.h"
-#include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
 
@@ -36,6 +35,7 @@ public:
 	
 	void UpdateInterface();	//Redraws all the drawing window
 
+	void EditLabel();
 	//string getString();
 	//int getGateNumber(Component* comp);
 

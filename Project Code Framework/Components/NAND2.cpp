@@ -25,6 +25,7 @@ void NAND2::Draw(Output* pOut)
 	pOut->DrawNAND2(m_GfxInfo);
 }
 
+
 //returns status of outputpin
 int NAND2::GetOutPinStatus()
 {
