@@ -10,7 +10,7 @@ Output::Output()
 	UI.DrawColor = BLACK;
 	UI.SelectColor = BLUE;
 	UI.ConnColor = RED;
-	UI.MsgColor = BLUE;
+	UI.MsgColor = DARKBLUE;
 	UI.BkGrndColor = WHITE;
 
 	//Create the drawing window
@@ -163,6 +163,8 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[DESIGN] = "images\\Menu\\Menu_DES.jpg";
 	MenuItemImages[SIMULATION] = "images\\Menu\\Menu_SIM.jpg";
 	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_TRUTH.jpg";
+	MenuItemImages[ITM_LABEL + MODE_CNT] = "images\\Menu\\Menu_LABEL.jpg";
+	MenuItemImages[ITM_EDIT + MODE_CNT] = "images\\Menu\\Menu_EDIT.jpg";
 	MenuItemImages[ITM_COPY + MODE_CNT] = "images\\Menu\\Menu_COPY.jpg";
 	MenuItemImages[ITM_PASTE + MODE_CNT] = "images\\Menu\\Menu_PASTE.jpg";
 	MenuItemImages[ITM_DELETE + MODE_CNT] = "images\\Menu\\Menu_DELETE.jpg";
@@ -379,7 +381,11 @@ void Output::DrawConnection(GraphicsInfo* points, int count) const
 		}
 
 }
-
+void Output::PrintString(GraphicsInfo r_GfxInfo, string m)
+{
+	pWind->SetPen(BLACK, 3);
+	pWind->DrawString((((r_GfxInfo.x1)+(r_GfxInfo.x2))/2)-22, (((r_GfxInfo.y1) + (r_GfxInfo.y2)) / 2)-45, m);
+}
 
 Output::~Output()
 {

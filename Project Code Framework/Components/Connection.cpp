@@ -86,7 +86,12 @@ GraphicsInfo* Connection::getPointsArray()
 	return pointsArray;
 }
 
+void Connection::Draw_Label(Output* pOut)
+{
+	string c = GetLabel();
+	pOut->PrintString(m_GfxInfo, c);
 
+}
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1
 {
 	return DstPin->getStatus();
@@ -120,7 +125,7 @@ int Connection::GetDPin()
 
 void Connection::Save(ofstream& file)
 {
-	file << SrcCmpnt->GetID() << " " << DstCmpnt->GetID() << " " << DestPin+1 << endl;
+	file << DstCmpnt->GetID() << " " << SrcCmpnt->GetID() << " " << DestPin+1 << endl;
 }
 
 void Connection::Load(ifstream& file, int* IDgate1, int* IDgate2 , int* PinNo )

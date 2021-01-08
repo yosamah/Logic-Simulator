@@ -2,6 +2,7 @@
 #define _COMPONENT_H
 
 #include "..\Defs.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 #include <fstream>
 #include "InputPin.h"
@@ -22,7 +23,7 @@ public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;	  //Calculates the output according to the inputs
 	virtual void Draw(Output* pOut) = 0;	//for each component to Draw itself
-
+    void Draw_Label(Output* pOut); //Draw Label for each component
 	virtual OutputPin* getOutputPin();
 	virtual InputPin* getInputPin(int n);
 
@@ -62,6 +63,10 @@ public:
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 
 	virtual void Save(ofstream& file) = 0;
+
+    void SetLabel(string &label); //Set label of component
+	string GetLabel();            //Get label of component
+
 	virtual void Load(ifstream& file , int *IDgate1 = NULL, int *IDgate2 = NULL, int *PinNo = NULL) = 0;
 	
 	Component();	

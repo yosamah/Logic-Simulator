@@ -17,7 +17,6 @@ public:
 	LED(const GraphicsInfo& r_GfxInfo);
 	virtual void Operate();	//Calculates the output of the AND gate
 	virtual void Draw(Output* pOut);	//Draws 1-input gate
-
 	virtual void Save(ofstream& file);
 	virtual void Load(ifstream& file, int* IDgate1 = NULL, int* IDgate2 = NULL, int* PinNo = NULL);
 

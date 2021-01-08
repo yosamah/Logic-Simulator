@@ -2,6 +2,7 @@
 
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
+
 	m_GfxInfo = r_GfxInfo;	
 	pointsCount = -1;
 	pointsArray = NULL;
@@ -15,6 +16,20 @@ bool Component::InDrawingArea(int Cx, int Cy)
 		return true;
 	return false;
 }
+
+void Component::SetLabel(string& label)
+{
+	if (!label.empty())
+		m_Label = label;
+	else
+		m_Label = "$";
+}
+
+string Component::GetLabel()
+{
+	return m_Label;
+}
+
 
 Component::Component()
 {}
@@ -110,6 +125,12 @@ Component* Component::GetDestinationGate()
 int Component::GetDPin()
 {
 	return -1;
+}
+
+void Component::Draw_Label(Output* pOut)
+{
+	string c = GetLabel();
+	pOut->PrintString(m_GfxInfo, c);
 }
 
 OutputPin* Component::getOutputPin()
