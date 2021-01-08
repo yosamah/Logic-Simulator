@@ -19,10 +19,10 @@ void BUFFER::Operate()
 
 // Function Draw
 // Draws Buffer gate
-void BUFFER::Draw(Output* pOut)
+void BUFFER::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawBUFFER(m_GfxInfo);
+	pOut->DrawBUFFER(m_GfxInfo, selected);
 }
 
 //returns status of outputpin

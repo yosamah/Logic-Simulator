@@ -19,10 +19,10 @@ void SWITCH::Operate()
 
 // Function Draw
 // Draws SWITCH gate
-void SWITCH::Draw(Output* pOut)
+void SWITCH::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawSWITCH(m_GfxInfo);
+	pOut->DrawSWITCH(m_GfxInfo, selected);
 }
 
 //returns status of outputpin

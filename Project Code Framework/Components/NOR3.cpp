@@ -19,10 +19,10 @@ void NOR3::Operate()
 
 // Function Draw
 // Draws 3-input NOR gate
-void NOR3::Draw(Output* pOut)
+void NOR3::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawNOR3(m_GfxInfo);
+	pOut->DrawNOR3(m_GfxInfo, selected);
 }
 
 //returns status of outputpin

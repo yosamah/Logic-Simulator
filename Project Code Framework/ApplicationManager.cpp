@@ -33,6 +33,190 @@ void ApplicationManager::AddComponent(Component* pComp)
 }
 ////////////////////////////////////////////////////////////////////
 
+void ApplicationManager::SelectComponent() {
+	
+	//Farah: 
+	Component** pComp; //to-do: handle NULL pointer, print msg
+	if ((*pComp)->getSelected() == 0) {
+		(*pComp)->Draw(OutputInterface, 1);
+		(*pComp)->setSelected(1);
+	}
+	else {
+		(*pComp)->Draw(OutputInterface, 0);
+		(*pComp)->setSelected(0);
+	}
+	/* Gate* gatePT = dynamic_cast<Gate*>(pComp); 
+	if (gatePT) {
+		AND2* compPT = dynamic_cast<AND2*>(gatePT); 
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1); //Farah: try to use pComp instead
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		AND3* compPT = dynamic_cast<AND3*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		BUFFER* compPT = dynamic_cast<BUFFER*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		INVERTER* compPT = dynamic_cast<INVERTER*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		NAND2* compPT = dynamic_cast<NAND2*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		NOR2* compPT = dynamic_cast<NOR2*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		NOR3* compPT = dynamic_cast<NOR3*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		OR2* compPT = dynamic_cast<OR2*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		XNOR2* compPT = dynamic_cast<XNOR2*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		XOR2* compPT = dynamic_cast<XOR2*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		XOR3* compPT = dynamic_cast<XOR3*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		LED* compPT = dynamic_cast<LED*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+		SWITCH* compPT = dynamic_cast<SWITCH*>(gatePT);
+		if (compPT) {
+			if (pComp->selected == 0) {
+				compPT->Draw(OutputInterface, 1);
+				pComp->selected = 1;
+			}
+			else {
+				compPT->Draw(OutputInterface, 0);
+				pComp->selected = 0;
+			}
+			return;
+		}
+	}
+	else {
+	if (pComp->selected == 0) {
+		pComp->Draw(OutputInterface, 1);
+		pComp->selected = 1;
+	}
+	else {
+		pComp->Draw(OutputInterface, 0);
+		pComp->selected = 0;
+	}
+	} */
+}
+
+////////////////////////////////////////////////////////////////////
 void ApplicationManager::DeleteComponent(Component* pComp)
 {
 	for (int i = 0; i < CompCount; i++)
@@ -123,6 +307,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			//pAct = new AddConnection(this);
 			break;
 	
+		case SELECT:
+			SelectComponent();
+			break;
 
 		case EXIT:
 			///TODO: create ExitAction here

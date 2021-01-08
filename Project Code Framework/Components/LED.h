@@ -14,7 +14,7 @@ class LED :public Gate
 public:
 	LED(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate
-	virtual void Draw(Output* pOut);	//Draws 1-input gate
+	virtual void Draw(Output* pOut, bool selected = 0);	//Draws 1-input gate
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1

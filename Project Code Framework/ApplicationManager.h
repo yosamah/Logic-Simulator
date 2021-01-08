@@ -45,6 +45,9 @@ public:
 	//Deletes a component in the list of components
 	void DeleteComponent(Component*pComp);
 
+	//Selects a component in the list of components
+	void SelectComponent();
+
 	//destructor
 	~ApplicationManager();
 };

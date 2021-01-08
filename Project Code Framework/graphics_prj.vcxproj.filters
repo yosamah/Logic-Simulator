@@ -212,6 +212,9 @@
     <ClCompile Include="Actions\AddSWITCH.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\AddConnection.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -384,6 +387,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddSWITCH.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddConnection.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

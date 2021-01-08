@@ -19,10 +19,10 @@ void AND3::Operate()
 
 // Function Draw
 // Draws 2-input AND gate
-void AND3::Draw(Output* pOut)
+void AND3::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawAND3(m_GfxInfo);
+	pOut->DrawAND3(m_GfxInfo, selected);
 }
 
 //returns status of outputpin

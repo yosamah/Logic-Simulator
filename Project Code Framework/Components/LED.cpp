@@ -19,10 +19,10 @@ void LED::Operate()
 
 // Function Draw
 // Draws LED gate
-void LED::Draw(Output* pOut)
+void LED::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawLED(m_GfxInfo);
+	pOut->DrawLED(m_GfxInfo, selected);
 }
 
 //returns status of outputpin

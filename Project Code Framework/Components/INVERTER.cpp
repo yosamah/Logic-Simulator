@@ -19,10 +19,10 @@ void INVERTER::Operate()
 
 // Function Draw
 // Draws INVERTER gate
-void INVERTER::Draw(Output* pOut)
+void INVERTER::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawINVERTER(m_GfxInfo);
+	pOut->DrawINVERTER(m_GfxInfo, selected);
 }
 
 //returns status of outputpin
