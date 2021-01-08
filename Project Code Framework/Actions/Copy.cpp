@@ -1,7 +1,10 @@
 #include "Copy.h"
 
 Copy::Copy(ApplicationManager* pApp) : Action(pApp)
-{}
+{
+	Comp = NULL;
+	valid = true;
+}
 
 //Reads parameters required for action to execute
 void Copy::ReadActionParameters()
@@ -22,8 +25,11 @@ void Copy::ReadActionParameters()
 	pOut->ClearStatusBar();
 
 	//Check if the point clicked is on a gate or an empty space
-	if(Comp == NULL)
+	if (Comp == NULL)
+	{
 		pOut->PrintMsg("There is no selected gate to be copied!");
+		valid = false;
+	}
 
 	//Clear Status Bar
 }
@@ -34,9 +40,11 @@ void Copy::Execute()
 	Output* pOut = pManager->GetOutput();
 
 	ReadActionParameters();
-
-	pManager->SetCopiedComponent(*Comp);
-	pOut->PrintMsg("Component copied!");
+	if (valid)
+	{
+		pManager->SetCopiedComponent(*Comp);
+		pOut->PrintMsg("Component copied!");
+	}
 }
 
 //To undo this action (code depends on action type)

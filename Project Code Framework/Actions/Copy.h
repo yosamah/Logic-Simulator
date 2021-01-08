@@ -10,7 +10,7 @@ class Copy : public Action
 private:
 	GraphicsInfo GfxI;
 	Component** Comp;
-
+	bool valid;
 public:
 	Copy(ApplicationManager* pApp);
 

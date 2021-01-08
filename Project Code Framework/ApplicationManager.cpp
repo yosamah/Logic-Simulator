@@ -14,6 +14,7 @@
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
 #include "Actions\Copy.h"
+#include "Actions\Paste.h"
 #include <fstream>
 
 
@@ -199,6 +200,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case COPY:
 			pAct = new Copy(this);
+			break;
+
+		case PASTE:
+			pAct = new Paste(this);
 			break;
 
 		case EXIT:

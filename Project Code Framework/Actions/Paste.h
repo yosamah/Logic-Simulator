@@ -21,7 +21,7 @@ class Paste : public Action
 {
 private:
 	Action* Act;
-	Component** Comp;
+	Component* Comp;
 
 public:
 	Paste(ApplicationManager* pApp);
