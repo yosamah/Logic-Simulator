@@ -79,7 +79,7 @@ void Connection::setInputPinStatus(int n, STATUS s)
 
 void Connection::Save(ofstream& file)
 {
-	file << SrcCmpnt->GetID() << " " << DstCmpnt->GetID() << " " << DestPin+1 << endl;
+	file << DstCmpnt->GetID() << " " << SrcCmpnt->GetID() << " " << DestPin+1 << endl;
 }
 
 void Connection::Load(ifstream& file, int* IDgate1, int* IDgate2 , int* PinNo )

@@ -13,6 +13,7 @@
 #include "Actions\AddINVERTER.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
+#include "Actions\Copy.h"
 #include <fstream>
 
 
@@ -34,13 +35,33 @@ void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 	if (IsLoad)
 	{
 		CompList[CompCount] = pComp;
-		CompList[CompCount++]->SetID(CompCount);
+
+		int count = 1;
+		Component* c = dynamic_cast<Connection*>(CompList[CompCount]);
+
+		if (c != NULL)
+		{
+			for (int i = 0; i < CompCount; i++)
+			{
+				if (CompList[i]->GetID() == count)
+				{
+					count = i + 2;
+				}
+
+			}
+			CompList[CompCount]->SetID(count);
+		}
+
+		CompCount++;
 	}
 	else
-		CompList[CompCount++] = pComp;
+	{
+		CompList[CompCount] = pComp;
+		CompList[CompCount++]->SetID(CompCount);
+	}
 }
-////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////
 //int ApplicationManager::getGateNumber(Component* comp)
 //{
 //	for (int i = 0; i < CompCount; i++)
@@ -51,6 +72,7 @@ void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 //	return -1;
 //}
 ////////////////////////////////////////////////////////////////////
+
 void ApplicationManager::DeleteComponent()
 {
 	OutputInterface->PrintMsg("Press on any item to delete it!");
@@ -71,7 +93,7 @@ void ApplicationManager::DeleteComponent()
 
 }
 
-
+////////////////////////////////////////////////////////////////////
 Component** ApplicationManager::getComponent(int x, int y)
 {
 	for (int i = 0; i < CompCount; i++)
@@ -164,6 +186,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case LOAD:
 			Load();
+			break;
+
+		case COPY:
+			pAct = new Copy(this);
 			break;
 
 		case EXIT:
@@ -279,8 +305,8 @@ void ApplicationManager::Load()
 						pA->Load(file, &IDgate1, &IDgate2, &PinNo);
 						if (IDgate1 == -1)
 							break;
-						Component* SrcCmpnt = GetIDGate(IDgate1);
-						Component* DstCmpnt = GetIDGate(IDgate2);
+						Component* DstCmpnt = GetIDGate(IDgate1);
+						Component* SrcCmpnt = GetIDGate(IDgate2);
 						delete pA;
 						pAct = new AddConnection(this, true, SrcCmpnt, DstCmpnt, PinNo);
 						pAct->Execute();
@@ -292,79 +318,79 @@ void ApplicationManager::Load()
 				{
 					AND2* pA = new AND2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA,true);
 				}
 				else if (CompName == "AND3")
 				{
 					AND3* pA = new AND3(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "BUFFER")
 				{
 					BUFFER* pA = new BUFFER(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "INVERTER")
 				{
 					INVERTER* pA = new INVERTER(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA,true);
 				}
 				else if (CompName == "LED")
 				{
 					LED* pA = new LED(GfxInfo);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "NAND2")
 				{
 					NAND2* pA = new NAND2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "NOR2")
 				{
 					NOR2* pA = new NOR2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "NOR3")
 				{
 					NOR3* pA = new NOR3(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "OR2")
 				{
 					OR2* pA = new OR2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "SWITCH")
 				{
 					SWITCH* pA = new SWITCH(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "XNOR2")
 				{
 					XNOR2* pA = new XNOR2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "XOR2")
 				{
 					XOR2* pA = new XOR2(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 				else if (CompName == "XOR3")
 				{
 					XOR3* pA = new XOR3(GfxInfo, AND2_FANOUT);
 					pA->Load(file);
-					AddComponent(pA);
+					AddComponent(pA, true);
 				}
 			}
 			
@@ -378,6 +404,13 @@ void ApplicationManager::Load()
 	else
 		OutputInterface->PrintMsg("File not loaded!");
 }
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::SetCopiedComponent(Component* Comp)
+{CopyComp = Comp;}
+
+Component* ApplicationManager::GetCopiedComponent()
+{return CopyComp;}
 
 ////////////////////////////////////////////////////////////////////
 

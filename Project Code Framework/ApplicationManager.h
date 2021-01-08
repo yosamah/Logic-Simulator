@@ -20,6 +20,7 @@ private:
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
 
+	Component* CopyComp; //pointer to the copied component
 
 public:
 
@@ -48,10 +49,13 @@ public:
 
 	void DeleteComponent();
 	//Adds a new component to the list of components
-	void AddComponent(Component* pComp,bool IsLoad = true);
+	void AddComponent(Component* pComp,bool IsLoad = false);
 	void Save();
 	void Load();
 	
+	void SetCopiedComponent(Component* Comp);  //Setters and getters for the copied component
+	Component* GetCopiedComponent();
+
 	//destructor
 	~ApplicationManager();
 };
