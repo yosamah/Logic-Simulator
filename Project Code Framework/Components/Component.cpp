@@ -3,6 +3,8 @@
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
 	m_GfxInfo = r_GfxInfo;	
+	pointsCount = -1;
+	pointsArray = NULL;
 }
 
 bool Component::InDrawingArea(int Cx, int Cy)
@@ -26,6 +28,17 @@ bool Component:: drawArea(int x, int y)
 	bool f = (y >= m_GfxInfo.y1 && y <= m_GfxInfo.y2) ? true : false;
 	if (z && f)
 		return true;
+	bool DrawConnection = false;
+	for (int i = 0; i < pointsCount; i++)
+	{
+		bool test1 = (x > pointsArray[i].x1-3 && x < pointsArray[i].x2+3) ? true : false;
+		bool test2 = (y > pointsArray[i].y1-3 && y < pointsArray[i].y2+3) ? true : false;
+		if (test1 && test2)
+			DrawConnection = true;
+	}
+	if (DrawConnection)
+		return true;
+
 	return false;
 }
 
@@ -56,6 +69,15 @@ int Component::checkMargin(int y, int n)
 	}
 }
 
+
+int Component::getPointsCount()
+{
+	return -1;
+}
+GraphicsInfo* Component::getPointsArray()
+{
+	return NULL;
+}
 int Component::getInPinLocationX(int n)
 { 
 	return -1;
@@ -76,7 +98,19 @@ int Component::getNoOfInPins()
 { 
 	return -1; 
 }
+Component* Component::GetSourceGate()
+{
+	return NULL;
+}
+Component* Component::GetDestinationGate()
+{
 
+	return NULL;
+}
+int Component::GetDPin()
+{
+	return -1;
+}
 
 OutputPin* Component::getOutputPin()
 { 
@@ -91,7 +125,8 @@ InputPin* Component::getInputPin(int n)
 {
 	return NULL;
 }
-
+void Component::removeConToOut(Connection* c)
+{};
 void Component::setXConnection(int& x)
 {
 	x += m_GfxInfo.x1;

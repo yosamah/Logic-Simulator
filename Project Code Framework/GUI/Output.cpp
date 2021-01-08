@@ -368,19 +368,16 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 //TODO: Add similar functions to draw all components
 
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo) const
+void Output::DrawConnection(GraphicsInfo* points, int count) const
 {
 	//TODO: Add code to draw connection
 
 		pWind->SetPen(BLACK, 3);
-		pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2 - 20, r_GfxInfo.y1);
-		if (r_GfxInfo.y1 != r_GfxInfo.y2)
+		for (int i = 0; i < count; i++)
 		{
-			pWind->DrawLine(r_GfxInfo.x2 - 20, r_GfxInfo.y1, r_GfxInfo.x2 - 20, r_GfxInfo.y2);
-			pWind->DrawLine(r_GfxInfo.x2 - 20, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
-
+			pWind->DrawLine(points[i].x1, points[i].y1, points[i].x2, points[i].y2);
 		}
-	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
+
 }
 
 

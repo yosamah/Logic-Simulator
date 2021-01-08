@@ -21,6 +21,36 @@ Connection::Connection()
 //	DestPin = Pin;
 //}
 
+
+void Connection::computePoints()
+{
+	pointsCount = 1;
+	if (m_GfxInfo.y1 != m_GfxInfo.y2)
+	{
+		pointsCount = 3;
+	}
+	pointsArray = new GraphicsInfo[pointsCount];
+	pointsArray[0].x1 = m_GfxInfo.x1;
+	pointsArray[0].x2 = m_GfxInfo.x2 - 20;
+	pointsArray[0].y1 = m_GfxInfo.y1;
+	pointsArray[0].y2 = m_GfxInfo.y1;
+
+	if (m_GfxInfo.y1 != m_GfxInfo.y2)
+	{
+
+		pointsArray[1].x1 = m_GfxInfo.x2 - 20;
+		pointsArray[1].x2 = m_GfxInfo.x2 - 20;
+		pointsArray[1].y1 = m_GfxInfo.y1;
+		pointsArray[1].y2 = m_GfxInfo.y2;
+
+		pointsArray[2].x1 = m_GfxInfo.x2 - 20;
+		pointsArray[2].x2 = m_GfxInfo.x2;
+		pointsArray[2].y1 = m_GfxInfo.y2;
+		pointsArray[2].y2 = m_GfxInfo.y2;
+
+	}
+}
+
 void Connection::setSourcePin(OutputPin *pSrcPin)
 {	SrcPin = pSrcPin;}
 
@@ -43,8 +73,19 @@ void Connection::Operate()
 
 void Connection::Draw(Output* pOut)
 {
-	pOut->DrawConnection(m_GfxInfo);
+	computePoints();
+	pOut->DrawConnection(pointsArray, pointsCount);
 }
+
+int Connection::getPointsCount()
+{
+	return pointsCount;
+}
+GraphicsInfo* Connection::getPointsArray()
+{
+	return pointsArray;
+}
+
 
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1
 {
@@ -62,14 +103,14 @@ void Connection::setInputPinStatus(int n, STATUS s)
 	SrcPin->setStatus(s);
 }
 
-//Component* Connection::GetSourceGate()
-//{ return SrcCmpnt; }
-//
-//Component* Connection::GetDestinationGate()
-//{ return DstCmpnt; }
-//
-//int Connection::GetDestPin()
-//{ return DestPin; }
+Component* Connection::GetSourceGate()
+{ return SrcCmpnt; }
+
+Component* Connection::GetDestinationGate()
+{ return DstCmpnt; }
+
+int Connection::GetDPin()
+{ return DestPin; }
 //
 //int Connection::GetInputGateIndex()
 //{ return InputGateIndex; }

@@ -24,6 +24,7 @@ public:
 
 	InputPin* getInputPin(int n);
 
+	void removeConToOut(Connection* c);
 
 	int ConnectToOut(Connection* c);
 	int getInPinLocationX(int n);

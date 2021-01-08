@@ -16,6 +16,8 @@ private:
 	int m_ID;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
+	int pointsCount;
+	GraphicsInfo* pointsArray;
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;	  //Calculates the output according to the inputs
@@ -32,10 +34,18 @@ public:
 	void setXConnection(int& x);
 	void setYConnection(int& y);
 
+	virtual int getPointsCount();
+	virtual GraphicsInfo* getPointsArray();
+
 	void setXOutConnection(int& x);
 	void setYOutConnection(int& y);
 
 	virtual int ConnectToOut(Connection* c);
+	virtual void removeConToOut(Connection* c);
+
+	virtual Component* GetSourceGate();
+	virtual Component* GetDestinationGate();
+	virtual int GetDPin();
 
 	virtual int getInPinLocationX(int n) ;
 	virtual int getInPinLocationY(int n);
