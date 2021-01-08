@@ -142,6 +142,8 @@
     <ClCompile Include="Actions\AddXORgate3.cpp" />
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\Edit.cpp" />
+    <ClCompile Include="Actions\Label.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -220,6 +222,8 @@
     <ClInclude Include="Actions\AddXORgate3.h" />
     <ClInclude Include="Actions\Copy.h" />
     <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\Edit.h" />
+    <ClInclude Include="Actions\Label.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />

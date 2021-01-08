@@ -129,8 +129,7 @@ int Component::GetDPin()
 
 void Component::Draw_Label(Output* pOut)
 {
-	string c = GetLabel();
-	pOut->PrintString(m_GfxInfo, c);
+	pOut->PrintString(m_GfxInfo, m_Label);
 }
 
 OutputPin* Component::getOutputPin()

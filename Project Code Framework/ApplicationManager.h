@@ -37,7 +37,7 @@ public:
 
 
 	void RemoveConnection(Component** c1);
-	void EditLabel();
+	
 
 	//string getString();
 	//int getGateNumber(Component* comp);

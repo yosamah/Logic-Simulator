@@ -21,11 +21,12 @@ public:
 	virtual void Operate() ;	//Calculates the output according to the inputs
 	virtual void Draw(Output* pOut);	//for each component to Draw itself
 
-
 	void computePoints();
 	int getPointsCount();
 	GraphicsInfo* getPointsArray();
-	
+
+	virtual int changeSrc(Component* srcGate);
+	virtual int changeDst(Component* dstGate, int pinDest);
 
 	virtual void Draw_Label(Output* pOut);
 	

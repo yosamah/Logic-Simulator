@@ -13,17 +13,17 @@
 class Component
 {
 private:
-	string m_Label;
 	int m_ID;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
+	string m_Label;
 	int pointsCount;
 	GraphicsInfo* pointsArray;
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;	  //Calculates the output according to the inputs
 	virtual void Draw(Output* pOut) = 0;	//for each component to Draw itself
-    void Draw_Label(Output* pOut); //Draw Label for each component
+    virtual void Draw_Label(Output* pOut); //Draw Label for each component
 	virtual OutputPin* getOutputPin();
 	virtual InputPin* getInputPin(int n);
 
@@ -43,6 +43,8 @@ public:
 
 	virtual int ConnectToOut(Connection* c);
 	virtual void removeConToOut(Connection* c);
+	virtual int changeSrc(Component* srcGate) { return - 1; };
+	virtual int changeDst(Component* dstGate, int pinDest) { return -1; };
 
 	virtual Component* GetSourceGate();
 	virtual Component* GetDestinationGate();

@@ -31,7 +31,6 @@ void Delete::Execute()
 	Component** c1 = pManager->getComponent(x1, y1);
 	if (c1 != NULL)
 	{
-		
 		pManager->RemoveComponent(c1);
 	}
 	else

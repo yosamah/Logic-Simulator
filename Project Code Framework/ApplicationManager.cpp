@@ -15,6 +15,8 @@
 #include "Actions\AddSWITCH.h"
 #include "Actions\Delete.h"
 #include "Actions\Copy.h"
+#include "Actions/Label.h"
+#include "Actions/Edit.h"
 #include <fstream>
 
 
@@ -94,7 +96,6 @@ void ApplicationManager::RemoveComponent(Component** c1)
 	if (removedComp != NULL)
 	{
 		RemoveConnection(c1);
-		
 	}
 	else
 	{
@@ -204,11 +205,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_Label:
-			EditLabel();
+			pAct = new Label(this);
 			break;
 
 		case EDIT_Label:
-			EditLabel();
+			pAct = new Edit(this);
 			break;
 
 		case DEL:
@@ -252,26 +253,7 @@ void ApplicationManager::UpdateInterface()
 
 }
 
-void ApplicationManager::EditLabel()
-{
-	int x, y;
-	OutputInterface->PrintMsg("Click on a component to label");
-	InputInterface->GetPointClicked(x, y);
-	Component** c = getComponent(x, y);
-	OutputInterface->ClearStatusBar();
 
-	if (c != NULL)
-	{
-		string l = InputInterface->GetSrting(OutputInterface, "", "");
-		(*c)->SetLabel(l);
-		OutputInterface->ClearStatusBar();
-
-	}
-	else
-	{
-		OutputInterface->PrintMsg("No Clicked Component!");
-	}
-}
 //string ApplicationManager::getString()
 //{
 //	return InputInterface->GetSrting(OutputInterface,"","");

@@ -21,7 +21,53 @@ Connection::Connection()
 //	DestPin = Pin;
 //}
 
+void Connection::Draw_Label(Output* pOut)
+{
+	GraphicsInfo pointLabel;
+	pointLabel.x1 = pointsArray[0].x1;
+	pointLabel.x2 = pointsArray[0].x2;
+	pointLabel.y1 = pointsArray[0].y1;
+	pointLabel.y2 = pointsArray[0].y2;
+	pOut->PrintString(pointLabel, m_Label);
+}
 
+int Connection::changeSrc(Component* srcGate)
+{
+	bool testSrc = srcGate->ConnectToOut(this);
+	if (testSrc)
+	{
+		DstCmpnt = srcGate;
+		m_GfxInfo.x1 = DstCmpnt->getOutPinLocationX();
+		m_GfxInfo.y1 = DstCmpnt->getOutPinLocationY();
+		DstCmpnt->setXOutConnection(m_GfxInfo.x1);
+		DstCmpnt->setYOutConnection(m_GfxInfo.y1);
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+	
+
+
+}
+int Connection::changeDst(Component* dstGate, int pinDest)
+{
+	bool checkDest = dstGate->GetInputPinStatus(pinDest+1);
+	if (checkDest == LOW)
+	{
+		SrcCmpnt = dstGate;
+		m_GfxInfo.x2 = SrcCmpnt->getInPinLocationX(pinDest);
+		m_GfxInfo.y2 = SrcCmpnt->getInPinLocationY(pinDest);
+		SrcCmpnt->setXConnection(m_GfxInfo.x2);
+		SrcCmpnt->setYConnection(m_GfxInfo.y2);
+		SrcCmpnt->setInputPinStatus(pinDest + 1, HIGH);
+		return 1;
+
+	}
+	else
+		return 0;
+}
 void Connection::computePoints()
 {
 	pointsCount = 1;
@@ -86,12 +132,6 @@ GraphicsInfo* Connection::getPointsArray()
 	return pointsArray;
 }
 
-void Connection::Draw_Label(Output* pOut)
-{
-	string c = GetLabel();
-	pOut->PrintString(m_GfxInfo, c);
-
-}
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1
 {
 	return DstPin->getStatus();
