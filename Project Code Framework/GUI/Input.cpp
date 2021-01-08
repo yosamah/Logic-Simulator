@@ -127,6 +127,7 @@ ActionType Input::GetUserAction() const
 			case (ITM_LABEL + MODE_CNT): return ADD_Label;
 			case (ITM_EDIT + MODE_CNT): return EDIT_Label;
 			case (ITM_COPY + MODE_CNT): return COPY;
+			case (ITM_CUT + MODE_CNT): return CUT;
 			case (ITM_PASTE + MODE_CNT): return PASTE;
 			case (ITM_DELETE + MODE_CNT): return DEL;
 			case (ITM_UNDO + MODE_CNT): return UNDO;

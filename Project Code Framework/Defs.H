@@ -32,6 +32,7 @@ enum ActionType
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
 	COPY,
+	CUT,
 	PASTE,
 	TRUTH,
 
@@ -100,6 +101,7 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_LABEL,
 	ITM_EDIT,
 	ITM_COPY,
+	ITM_CUT,
 	ITM_PASTE,
 	ITM_DELETE,
 	ITM_UNDO,
@@ -108,7 +110,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_SAVE,
 	ITM_LOAD,
 	ITM_EXIT,	//Exit item
-	//ITM_CUT,
 	//TODO:Add more items names here
 
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum

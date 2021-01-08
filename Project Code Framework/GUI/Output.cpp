@@ -167,6 +167,7 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_EDIT + MODE_CNT] = "images\\Menu\\Menu_EDIT.jpg";
 	MenuItemImages[ITM_COPY + MODE_CNT] = "images\\Menu\\Menu_COPY.jpg";
 	MenuItemImages[ITM_PASTE + MODE_CNT] = "images\\Menu\\Menu_PASTE.jpg";
+	MenuItemImages[ITM_CUT + MODE_CNT] = "images\\Menu\\Menu_CUT.jpg";
 	MenuItemImages[ITM_DELETE + MODE_CNT] = "images\\Menu\\Menu_DELETE.jpg";
 	MenuItemImages[ITM_UNDO + MODE_CNT] = "images\\Menu\\Menu_UNDO.jpg";
 	MenuItemImages[ITM_REDO + MODE_CNT] = "images\\Menu\\Menu_REDO.jpg";
