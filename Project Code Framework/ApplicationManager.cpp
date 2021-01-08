@@ -15,8 +15,10 @@
 #include "Actions\AddSWITCH.h"
 #include "Actions\Delete.h"
 #include "Actions\Copy.h"
-#include "Actions/Label.h"
-#include "Actions/Edit.h"
+#include "Actions\Label.h"
+#include "Actions\Edit.h"
+#include "Actions\Paste.h"
+#include "Actions\Cut.h"
 #include <fstream>
 
 
@@ -24,7 +26,7 @@
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
-
+	CopyComp = NULL;
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -226,6 +228,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case COPY:
 			pAct = new Copy(this);
+			break;
+
+		case PASTE:
+			pAct = new Paste(this);
+			break;
+
+		case CUT:
+			pAct = new Cut(this);
 			break;
 
 		case EXIT:

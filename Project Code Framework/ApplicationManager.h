@@ -58,7 +58,7 @@ public:
 	void Save();
 	void Load();
 	
-	void SetCopiedComponent(Component* Comp);  //Setters and getters for the copied component
+	void SetCopiedComponent(Component *Comp);  //Setters and getters for the copied component
 	Component* GetCopiedComponent();
 
 	//destructor

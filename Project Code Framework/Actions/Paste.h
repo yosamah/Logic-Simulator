@@ -21,8 +21,8 @@ class Paste : public Action
 {
 private:
 	Action* Act;
-	Component** Comp;
-
+	Component* Comp;
+	bool valid;
 public:
 	Paste(ApplicationManager* pApp);
 
