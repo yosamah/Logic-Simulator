@@ -13,6 +13,7 @@
 #include "Actions\AddINVERTER.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
+#include "Actions\Delete.h"
 #include "Actions\Copy.h"
 #include "Actions\Paste.h"
 #include <fstream>
@@ -74,24 +75,49 @@ void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 //}
 ////////////////////////////////////////////////////////////////////
 
-void ApplicationManager::DeleteComponent()
+
+void ApplicationManager::RemoveConnection(Component** c1)
 {
-	OutputInterface->PrintMsg("Press on any item to delete it!");
-	int x, y;
-	InputInterface->GetPointClicked(x, y);
-	Component** c1 = getComponent(x, y);
-	OutputInterface->ClearStatusBar();
-	if (c1 != NULL)
+	Component* c2 = (*c1)->GetDestinationGate();
+	(c2)->removeConToOut((Connection*)*c1);
+	Component* c3 = (*c1)->GetSourceGate();
+	int destPin = (*c1)->GetDPin();
+	c3->setInputPinStatus(destPin + 1, LOW);
+	int ID = CompList[CompCount - 1]->GetID();
+	*c1 = CompList[CompCount - 1];
+	(*c1)->SetID(ID);
+	CompList[CompCount--] = NULL;
+}
+void ApplicationManager::RemoveComponent(Component** c1)
+{
+	int ID = CompList[CompCount - 1]->GetID();
+	Component* removedComp = dynamic_cast<Connection*>(*c1);
+	if (removedComp != NULL)
 	{
-		*c1 = CompList[CompCount - 1];
-		CompList[CompCount--] = NULL;
+		RemoveConnection(c1);
+		
 	}
 	else
 	{
-		OutputInterface->PrintMsg("No pressed item! To try again press on Delete.");
+		int i = 0;
+		while(i < CompCount)
+		{
+			Component* ConnectionGate = dynamic_cast<Connection*>(CompList[i]);
+			if (ConnectionGate)
+			{
+				if ((*c1) == CompList[i]->GetDestinationGate() || (*c1) == CompList[i]->GetSourceGate())
+				{
+					RemoveConnection(&CompList[i]);
+					i = -1;
+				}
+			}
+			i++;
+		}
+		*c1 = CompList[CompCount - 1];
+		(*c1)->SetID(ID);
+		CompList[CompCount--] = NULL;
 	}
 	
-
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -100,7 +126,7 @@ Component** ApplicationManager::getComponent(int x, int y)
 	for (int i = 0; i < CompCount; i++)
 	{
 		bool z= CompList[i]->drawArea(x, y);
-	
+		 
 		if (z )
 			return &CompList[i]; 
 	}
@@ -187,7 +213,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DEL:
-			DeleteComponent();
+			pAct = new Delete(this);
 			break;
 		
 		case SAVE:
@@ -453,9 +479,11 @@ Component* ApplicationManager::GetCopiedComponent()
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompCount; i++)
-	delete CompList[i];
+	for (int i = 0; i < CompCount; i++)
+	{
+		delete CompList[i];
+	}
+	
 	delete OutputInterface;
 	delete InputInterface;
-	
 }

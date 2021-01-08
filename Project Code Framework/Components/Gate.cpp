@@ -47,6 +47,11 @@ int Gate::ConnectToOut(Connection* c)
 		return 1;
 	return 0;
 }
+
+void Gate::removeConToOut(Connection* c)
+{
+	m_OutputPin.removeConnection(c);
+}
 int Gate::getInPinLocationX(int n)
 {
 	return m_InputPins[n].getXPinLocation();

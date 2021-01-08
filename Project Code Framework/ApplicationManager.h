@@ -35,9 +35,14 @@ public:
 	
 	void UpdateInterface();	//Redraws all the drawing window
 
+
+	void RemoveConnection(Component** c1);
 	void EditLabel();
+
 	//string getString();
 	//int getGateNumber(Component* comp);
+
+
 
 	Component** getComponent(int x, int y);
 
@@ -47,7 +52,7 @@ public:
 
 	Component* GetIDGate(int ID);
 
-	void DeleteComponent();
+	void RemoveComponent(Component** c1);
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp,bool IsLoad = false);
 	void Save();

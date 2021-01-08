@@ -215,6 +215,9 @@
     <ClCompile Include="Actions\AddConnection.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\Delete.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
     <ClCompile Include="Actions\Copy.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -396,6 +399,9 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddConnection.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Delete.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Copy.h">
