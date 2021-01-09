@@ -43,7 +43,6 @@ public:
 	//int getGateNumber(Component* comp);
 
 
-
 	Component** getComponent(int x, int y);
 
 	//Gets a pointer to Input / Output Object

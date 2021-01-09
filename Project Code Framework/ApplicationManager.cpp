@@ -270,6 +270,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SELECT:
 			SelectComponent();
 			break;
+		case UNDO:
+			
+			break;				
+		case REDO:
+			
+			break;
 
 		case EXIT:
 			///TODO: create ExitAction here
@@ -322,6 +328,7 @@ Output* ApplicationManager::GetOutput()
 {
 	return OutputInterface;
 }
+
 
 ///////////////////////////////////////////////////////////////////
 
