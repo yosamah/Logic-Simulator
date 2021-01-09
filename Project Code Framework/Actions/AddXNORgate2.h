@@ -7,11 +7,13 @@
 class AddXNORgate2 : public Action
 {
 private:
-	//Parameters fXNOR rectangular area to be occupied by the gate
+	//Parameters for rectangular area to be occupied by the gate
 	int Cx, Cy;	//Center point of the gate
-	int x1, y1, x2, y2;	//Two cXNORners of the rectangluar area
+	int x1, y1, x2, y2;	//Two corners of the rectangluar area
+
 public:
 	AddXNORgate2(ApplicationManager* pApp);
+
 	virtual ~AddXNORgate2(void);
 
 	//Reads parameters required fXNOR action to execute

@@ -9,6 +9,7 @@ AddANDgate3::~AddANDgate3(void)
 {
 }
 
+
 void AddANDgate3::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
@@ -28,10 +29,11 @@ void AddANDgate3::ReadActionParameters()
 
 void AddANDgate3::Execute()
 {
+
 	//Get Center point of the Gate
 	ReadActionParameters();
 
-	//Calculate the rectangle CANDners
+	//Calculate the rectangle Corners
 	int Len = UI.AND2_Width;
 	int Wdth = UI.AND2_Height;
 
@@ -42,7 +44,10 @@ void AddANDgate3::Execute()
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	AND3* pA = new AND3(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
+
 }
 
 void AddANDgate3::Undo()

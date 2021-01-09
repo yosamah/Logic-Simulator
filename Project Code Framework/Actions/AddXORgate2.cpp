@@ -5,6 +5,7 @@ AddXORgate2::AddXORgate2(ApplicationManager* pApp) :Action(pApp)
 {
 }
 
+
 AddXORgate2::~AddXORgate2(void)
 {
 }
@@ -28,10 +29,11 @@ void AddXORgate2::ReadActionParameters()
 
 void AddXORgate2::Execute()
 {
+
 	//Get Center point of the Gate
 	ReadActionParameters();
 
-	//Calculate the rectangle CXORners
+	//Calculate the rectangle Corners
 	int Len = UI.AND2_Width;
 	int Wdth = UI.AND2_Height;
 
@@ -42,7 +44,10 @@ void AddXORgate2::Execute()
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	XOR2* pA = new XOR2(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
+
 }
 
 void AddXORgate2::Undo()

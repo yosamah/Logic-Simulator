@@ -3,7 +3,6 @@
 
 #include "Defs.h"
 #include "GUI\Output.h"
-#include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
 
@@ -20,6 +19,7 @@ private:
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
 
+	Component* CopyComp; //pointer to the copied component
 
 public:
 
@@ -35,15 +35,31 @@ public:
 	
 	void UpdateInterface();	//Redraws all the drawing window
 
+
+	void RemoveConnection(Component** c1);
+	
+
+	//string getString();
+	//int getGateNumber(Component* comp);
+
+
+
+	Component** getComponent(int x, int y);
+
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
 	Input* GetInput();
 
-	//Adds a new component to the list of components
-	void AddComponent(Component* pComp);
+	Component* GetIDGate(int ID);
 
-	//Deletes a component in the list of components
-	void DeleteComponent(Component*pComp);
+	void RemoveComponent(Component** c1);
+	//Adds a new component to the list of components
+	void AddComponent(Component* pComp,bool IsLoad = false);
+	void Save();
+	void Load();
+	
+	void SetCopiedComponent(Component *Comp);  //Setters and getters for the copied component
+	Component* GetCopiedComponent();
 
 	//Selects a component in the list of components
 	void SelectComponent();

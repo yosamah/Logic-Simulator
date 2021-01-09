@@ -20,3 +20,31 @@ bool OutputPin::ConnectTo(Connection *r_Conn)
 	
 	return false;	//can't connect to any more connections
 }
+
+
+void OutputPin::removeConnection(Connection* r_Conn)
+{
+	for (int i = 0; i < m_Conn; i++)
+	{
+		if (m_Connections[i] == r_Conn)
+		{
+			m_Connections[i] = m_Connections[m_Conn - 1];
+			m_Connections[m_Conn - 1] = NULL;
+			m_Conn--;
+		}
+	}
+}
+void OutputPin::setPinLocation(int a, int b)
+{
+	x = a;
+	y = b;
+}
+
+int  OutputPin::getXPinLocation()
+{
+	return x;
+}
+int  OutputPin::getYPinLocation()
+{
+	return y;
+}

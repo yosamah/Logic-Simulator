@@ -11,7 +11,10 @@ void Input::GetPointClicked(int& x, int& y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetSrting(Output* pOut)
+
+
+
+string Input::GetSrting(Output* pOut , string msg , string ms)
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
@@ -23,17 +26,15 @@ string Input::GetSrting(Output* pOut)
 
 	keytype k;
 	char c;
-	string m = "";
 
-
+	string m = ms;
 	do
 	{
-		pOut->PrintMsg(m);
+		pOut->PrintMsg(msg +" "+ m);
 		k = pWind->WaitKeyPress(c);
 
 		switch (k)
 		{
-
 		case BACK:
 			if (m.length() != 0)
 			{
@@ -47,7 +48,9 @@ string Input::GetSrting(Output* pOut)
 			break;
 
 		case RETURN:
-			pWind->DrawString(500, 500, m);
+
+			//pWind->DrawString(500, 500, m);
+
 			break;
 
 		default:
@@ -62,7 +65,6 @@ string Input::GetSrting(Output* pOut)
 	pWind->FlushMouseQueue();
 	return m;
 
-
 }
 
 //This function reads the position where the user clicks to determine the desired action
@@ -71,11 +73,10 @@ ActionType Input::GetUserAction() const
 	int x, y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 	
-	int temp = UI.ToolBarHeight + 135;
-	int ClickedItemOrderSim = ((y-temp) / (UI.SimItemHeight +11));
-	if (x <= UI.ToolItemWidth && y > temp && y < temp + 2*(UI.SimItemHeight+11))
+	int ClickedItemOrderSim = ((y-UI.SimItemCoordinate) / (UI.SimItemHeight +11));
+	if (x <= UI.ToolItemWidth && y > UI.SimItemCoordinate && y < UI.SimItemCoordinate + 2*(UI.SimItemHeight+11))
 	{
-		if (ClickedItemOrderSim == 1 && y<(temp+ 2 * (UI.SimItemHeight + 11)))
+		if (ClickedItemOrderSim == 1 && y<(UI.SimItemCoordinate+ 2 * (UI.SimItemHeight + 11)))
 			UI.AppMode = SIMULATION;
 		if (ClickedItemOrderSim == 0)
 		{
@@ -88,7 +89,7 @@ ActionType Input::GetUserAction() const
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
-		if (y >= 0 && y < UI.ToolBarHeight )
+		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
@@ -112,24 +113,28 @@ ActionType Input::GetUserAction() const
 			case ITM_SWITCH: return ADD_Switch;
 			case ITM_WIRE: return ADD_CONNECTION;
 			case ITM_LED: return ADD_LED;
-			//case ITM_DELETE: return DEL;
 
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
-		
-		if((y < temp && y >= UI.ToolBarHeight && x <= UI.ToolItemWidth))
+
+		if ((y < UI.SimItemCoordinate && y >= UI.ToolBarHeight && x <= UI.ToolItemWidth))
 			return SELECT;
-		if (((y > (ITM_SIM_CNT + MODE_CNT) * (41 - 11))) && (y < UI.height - UI.StatusBarHeight) && x <= UI.ToolItemWidth)
+		if (((y > (ITM_SIM_CNT + MODE_CNT) * (13))) && (y < UI.height - UI.StatusBarHeight) && x <= UI.ToolItemWidth)
 		{
 			switch (ClickedItemOrderSim)
 			{
+			case (ITM_LABEL + MODE_CNT): return ADD_Label;
+			case (ITM_EDIT + MODE_CNT): return EDIT_Label;
 			case (ITM_COPY + MODE_CNT): return COPY;
+			case (ITM_CUT + MODE_CNT): return CUT;
 			case (ITM_PASTE + MODE_CNT): return PASTE;
 			case (ITM_DELETE + MODE_CNT): return DEL;
 			case (ITM_UNDO + MODE_CNT): return UNDO;
 			case (ITM_REDO + MODE_CNT): return REDO;
 			case (ITM_MOVE + MODE_CNT): return MOVE;
+			case (ITM_SAVE + MODE_CNT): return SAVE;
+			case (ITM_LOAD + MODE_CNT): return LOAD;
 			case (ITM_EXIT + MODE_CNT): return EXIT;
 			}
 		}
@@ -144,8 +149,8 @@ ActionType Input::GetUserAction() const
 	}
 	else	//Application is in Simulation mode
 	{
-		
-		if (x <= UI.ToolItemWidth )
+
+		if (x <= UI.ToolItemWidth)
 		{
 			switch (ClickedItemOrderSim)
 			{
@@ -153,10 +158,10 @@ ActionType Input::GetUserAction() const
 			case (ITM_EXIT + MODE_CNT): return EXIT;
 			}
 		}
-		
+
 		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 	}
-	
+
 }
 
 

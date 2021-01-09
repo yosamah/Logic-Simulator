@@ -25,6 +25,7 @@ void NOR2::Draw(Output* pOut, bool selected)
 	pOut->DrawNOR2(m_GfxInfo, selected);
 }
 
+
 //returns status of outputpin
 int NOR2::GetOutPinStatus()
 {
@@ -42,4 +43,26 @@ int NOR2::GetInputPinStatus(int n)
 void NOR2::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n - 1].setStatus(s);
+}
+
+void NOR2::Save(ofstream& file)
+{
+	file << "NOR2 "<< GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+}
+
+void NOR2::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
+{
+	int ID;
+	file >> ID;
+	SetID(ID);
+
+	int Cx, Cy;
+	file >> Cx >> Cy;
+	int Len = UI.AND2_Width;
+	int Wdth = UI.AND2_Height;
+
+	m_GfxInfo.x1 = Cx - Len / 2;
+	m_GfxInfo.x2 = Cx + Len / 2;
+	m_GfxInfo.y1 = Cy - Wdth / 2;
+	m_GfxInfo.y2 = Cy + Wdth / 2;
 }

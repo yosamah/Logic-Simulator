@@ -7,11 +7,13 @@
 class AddBUFFER : public Action
 {
 private:
-	//Parameters fBUFFER rectangular area to be occupied by the gate
+	//Parameters for rectangular area to be occupied by the gate
 	int Cx, Cy;	//Center point of the gate
-	int x1, y1, x2, y2;	//Two cBUFFERners of the rectangluar area
+	int x1, y1, x2, y2;	//Two corners of the rectangluar area
+
 public:
 	AddBUFFER(ApplicationManager* pApp);
+
 	virtual ~AddBUFFER(void);
 
 	//Reads parameters required fBUFFER action to execute

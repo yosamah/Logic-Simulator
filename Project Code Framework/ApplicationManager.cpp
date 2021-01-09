@@ -13,12 +13,20 @@
 #include "Actions\AddINVERTER.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSWITCH.h"
+#include "Actions\Delete.h"
+#include "Actions\Copy.h"
+#include "Actions\Label.h"
+#include "Actions\Edit.h"
+#include "Actions\Paste.h"
+#include "Actions\Cut.h"
+#include <fstream>
+
 
 
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
-
+	CopyComp = NULL;
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -27,202 +35,133 @@ ApplicationManager::ApplicationManager()
 	InputInterface = OutputInterface->CreateInput();
 }
 ////////////////////////////////////////////////////////////////////
-void ApplicationManager::AddComponent(Component* pComp)
+void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 {
-	CompList[CompCount++] = pComp;
+	if (IsLoad)
+	{
+		CompList[CompCount] = pComp;
+
+		int count = 1;
+		Component* c = dynamic_cast<Connection*>(CompList[CompCount]);
+
+		if (c != NULL)
+		{
+			for (int i = 0; i < CompCount; i++)
+			{
+				if (CompList[i]->GetID() == count)
+				{
+					count = i + 2;
+				}
+
+			}
+			CompList[CompCount]->SetID(count);
+		}
+
+		CompCount++;
+	}
+	else
+	{
+		CompList[CompCount] = pComp;
+		CompList[CompCount++]->SetID(CompCount);
+	}
 }
+
 ////////////////////////////////////////////////////////////////////
+//int ApplicationManager::getGateNumber(Component* comp)
+//{
+//	for (int i = 0; i < CompCount; i++)
+//	{
+//		if (comp == CompList[i])
+//			return i;
+//	}
+//	return -1;
+//}
+////////////////////////////////////////////////////////////////////
+
 
 void ApplicationManager::SelectComponent() {
 	
 	//Farah: 
-	Component** pComp; //to-do: handle NULL pointer, print msg
-	if ((*pComp)->getSelected() == 0) {
-		(*pComp)->Draw(OutputInterface, 1);
-		(*pComp)->setSelected(1);
+	int x, y;
+	InputInterface->GetPointClicked(x, y);
+	Component** pComp=getComponent(x,y); 
+	if (pComp != NULL) {
+		if ((*pComp)->getSelected() == 0) {
+			(*pComp)->setSelected(1);
+		}
+		else {
+			(*pComp)->setSelected(0);
+		}
+		UpdateInterface();
 	}
-	else {
-		(*pComp)->Draw(OutputInterface, 0);
-		(*pComp)->setSelected(0);
-	}
-	/* Gate* gatePT = dynamic_cast<Gate*>(pComp); 
-	if (gatePT) {
-		AND2* compPT = dynamic_cast<AND2*>(gatePT); 
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1); //Farah: try to use pComp instead
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		AND3* compPT = dynamic_cast<AND3*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		BUFFER* compPT = dynamic_cast<BUFFER*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		INVERTER* compPT = dynamic_cast<INVERTER*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		NAND2* compPT = dynamic_cast<NAND2*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		NOR2* compPT = dynamic_cast<NOR2*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		NOR3* compPT = dynamic_cast<NOR3*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		OR2* compPT = dynamic_cast<OR2*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		XNOR2* compPT = dynamic_cast<XNOR2*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		XOR2* compPT = dynamic_cast<XOR2*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		XOR3* compPT = dynamic_cast<XOR3*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		LED* compPT = dynamic_cast<LED*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
-		}
-		SWITCH* compPT = dynamic_cast<SWITCH*>(gatePT);
-		if (compPT) {
-			if (pComp->selected == 0) {
-				compPT->Draw(OutputInterface, 1);
-				pComp->selected = 1;
-			}
-			else {
-				compPT->Draw(OutputInterface, 0);
-				pComp->selected = 0;
-			}
-			return;
+}
+
+
+
+void ApplicationManager::RemoveConnection(Component** c1)
+{
+	Component* c2 = (*c1)->GetDestinationGate();
+	(c2)->removeConToOut((Connection*)*c1);
+	Component* c3 = (*c1)->GetSourceGate();
+	int destPin = (*c1)->GetDPin();
+	c3->setInputPinStatus(destPin + 1, LOW);
+	int ID = CompList[CompCount - 1]->GetID();
+	*c1 = CompList[CompCount - 1];
+	(*c1)->SetID(ID);
+	CompList[--CompCount] = NULL;
+}
+void ApplicationManager::RemoveComponent(Component** c1)
+{
+	bool checkExist = 0;
+	for (int i = 0;i < CompCount;i++) {
+		if (*c1 == CompList[i]) {
+			checkExist = 1;
+			c1 = &CompList[i];
+			break;
 		}
 	}
-	else {
-	if (pComp->selected == 0) {
-		pComp->Draw(OutputInterface, 1);
-		pComp->selected = 1;
+	if (checkExist == 1) {
+		int ID = CompList[CompCount - 1]->GetID();
+		Component* removedComp = dynamic_cast<Connection*>(*c1);
+		if (removedComp != NULL)
+		{
+			RemoveConnection(c1);
+		}
+		else
+		{
+			int i = 0;
+			while (i < CompCount)
+			{
+				Component* ConnectionGate = dynamic_cast<Connection*>(CompList[i]);
+				if (ConnectionGate)
+				{
+					if ((*c1) == CompList[i]->GetDestinationGate() || (*c1) == CompList[i]->GetSourceGate())
+					{
+						RemoveConnection(&CompList[i]);
+						i = -1;
+					}
+				}
+				i++;
+			}
+			*c1 = CompList[CompCount - 1];
+			(*c1)->SetID(ID);
+			CompList[--CompCount] = NULL;
+		}
 	}
-	else {
-		pComp->Draw(OutputInterface, 0);
-		pComp->selected = 0;
-	}
-	} */
 }
 
 ////////////////////////////////////////////////////////////////////
-void ApplicationManager::DeleteComponent(Component* pComp)
+Component** ApplicationManager::getComponent(int x, int y)
+
 {
 	for (int i = 0; i < CompCount; i++)
 	{
-		CompList[i] = CompList[CompCount];
+		bool z= CompList[i]->drawArea(x, y);
+		 
+		if (z )
+			return &CompList[i]; 
 	}
+	return NULL;
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -232,19 +171,7 @@ ActionType ApplicationManager::GetUserAction()
 	return InputInterface->GetUserAction();
 }
 ////////////////////////////////////////////////////////////////////
-// ADD_AND_GATE_2,		//Add 2-input AND gate
-//ADD_OR_GATE_2,		//Add 2-input OR gate
-//ADD_NAND_GATE_2,	    //Add 2-input NAND gate
-//ADD_NOR_GATE_2,		//Add 2-input NOR gate
-//ADD_XOR_GATE_2,		//Add 2-input XOR gate
-//ADD_XNOR_GATE_2,	//Add 2-input XNOR gate
-//ADD_AND_GATE_3,		//Add 3-input AND gate
-//ADD_NOR_GATE_3,		//Add 3-input NOR gate
-//ADD_XOR_GATE_3,		//Add 3-input XOR gate
-//ADD_Buff,			//Add 1-input Buffer gate
-//ADD_INV,			//Add 1-input Inverter gate
-//ADD_Switch,			//Add Switch
-//ADD_LED,	        //Add LED
+
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
@@ -253,6 +180,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		case ADD_AND_GATE_2:
 			pAct= new AddANDgate2(this);
+	
 			break;
 
 		case ADD_OR_GATE_2:
@@ -304,7 +232,39 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_CONNECTION:
-			//pAct = new AddConnection(this);
+			pAct = new AddConnection(this);
+			break;
+
+		case ADD_Label:
+			pAct = new Label(this);
+			break;
+
+		case EDIT_Label:
+			pAct = new Edit(this);
+			break;
+
+		case DEL:
+			pAct = new Delete(this);
+			break;
+		
+		case SAVE:
+			Save();
+			break;
+
+		case LOAD:
+			Load();
+			break;
+
+		case COPY:
+			pAct = new Copy(this);
+			break;
+
+		case PASTE:
+			pAct = new Paste(this);
+			break;
+
+		case CUT:
+			pAct = new Cut(this);
 			break;
 	
 		case SELECT:
@@ -317,6 +277,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 	if(pAct)
 	{
+
 		pAct->Execute();
 		delete pAct;
 		pAct = NULL;
@@ -326,11 +287,30 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-		for(int i=0; i<CompCount; i++)
-			CompList[i]->Draw(OutputInterface);
+	OutputInterface->ClearDrawingArea();
+	for (int i = 0; i < CompCount; i++)
+	{
+		CompList[i]->Draw(OutputInterface, CompList[i]->getSelected());
+		CompList[i]->Draw_Label(OutputInterface);
+	}
 
 }
 
+
+//string ApplicationManager::getString()
+//{
+//	return InputInterface->GetSrting(OutputInterface,"","");
+//}
+
+////////////////////////////////////////////////////////////////////
+Component* ApplicationManager::GetIDGate(int ID)
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (ID == CompList[i]->GetID())
+			return CompList[i];
+	}
+}
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
 {
@@ -343,13 +323,200 @@ Output* ApplicationManager::GetOutput()
 	return OutputInterface;
 }
 
+///////////////////////////////////////////////////////////////////
+
+void ApplicationManager::Save()
+{
+	ofstream file;
+
+	file.open("Info.txt");
+	file.clear();
+
+	for (int i = 0; i < CompCount; i++)
+	{
+		Component* c = dynamic_cast<Connection*>(CompList[i]);
+		if (c == NULL)
+			CompList[i]->Save(file);
+	}
+
+	file << "CONNECTIONS" << endl;
+
+	for (int i = 0; i < CompCount; i++)
+	{
+		Component* c = dynamic_cast<Connection*>(CompList[i]);
+		if (c != NULL)
+			CompList[i]->Save(file);
+	}
+
+	file << "-1 ";
+	file.close();
+
+	//Print Action Message
+	OutputInterface->PrintMsg("File saved!");
+}
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::Load()
+{
+	ifstream file;   //clear drawing area
+	file.open("Info.txt");
+	CompCount = 0;
+
+	Action* pAct = NULL;
+
+	string CompName;
+	GraphicsInfo GfxInfo;
+	GfxInfo.x1 = -1;
+	GfxInfo.y1 = -1;
+	GfxInfo.x2 = -1;
+	GfxInfo.y2 = -1;
+
+	string Check = InputInterface->GetSrting(OutputInterface, "All unsaved data will be removed. Do you want to continue (y/n):");
+
+	if (Check == "y")
+	{
+		if (file.is_open())
+		{
+			while (file >> CompName && CompName != "-1")
+			{
+				if (CompName == "CONNECTIONS")
+				{
+					while (!file.eof())
+					{
+						int IDgate1, IDgate2, PinNo;
+						Connection* pA = new Connection();
+						pA->Load(file, &IDgate1, &IDgate2, &PinNo);
+						if (IDgate1 == -1)
+							break;
+						Component* DstCmpnt = GetIDGate(IDgate1);
+						Component* SrcCmpnt = GetIDGate(IDgate2);
+						delete pA;
+						pAct = new AddConnection(this, true, SrcCmpnt, DstCmpnt, PinNo);
+						pAct->Execute();
+					}
+					break;
+				}
+
+				else if (CompName == "AND2")
+				{
+					AND2* pA = new AND2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA,true);
+				}
+				else if (CompName == "AND3")
+				{
+					AND3* pA = new AND3(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "BUFFER")
+				{
+					BUFFER* pA = new BUFFER(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "INVERTER")
+				{
+					INVERTER* pA = new INVERTER(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA,true);
+				}
+				else if (CompName == "LED")
+				{
+					LED* pA = new LED(GfxInfo);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "NAND2")
+				{
+					NAND2* pA = new NAND2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "NOR2")
+				{
+					NOR2* pA = new NOR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "NOR3")
+				{
+					NOR3* pA = new NOR3(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "OR2")
+				{
+					OR2* pA = new OR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "SWITCH")
+				{
+					SWITCH* pA = new SWITCH(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "XNOR2")
+				{
+					XNOR2* pA = new XNOR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "XOR2")
+				{
+					XOR2* pA = new XOR2(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+				else if (CompName == "XOR3")
+				{
+					XOR3* pA = new XOR3(GfxInfo, AND2_FANOUT);
+					pA->Load(file);
+					AddComponent(pA, true);
+				}
+			}
+			
+			OutputInterface->PrintMsg("File loaded!");
+		}
+		else
+		{
+			OutputInterface->PrintMsg("File not found!");
+		}
+	}
+	else
+		OutputInterface->PrintMsg("File not loaded!");
+}
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::SetCopiedComponent(Component* Comp)
+{CopyComp = Comp;}
+
+Component* ApplicationManager::GetCopiedComponent()
+{return CopyComp;}
+
+Component** ApplicationManager::GetSelectedComponent(int& count) {
+	Component** SelectedArr;
+	for (int i = 0;i < CompCount;i++) {
+		if (CompList[i]->getSelected()) count++;
+	}
+	SelectedArr = new Component*[count];
+	int k(0);
+	for (int i = 0;i < CompCount;i++) {
+		if (CompList[i]->getSelected() && k<count) SelectedArr[k] = CompList[i], k++;
+	}
+	return SelectedArr;
+}
+
 ////////////////////////////////////////////////////////////////////
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompCount; i++)
-	delete CompList[i];
+	for (int i = 0; i < CompCount; i++)
+	{
+		delete CompList[i];
+	}
+	
 	delete OutputInterface;
 	delete InputInterface;
-	
 }

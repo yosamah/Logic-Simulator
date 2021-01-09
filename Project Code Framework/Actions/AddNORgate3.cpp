@@ -35,14 +35,17 @@ void AddNORgate3::Execute()
 	int Len = UI.AND2_Width;
 	int Wdth = UI.AND2_Height;
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the NOR2 gate
+	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
 
 	GInfo.x1 = Cx - Len / 2;
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	NOR3* pA = new NOR3(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
+
 }
 
 void AddNORgate3::Undo()

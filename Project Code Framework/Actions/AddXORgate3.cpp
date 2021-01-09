@@ -28,6 +28,7 @@ void AddXORgate3::ReadActionParameters()
 
 void AddXORgate3::Execute()
 {
+
 	//Get Center point of the Gate
 	ReadActionParameters();
 
@@ -35,14 +36,17 @@ void AddXORgate3::Execute()
 	int Len = UI.AND2_Width;
 	int Wdth = UI.AND2_Height;
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the XOR2 gate
+	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
 
 	GInfo.x1 = Cx - Len / 2;
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	XOR3* pA = new XOR3(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
+
 }
 
 void AddXORgate3::Undo()

@@ -25,6 +25,7 @@ void NAND2::Draw(Output* pOut, bool selected)
 	pOut->DrawNAND2(m_GfxInfo, selected);
 }
 
+
 //returns status of outputpin
 int NAND2::GetOutPinStatus()
 {
@@ -42,4 +43,26 @@ int NAND2::GetInputPinStatus(int n)
 void NAND2::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n - 1].setStatus(s);
+}
+
+void NAND2::Save(ofstream& file)
+{
+	file << "NAND2 "<< GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+}
+
+void NAND2::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
+{
+	int ID;
+	file >> ID;
+	SetID(ID);
+
+	int Cx, Cy;
+	file >> Cx >> Cy;
+	int Len = UI.AND2_Width;
+	int Wdth = UI.AND2_Height;
+
+	m_GfxInfo.x1 = Cx - Len / 2;
+	m_GfxInfo.x2 = Cx + Len / 2;
+	m_GfxInfo.y1 = Cy - Wdth / 2;
+	m_GfxInfo.y2 = Cy + Wdth / 2;
 }

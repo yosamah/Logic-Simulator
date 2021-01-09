@@ -38,7 +38,9 @@ public:
 	///TODO: Make similar functions for drawing all other gates, switch, and LED, .. etc
 
 	// Draws Connection
-	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false, bool line = false) const;
+
+	void DrawConnection(GraphicsInfo* points, int count) const;
+	void PrintString(GraphicsInfo r_GfxInfo, string m);
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 

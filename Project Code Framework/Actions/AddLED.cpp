@@ -35,14 +35,17 @@ void AddLED::Execute()
 	int Len = UI.AND2_Width;
 	int Wdth = UI.AND2_Height;
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the LED2 gate
+	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
 
 	GInfo.x1 = Cx - Len / 2;
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	LED* pA = new LED(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+	LED* pA = new LED(GInfo);
+
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
+
 }
 
 void AddLED::Undo()

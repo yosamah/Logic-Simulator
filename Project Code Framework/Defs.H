@@ -32,6 +32,7 @@ enum ActionType
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
 	COPY,
+	CUT,
 	PASTE,
 	TRUTH,
 
@@ -96,16 +97,21 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//ITM_SIM,	//Simulate menu item
-	ITM_SELECT,
-	ITM_TRUTH,
+
+	
+	ITM_TRUTH,	//Truth table menu item
+	ITM_LABEL,
+	ITM_EDIT,
 	ITM_COPY,
+	ITM_CUT,
 	ITM_PASTE,
-	ITM_DELETE,//Truth table menu item
+	ITM_DELETE,
 	ITM_UNDO,
 	ITM_REDO,
 	ITM_MOVE,
+	ITM_SAVE,
+	ITM_LOAD,
 	ITM_EXIT,	//Exit item
-	//ITM_CUT,
 	//TODO:Add more items names here
 
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum

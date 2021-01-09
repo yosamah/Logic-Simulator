@@ -4,7 +4,6 @@
 AddNORgate2::AddNORgate2(ApplicationManager* pApp) :Action(pApp)
 {
 }
-
 AddNORgate2::~AddNORgate2(void)
 {
 }
@@ -31,7 +30,7 @@ void AddNORgate2::Execute()
 	//Get Center point of the Gate
 	ReadActionParameters();
 
-	//Calculate the rectangle CNORners
+	//Calculate the rectangle Corners
 	int Len = UI.AND2_Width;
 	int Wdth = UI.AND2_Height;
 
@@ -42,7 +41,9 @@ void AddNORgate2::Execute()
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	NOR2* pA = new NOR2(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+
+	if (pA->InDrawingArea(Cx, Cy))
+		pManager->AddComponent(pA);
 }
 
 void AddNORgate2::Undo()

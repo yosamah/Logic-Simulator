@@ -10,7 +10,7 @@ Output::Output()
 	UI.DrawColor = BLACK;
 	UI.SelectColor = BLUE;
 	UI.ConnColor = RED;
-	UI.MsgColor = BLUE;
+	UI.MsgColor = DARKBLUE;
 	UI.BkGrndColor = WHITE;
 
 	//Create the drawing window
@@ -164,19 +164,24 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[SIMULATION] = "images\\Menu\\Menu_SIM.jpg";
 	MenuItemImages[ITM_SELECT + MODE_CNT] = "images\\Menu\\Menu_SELECT.jpg";
 	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_TRUTH.jpg";
+	MenuItemImages[ITM_LABEL + MODE_CNT] = "images\\Menu\\Menu_LABEL.jpg";
+	MenuItemImages[ITM_EDIT + MODE_CNT] = "images\\Menu\\Menu_EDIT.jpg";
 	MenuItemImages[ITM_COPY + MODE_CNT] = "images\\Menu\\Menu_COPY.jpg";
 	MenuItemImages[ITM_PASTE + MODE_CNT] = "images\\Menu\\Menu_PASTE.jpg";
+	MenuItemImages[ITM_CUT + MODE_CNT] = "images\\Menu\\Menu_CUT.jpg";
 	MenuItemImages[ITM_DELETE + MODE_CNT] = "images\\Menu\\Menu_DELETE.jpg";
 	MenuItemImages[ITM_UNDO + MODE_CNT] = "images\\Menu\\Menu_UNDO.jpg";
 	MenuItemImages[ITM_REDO + MODE_CNT] = "images\\Menu\\Menu_REDO.jpg";
 	MenuItemImages[ITM_MOVE + MODE_CNT] = "images\\Menu\\Menu_MOVE.jpg";
+	MenuItemImages[ITM_SAVE + MODE_CNT] = "images\\Menu\\Menu_SAVE.jpg";
+	MenuItemImages[ITM_LOAD + MODE_CNT] = "images\\Menu\\Menu_LOAD.jpg";
 	MenuItemImages[ITM_EXIT + MODE_CNT] = "images\\Menu\\Menu_EXIT.jpg";
 
 	//MenuItemImages[ITM_CUT] = "images	\\Menu\\Menu_CUT.jpg";
 
 	pWind->SetPen(WHITE);
 	int tempx = 10;
-	int tempy = UI.ToolBarHeight + 135;
+	int tempy = UI.SimItemCoordinate;
 
 	//pWind->DrawImage(MenuItemImages[3], tempx, tempy + 20);
 
@@ -367,38 +372,22 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 //TODO: Add similar functions to draw all components
 
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool line) const
+void Output::DrawConnection(GraphicsInfo* points, int count) const
 {
 	//TODO: Add code to draw connection
 
-	if (line)
-	{
 		pWind->SetPen(BLACK, 3);
-		pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2 - 20, r_GfxInfo.y1);
-		if (r_GfxInfo.y1 != r_GfxInfo.y2)
+		for (int i = 0; i < count; i++)
 		{
-			pWind->DrawLine(r_GfxInfo.x2 - 20, r_GfxInfo.y1, r_GfxInfo.x2 - 20, r_GfxInfo.y2);
-			pWind->DrawLine(r_GfxInfo.x2 - 20, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
+			pWind->DrawLine(points[i].x1, points[i].y1, points[i].x2, points[i].y2);
+		}
 
-		}
-	}
-	else
-	{
-		string GateImage;
-		if (selected)	//use image in the highlighted case
-		{
-			GateImage = "Images\\Menu\\Menu_Wire_Hi.jpg";
-			pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
-		}
-		else
-		{
-			GateImage = "Images\\Menu\\Menu_Wire.jpg";
-			pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
-		}
-	}
-	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
 }
-
+void Output::PrintString(GraphicsInfo r_GfxInfo, string m)
+{
+	pWind->SetPen(BLACK, 3);
+	pWind->DrawString((((r_GfxInfo.x1)+(r_GfxInfo.x2))/2)-22, (((r_GfxInfo.y1) + (r_GfxInfo.y2)) / 2)-45, m);
+}
 
 Output::~Output()
 {
