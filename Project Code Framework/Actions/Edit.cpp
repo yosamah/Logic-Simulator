@@ -62,12 +62,12 @@ void Edit::Execute()
 					int checkChange = (*comp)->changeSrc(*newComp);
 					if (checkChange == 0)
 						pOut->PrintMsg("The source gate has max number of pins! ");
-					else if (checkChange == -1)
+					else if(checkChange == -1)
 						pOut->PrintMsg("You didn't press on a gate! ");
 					else
 						(comp1)->removeConToOut((Connection*)*comp);
 				}
-				else if (checkDestGate)
+				if (checkDestGate)
 				{
 					pOut->PrintMsg("Click on the new destenation pin.");
 					pIn->GetPointClicked(x1, y1);
@@ -84,14 +84,12 @@ void Edit::Execute()
 						else
 						{
 							int oldPin = (*comp)->GetDPin();
-							(comp2)->setInputPinStatus(oldPin + 1, LOW);
+							(comp2)->setInputPinStatus(oldPin+1, LOW);
 						}
-
+							
 
 					}
 				}
-				else
-					pOut->PrintMsg("This is neither source gate nor destination gate!");
 			}
 		}
 	}
