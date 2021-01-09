@@ -60,7 +60,7 @@ public:
 	
 	void SetCopiedComponent(Component *Comp);  //Setters and getters for the copied component
 	Component* GetCopiedComponent();
-
+	Component** GetSelectedComponent(int& count);
 	//Selects a component in the list of components
 	void SelectComponent();
 

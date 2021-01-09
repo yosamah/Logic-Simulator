@@ -162,7 +162,7 @@ void Output::CreateSimulationToolBar() const
 	string MenuItemImages[ITM_SIM_CNT+ MODE_CNT];
 	MenuItemImages[DESIGN] = "images\\Menu\\Menu_DES.jpg";
 	MenuItemImages[SIMULATION] = "images\\Menu\\Menu_SIM.jpg";
-	MenuItemImages[ITM_SELECT + MODE_CNT] = "images\\Menu\\Menu_SELECT.jpg";
+	//MenuItemImages[ITM_SELECT + MODE_CNT] = "images\\Menu\\Menu_SELECT.jpg";
 	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_TRUTH.jpg";
 	MenuItemImages[ITM_LABEL + MODE_CNT] = "images\\Menu\\Menu_LABEL.jpg";
 	MenuItemImages[ITM_EDIT + MODE_CNT] = "images\\Menu\\Menu_EDIT.jpg";
@@ -372,11 +372,12 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 //TODO: Add similar functions to draw all components
 
 
-void Output::DrawConnection(GraphicsInfo* points, int count) const
+void Output::DrawConnection(GraphicsInfo* points, int count,bool selected) const
 {
 	//TODO: Add code to draw connection
 
-		pWind->SetPen(BLACK, 3);
+	    if (selected) pWind->SetPen(RED, 3);
+	    else pWind->SetPen(BLACK, 3);
 		for (int i = 0; i < count; i++)
 		{
 			pWind->DrawLine(points[i].x1, points[i].y1, points[i].x2, points[i].y2);

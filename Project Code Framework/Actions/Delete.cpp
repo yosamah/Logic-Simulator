@@ -27,15 +27,24 @@ void Delete::ReadActionParameters()
 void Delete::Execute()
 {
 	Output* pOut = pManager->GetOutput();
-	ReadActionParameters();
-	Component** c1 = pManager->getComponent(x1, y1);
-	if (c1 != NULL)
-	{
-		pManager->RemoveComponent(c1);
+	int count = 0;
+	Component** SelectedArr = pManager->GetSelectedComponent(count);
+	if (count) {
+		for (int i = 0;i < count;i++) {
+			pManager->RemoveComponent(&SelectedArr[i]);
+		}
 	}
-	else
-	{
-		pOut->PrintMsg("No pressed item! To try again press on Delete.");
+	else {
+		ReadActionParameters();
+		Component** c1 = pManager->getComponent(x1, y1);
+		if (c1 != NULL)
+		{
+			pManager->RemoveComponent(c1);
+		}
+		else
+		{
+			pOut->PrintMsg("No pressed item! To try again press on Delete.");
+		}
 	}
 	
 	

@@ -119,7 +119,7 @@ ActionType Input::GetUserAction() const
 		}
 
 		if ((y < UI.SimItemCoordinate && y >= UI.ToolBarHeight && x <= UI.ToolItemWidth))
-			return SELECT;
+			return SELECT; 
 		if (((y > (ITM_SIM_CNT + MODE_CNT) * (13))) && (y < UI.height - UI.StatusBarHeight) && x <= UI.ToolItemWidth)
 		{
 			switch (ClickedItemOrderSim)
@@ -129,6 +129,7 @@ ActionType Input::GetUserAction() const
 			case (ITM_COPY + MODE_CNT): return COPY;
 			case (ITM_CUT + MODE_CNT): return CUT;
 			case (ITM_PASTE + MODE_CNT): return PASTE;
+			//case (ITM_SELECT + MODE_CNT): return SELECT;
 			case (ITM_DELETE + MODE_CNT): return DEL;
 			case (ITM_UNDO + MODE_CNT): return UNDO;
 			case (ITM_REDO + MODE_CNT): return REDO;

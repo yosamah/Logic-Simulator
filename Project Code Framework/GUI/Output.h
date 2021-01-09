@@ -39,7 +39,7 @@ public:
 
 	// Draws Connection
 
-	void DrawConnection(GraphicsInfo* points, int count) const;
+	void DrawConnection(GraphicsInfo* points, int count,bool selected=0) const;
 	void PrintString(GraphicsInfo r_GfxInfo, string m);
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
