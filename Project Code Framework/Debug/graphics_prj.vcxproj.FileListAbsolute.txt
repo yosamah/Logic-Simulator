@@ -1,0 +1,2 @@
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\Debug\graphics_prj.exe
+E:\Sophomore\Programming Teqhnicues\PT Project F2020 - Logic Sim - student\Logic-Simulator\Logic-Simulator\Project Code Framework\Debug\graphics_prj.pdb
