@@ -48,7 +48,7 @@ void AND3::setInputPinStatus(int n, STATUS s)
 
 void AND3::Save(ofstream& file)
 {
-	file << "AND3 " << GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "AND3 " << "\t\t" << GetID() << "\t" << GetLabel() << "\t" << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << "\t" << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
 
 void AND3::Load(ifstream& file, int* IDgate1 , int* IDgate2, int* PinNo)
@@ -56,6 +56,17 @@ void AND3::Load(ifstream& file, int* IDgate1 , int* IDgate2, int* PinNo)
 	int ID;
 	file >> ID;
 	SetID(ID);
+
+	string Label;
+	file >> Label;
+
+	if (Label == "$")
+	{
+		Label = " ";
+		SetLabel(Label);
+	}
+	else
+		SetLabel(Label);
 
 	int Cx, Cy;
 	file >> Cx >> Cy;

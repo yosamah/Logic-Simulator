@@ -67,7 +67,7 @@ void LED::setInputPinStatus(int n, STATUS s)
 
 void LED::Save(ofstream& file)
 {
-	file << "LED " << GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "LED " << "\t\t" << GetID() << "\t" << GetLabel() << "\t" << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << "\t" << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
 
 void LED::Load(ifstream& file, int* IDgate1 , int* IDgate2, int* PinNo)
@@ -75,6 +75,17 @@ void LED::Load(ifstream& file, int* IDgate1 , int* IDgate2, int* PinNo)
 	int ID;
 	file >> ID;
 	SetID(ID);
+
+	string Label;
+	file >> Label;
+
+	if (Label == "$")
+	{
+		Label = " ";
+		SetLabel(Label);
+	}
+	else
+		SetLabel(Label);
 
 	int Cx, Cy;
 	file >> Cx >> Cy;

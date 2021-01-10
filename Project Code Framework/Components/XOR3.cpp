@@ -47,7 +47,7 @@ void XOR3::setInputPinStatus(int n, STATUS s)
 
 void XOR3::Save(ofstream& file)
 {
-	file << "XOR3 "<< GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "XOR3 "<< "\t\t" << GetID() << "\t" << GetLabel() << "\t" << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << "\t" << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
 
 void XOR3::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
@@ -55,6 +55,17 @@ void XOR3::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
 	int ID;
 	file >> ID;
 	SetID(ID);
+
+	string Label;
+	file >> Label;
+
+	if (Label == "$")
+	{
+		Label = " ";
+		SetLabel(Label);
+	}
+	else
+		SetLabel(Label);
 
 	int Cx, Cy;
 	file >> Cx >> Cy;

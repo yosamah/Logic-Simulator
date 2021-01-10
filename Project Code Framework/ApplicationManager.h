@@ -55,8 +55,8 @@ public:
 	void RemoveComponent(Component** c1);
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp,bool IsLoad = false);
-	void Save();
-	void Load();
+	void Save(ofstream& file);
+	void Load(ifstream& file);
 	
 	void SetCopiedComponent(Component *Comp);  //Setters and getters for the copied component
 	Component* GetCopiedComponent();

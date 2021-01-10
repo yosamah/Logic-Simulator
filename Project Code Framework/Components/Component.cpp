@@ -6,7 +6,6 @@ Component::Component(const GraphicsInfo &r_GfxInfo)
 	m_GfxInfo = r_GfxInfo;	
 	pointsCount = -1;
 	pointsArray = NULL;
-
 }
 void Component::setSelected(bool x) {
 	selected = x;
@@ -35,7 +34,10 @@ void Component::SetLabel(string& label)
 
 string Component::GetLabel()
 {
-	return m_Label;
+	if (!m_Label.empty())
+		return m_Label;
+	else
+		return "$";
 }
 
 
