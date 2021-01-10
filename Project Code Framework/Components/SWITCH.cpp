@@ -6,7 +6,7 @@ SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-
+	active = false;
 	m_OutputPin.setPinLocation(80, 25);
 }
 
@@ -39,7 +39,7 @@ void SWITCH::Draw(Output* pOut, bool selected)
 //returns status of outputpin
 int SWITCH::GetOutPinStatus()
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin.getSIMStatus();
 }
 
 
@@ -88,4 +88,11 @@ int SWITCH::getOutPinLocationX()
 int SWITCH::getOutPinLocationY()
 {
 	return m_OutputPin.getYPinLocation();
+}
+
+void SWITCH::setActive(bool x) {
+	active = x;
+}
+bool SWITCH::getActive() {
+	return active;
 }

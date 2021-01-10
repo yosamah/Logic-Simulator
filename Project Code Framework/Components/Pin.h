@@ -7,10 +7,13 @@ class Pin
 {
 protected:
 	STATUS m_Status;	//Status of the Pin
+	STATUS s_Status;
 public:
 	Pin();
 	void setStatus(STATUS r_Status);
 	STATUS getStatus();
+	void setSIMStatus(STATUS r_Status);
+	STATUS getSIMStatus();
 };
 
 #endif

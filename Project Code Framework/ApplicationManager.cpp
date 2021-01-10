@@ -27,8 +27,9 @@ ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
 	CopyComp = NULL;
-	for(int i=0; i<MaxCompCount; i++)
+	for (int i = 0; i < MaxCompCount; i++) {
 		CompList[i] = NULL;
+	}
 
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
@@ -265,6 +266,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case CUT:
 			pAct = new Cut(this);
+			break;
+
+		case Change_Switch:
+			pAct = new ChangeSwitch(this);
 			break;
 	
 		case SELECT:
