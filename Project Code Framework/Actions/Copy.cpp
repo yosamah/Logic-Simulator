@@ -38,13 +38,12 @@ void Copy::ReadActionParameters()
 void Copy::Execute()
 {
 	Output* pOut = pManager->GetOutput();
-
-	ReadActionParameters();
-	if (valid)
-	{
-		pManager->SetCopiedComponent(*Comp);
-		pOut->PrintMsg("Component copied!");
-	}
+		ReadActionParameters();
+		if (valid)
+		{
+			pManager->SetCopiedComponent(*Comp);
+			pOut->PrintMsg("Component copied!");
+		}
 }
 
 //To undo this action (code depends on action type)

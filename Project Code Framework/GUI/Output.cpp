@@ -163,19 +163,19 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[DESIGN] = "images\\Menu\\Menu_DES.jpg";
 	MenuItemImages[SIMULATION] = "images\\Menu\\Menu_SIM.jpg";
 	//MenuItemImages[ITM_SELECT + MODE_CNT] = "images\\Menu\\Menu_SELECT.jpg";
-	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_TRUTH.jpg";
+	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_Truth.jpg";
 	MenuItemImages[ITM_LABEL + MODE_CNT] = "images\\Menu\\Menu_LABEL.jpg";
 	MenuItemImages[ITM_EDIT + MODE_CNT] = "images\\Menu\\Menu_EDIT.jpg";
 	MenuItemImages[ITM_COPY + MODE_CNT] = "images\\Menu\\Menu_COPY.jpg";
 	MenuItemImages[ITM_PASTE + MODE_CNT] = "images\\Menu\\Menu_PASTE.jpg";
 	MenuItemImages[ITM_CUT + MODE_CNT] = "images\\Menu\\Menu_CUT.jpg";
 	MenuItemImages[ITM_DELETE + MODE_CNT] = "images\\Menu\\Menu_DELETE.jpg";
-	MenuItemImages[ITM_UNDO + MODE_CNT] = "images\\Menu\\Menu_UNDO.jpg";
-	MenuItemImages[ITM_REDO + MODE_CNT] = "images\\Menu\\Menu_REDO.jpg";
-	MenuItemImages[ITM_MOVE + MODE_CNT] = "images\\Menu\\Menu_MOVE.jpg";
+	MenuItemImages[ITM_UNDO + MODE_CNT] = "images\\Menu\\Menu_Undo.jpg";
+	MenuItemImages[ITM_REDO + MODE_CNT] = "images\\Menu\\Menu_Redo.jpg";
+	MenuItemImages[ITM_MOVE + MODE_CNT] = "images\\Menu\\Menu_Move.jpg";
 	MenuItemImages[ITM_SAVE + MODE_CNT] = "images\\Menu\\Menu_SAVE.jpg";
 	MenuItemImages[ITM_LOAD + MODE_CNT] = "images\\Menu\\Menu_LOAD.jpg";
-	MenuItemImages[ITM_EXIT + MODE_CNT] = "images\\Menu\\Menu_EXIT.jpg";
+	MenuItemImages[ITM_EXIT + MODE_CNT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//MenuItemImages[ITM_CUT] = "images	\\Menu\\Menu_CUT.jpg";
 
@@ -359,11 +359,10 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected) const
 void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
-	if (selected)	//use image in the highlighted case
+	if (selected==1)	//use image in the highlighted case
 		GateImage = "Images\\Gate\\SWITCH_Hi.jpg";
-	else
+	else 
 		GateImage = "Images\\Gate\\SWITCH.jpg";
-
 	//Draw AND2 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);

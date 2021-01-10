@@ -13,15 +13,15 @@ AND2::AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 void AND2::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
-	//Add you code here
-	//InputPin* m_InputPins;	//Array of input pins of the Gate
-	//OutputPin m_OutputPin;	//The Gate output pin
-	//int m_Inputs;		//No. of input pins of that Gate.
-	/*for (int i = 1; i <= m_Inputs; i++)
-	{
-		m_InputPins[i]
+	for (int i = 0;i < m_Inputs;i++) {
+		if (m_InputPins[i].getSIMStatus() != HIGH) {
+			m_OutputPin.setSIMStatus(LOW);
+			return;
+		}
 	}
-	m_OutputPin.setStatus()*/
+	m_OutputPin.setSIMStatus(HIGH);
+	//Add you code here
+
 }
 
 
