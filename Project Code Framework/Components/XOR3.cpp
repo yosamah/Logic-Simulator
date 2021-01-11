@@ -12,7 +12,17 @@ XOR3::XOR3(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 void XOR3::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
+	int count = 0;
 
+	for (int i = 0; i < m_Inputs; i++) {
+		if (m_InputPins[i].getSIMStatus() == HIGH) {
+			count++;
+		}
+	}
+	if (count % 2 != 0)
+		m_OutputPin.setSIMStatus(HIGH);
+	else
+		m_OutputPin.setSIMStatus(LOW);
 	//Add you code here
 }
 

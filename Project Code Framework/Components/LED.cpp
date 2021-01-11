@@ -6,7 +6,7 @@ LED::LED(const GraphicsInfo& r_GfxInfo)
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-
+	Active = false;
 	m_InputPin.setPinLocation(30, 50);
 }
 
@@ -18,9 +18,24 @@ InputPin* LED::getInputPin(int n)
 void LED::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
-
+	if (m_InputPin.getSIMStatus() == HIGH)
+		//setSelected(true);
+		Active = true;
+	else
+		Active = false;
+		//setSelected(false);
 	//Add you code here
 }
+
+void LED::setActive(bool a)
+{
+	Active = a;
+}
+bool LED::getActive()
+{
+	return Active;
+}
+
 int LED::getNoOfInPins()
 {
 	return 1;
@@ -40,7 +55,7 @@ int LED::getInPinLocationY(int n)
 void LED::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawLED(m_GfxInfo, selected);
+	pOut->DrawLED(m_GfxInfo, selected,Active);
 }
 
 

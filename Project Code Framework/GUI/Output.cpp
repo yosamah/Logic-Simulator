@@ -343,13 +343,21 @@ void Output::DrawNOR2(GraphicsInfo r_GfxInfo, bool selected) const
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
 
-void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected) const
+void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected , bool Active) const
 {
 	string GateImage;
-	if (selected)	//use image in the highlighted case
-		GateImage = "Images\\Gate\\LED_Hi.jpg";
+	if(selected)	//use image in the highlighted case
+	{
+			GateImage = "Images\\Gate\\LED_Hi.jpg";
+	}
 	else
+	{
 		GateImage = "Images\\Gate\\LED.jpg";
+	}
+	if (Active && UI.AppMode == SIMULATION)
+	{
+		GateImage = "Images\\Gate\\LED_Active.jpg";
+	}
 
 	//Draw AND2 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
@@ -359,8 +367,13 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected) const
 void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
-	if (selected==1)	//use image in the highlighted case
-		GateImage = "Images\\Gate\\SWITCH_Hi.jpg";
+	if (selected)	//use image in the highlighted case
+	{
+		if (UI.AppMode == DESIGN)
+			GateImage = "Images\\Gate\\SWITCH_Hi.jpg";
+		else
+			GateImage = "Images\\Gate\\SWITCH_Active.jpg";
+	}
 	else 
 		GateImage = "Images\\Gate\\SWITCH.jpg";
 	//Draw AND2 Gate at Gfx_Info (1st corner)

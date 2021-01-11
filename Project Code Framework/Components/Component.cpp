@@ -192,3 +192,4 @@ Component* Component::GetIDGate(int ID)
 	if (m_ID == ID)
 		return this;
 }
+

@@ -14,7 +14,10 @@ SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 void SWITCH::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
-
+	if (getSelected())
+		m_OutputPin.setSIMStatus(HIGH);
+	else
+		m_OutputPin.setSIMStatus(LOW);
 	//Add you code here
 }
 
@@ -101,9 +104,3 @@ int SWITCH::getOutPinLocationY()
 	return m_OutputPin.getYPinLocation();
 }
 
-void SWITCH::setActive(bool x) {
-	active = x;
-}
-bool SWITCH::getActive() {
-	return active;
-}

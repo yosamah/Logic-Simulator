@@ -22,6 +22,7 @@
 #include "Actions\Select.h"
 #include "Actions\SaveAction.h"
 #include "Actions\LoadAction.h"
+#include "Actions\ChangeSwitch.h"
 #include <fstream>
 
 
@@ -33,6 +34,9 @@ ApplicationManager::ApplicationManager()
 	for (int i = 0; i < MaxCompCount; i++) {
 		CompList[i] = NULL;
 	}
+
+	CurrMode = DESIGN;
+	PrevMode = DESIGN;
 
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
@@ -173,6 +177,18 @@ Component** ApplicationManager::getComponent(int x, int y)
 
 ActionType ApplicationManager::GetUserAction()
 {
+	//We keep track of previous and current modes to reset selected components between the two modes.
+	PrevMode = CurrMode;
+	CurrMode = UI.AppMode;
+
+	if ((UI.AppMode == SIMULATION && PrevMode == DESIGN) || (UI.AppMode == DESIGN && PrevMode == SIMULATION))
+	{
+		for (int i = 0; i < CompCount; i++)
+		{
+			CompList[i]->setSelected(0);
+		}
+	}
+
 	//Call input to get what action is reuired from the user
 	return InputInterface->GetUserAction();
 }
@@ -274,7 +290,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case Change_Switch:
+			CheckSimulation();
 			pAct = new ChangeSwitch(this);
+			/*for (int i = 0; i < CompCount; i++)
+			{
+				CompList[i]->Operate();
+			}
+			UpdateInterface();*/
 			break;
 	
 		case SELECT:
@@ -289,6 +311,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 
 		pAct->Execute();
+		if (UI.AppMode == SIMULATION)
+		{
+			CheckSimulation();
+		}
 		delete pAct;
 		pAct = NULL;
 	}
@@ -303,14 +329,23 @@ void ApplicationManager::UpdateInterface()
 		CompList[i]->Draw(OutputInterface, CompList[i]->getSelected());
 		CompList[i]->Draw_Label(OutputInterface);
 	}
-
 }
 
+////////////////////////////////////////////////////////////////////
 
-//string ApplicationManager::getString()
-//{
-//	return InputInterface->GetSrting(OutputInterface,"","");
-//}
+void ApplicationManager::CheckSimulation()
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		for (int j = 0; j < CompCount; j++)
+		{
+			//CompList[i]->setSelected(0);
+			CompList[j]->Operate();
+		}
+		//CompList[i]->Operate();
+	}
+	UpdateInterface();
+}
 
 ////////////////////////////////////////////////////////////////////
 Component* ApplicationManager::GetIDGate(int ID)

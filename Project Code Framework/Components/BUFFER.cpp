@@ -12,7 +12,7 @@ BUFFER::BUFFER(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 void BUFFER::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
-
+	m_OutputPin.setSIMStatus((STATUS)m_InputPins[m_Inputs-1].getSIMStatus());
 	//Add you code here
 }
 

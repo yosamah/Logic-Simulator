@@ -156,12 +156,12 @@ ActionType Input::GetUserAction() const
 			switch (ClickedItemOrderSim)
 			{
 			case (ITM_TRUTH + MODE_CNT): return TRUTH;
-			case (Change_Switch + MODE_CNT): return Change_Switch;
 			case (ITM_EXIT + MODE_CNT): return EXIT;
 			}
 		}
+		return Change_Switch;
 
-		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
+//		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 	}
 
 }

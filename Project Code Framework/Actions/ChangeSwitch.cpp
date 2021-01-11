@@ -3,25 +3,35 @@
 ChangeSwitch::ChangeSwitch(ApplicationManager* pApp) : Action(pApp)
 {
 	Comp = NULL;
+	Comp2 = NULL;
 	valid = false;
 }
 
 //Reads parameters required for action to execute
 void ChangeSwitch::ReadActionParameters()
 {
+	//Get a Pointer to the Input / Output Interfaces
+	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->GetOutput();
+
 	pIn->GetPointClicked(GfxI.x1, GfxI.y1);
+	
+	
 
 	//Get the clicked component
 	Comp = pManager->getComponent(GfxI.x1, GfxI.y1);
-	Comp = dynamic_cast<SWITCH*>(Comp); //maybe error used same variable
-	if (Comp)
+	if (Comp != NULL)
 	{
-		valid = true;
-	}
-	else
-	{
-		pOut->PrintMsg("Please click on a switch!");
-		valid = false;
+		Component* C = dynamic_cast<SWITCH*>(*Comp); //maybe error used same variable
+		if (C)
+		{
+			valid = true;
+		}
+		else
+		{
+			pOut->PrintMsg("Please click on a switch!");
+			valid = false;
+		}
 	}
 
 }
@@ -31,17 +41,17 @@ void ChangeSwitch::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
+
 	if (valid)
 	{
-		if ((*Comp)->getActive() == 0) {
-			(*Comp)->setActive(1);
-			GateImage = "Images\\Gate\\SWITCH_Hi.jpg";
-			pWind->DrawImage(GateImage, GfxI.x1, GfxI.y1, UI.AND2_Width, UI.AND2_Height);
+		if ((*Comp)->getSelected() == 0)
+		{
+			(*Comp)->setSelected(true);
 		}
 		else {
-			(*Comp)->setActive(0);
+			(*Comp)->setSelected(0);
 		}
-		UpdateInterface();
+		//pManager->UpdateInterface();
 	}
 }
 

@@ -19,10 +19,10 @@ private:
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
 
+	MODE PrevMode;
+	MODE CurrMode;
+
 	Component* CopyComp; //pointer to the copied component
-
-public:
-
 
 public:	
 	ApplicationManager(); //constructor
@@ -63,6 +63,8 @@ public:
 	Component** GetSelectedComponent(int& count);
 	//Selects a component in the list of components
 	void SelectComponent();
+
+	void CheckSimulation();
 
 	//destructor
 	~ApplicationManager();
