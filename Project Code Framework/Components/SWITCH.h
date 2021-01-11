@@ -12,6 +12,7 @@
 class SWITCH :public Component
 {
 	OutputPin m_OutputPin;	//The Gate output pin
+	bool active;
 public:
 	SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate

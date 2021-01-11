@@ -57,7 +57,6 @@ int Connection::changeDst(Component* dstGate, int pinDest)
 	if (checkDest == LOW)
 	{
 		SrcCmpnt = dstGate;
-		DestPin = pinDest;
 		m_GfxInfo.x2 = SrcCmpnt->getInPinLocationX(pinDest);
 		m_GfxInfo.y2 = SrcCmpnt->getInPinLocationY(pinDest);
 		SrcCmpnt->setXConnection(m_GfxInfo.x2);

@@ -72,7 +72,7 @@ public:
 	string GetLabel();            //Get label of component
 
 	virtual void Load(ifstream& file , int *IDgate1 = NULL, int *IDgate2 = NULL, int *PinNo = NULL) = 0;
-	
+
 	Component();	
 	
 	//Destructor must be virtual

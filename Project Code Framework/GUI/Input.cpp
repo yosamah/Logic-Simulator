@@ -159,8 +159,9 @@ ActionType Input::GetUserAction() const
 			case (ITM_EXIT + MODE_CNT): return EXIT;
 			}
 		}
+		return Change_Switch;
 
-		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
+//		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 	}
 
 }

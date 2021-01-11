@@ -12,6 +12,7 @@
 class LED :public Component
 {
 	InputPin m_InputPin;	//Input pins of the LED.
+	bool Active;
 	
 public:
 	LED(const GraphicsInfo& r_GfxInfo);
@@ -28,6 +29,8 @@ public:
 	int getInPinLocationY(int n);
 	int getNoOfInPins();
 	
+	void setActive(bool);
+	bool getActive();
 
 	InputPin* getInputPin(int n);
 

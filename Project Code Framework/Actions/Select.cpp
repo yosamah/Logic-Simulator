@@ -6,22 +6,24 @@ using namespace std;
 
 Select::Select(ApplicationManager* pApp) : Action(pApp)
 {
-
 }
 
 //Reads parameters required for action to execute
 void Select::ReadActionParameters()
 {
+
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	//Get a Pointer to the Input / Output Interfaces
 	pIn->GetPointClicked(x1, y1);
+
 }
 
 //Execute action (code depends on action type)
 void Select::Execute()
 {
 	ReadActionParameters();
+
 	pComp = pManager->getComponent(x1, y1);
 	if (pComp != NULL) {
 		if ((*pComp)->getSelected() == 0) {
@@ -73,7 +75,3 @@ void Select::Redo()
 	}
 }
 
-
-
-
-//To undo this action (code depends on action type)

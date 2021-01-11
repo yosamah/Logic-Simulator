@@ -6,7 +6,7 @@ SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-
+	active = false;
 	m_OutputPin.setPinLocation(80, 25);
 }
 
@@ -14,7 +14,10 @@ SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 void SWITCH::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
-
+	if (getSelected())
+		m_OutputPin.setSIMStatus(HIGH);
+	else
+		m_OutputPin.setSIMStatus(LOW);
 	//Add you code here
 }
 
@@ -39,7 +42,7 @@ void SWITCH::Draw(Output* pOut, bool selected)
 //returns status of outputpin
 int SWITCH::GetOutPinStatus()
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin.getSIMStatus();
 }
 
 
@@ -57,7 +60,7 @@ void SWITCH::setInputPinStatus(int n, STATUS s)
 
 void SWITCH::Save(ofstream& file)
 {
-	file << "SWITCH "<< GetID() << " " << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << " " << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
+	file << "SWITCH "<< "\t" << GetID() << "\t" << GetLabel() << "\t" << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2 << "\t" << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2 << endl;
 }
 
 void SWITCH::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
@@ -65,6 +68,17 @@ void SWITCH::Load(ifstream& file, int* IDgate1, int* IDgate2, int* PinNo)
 	int ID;
 	file >> ID;
 	SetID(ID);
+
+	string Label;
+	file >> Label;
+
+	if (Label == "$")
+	{
+		Label = " ";
+		SetLabel(Label);
+	}
+	else
+		SetLabel(Label);
 
 	int Cx, Cy;
 	file >> Cx >> Cy;
@@ -89,3 +103,4 @@ int SWITCH::getOutPinLocationY()
 {
 	return m_OutputPin.getYPinLocation();
 }
+
