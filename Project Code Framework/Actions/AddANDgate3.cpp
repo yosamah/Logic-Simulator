@@ -1,5 +1,6 @@
 #include "AddANDgate3.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddANDgate3::AddANDgate3(ApplicationManager* pApp) :Action(pApp)
 {
@@ -43,16 +44,32 @@ void AddANDgate3::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	AND3* pA = new AND3(GInfo, AND2_FANOUT);
+	pA = new AND3(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddANDgate3::Undo()
-{}
+{
+	/*int gateNumber = pManager->getGateNumber(pA);
+	pManager->removeComponentFromList(gateNumber);*/
+
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddANDgate3::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+	
+}
 

@@ -1,5 +1,6 @@
 #include "AddConnection.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddConnection::AddConnection(ApplicationManager* pApp, bool IsLoaded, Component* SrcCmpnt, Component* DstCmpnt, int PinNo) :Action(pApp)
 {
@@ -184,32 +185,48 @@ void AddConnection::Execute()
 		/*int InputgateIndex = pManager->getGateNumber(*comp1);
 		int OutputgateIndex = pManager->getGateNumber(*comp2);*/
 
-		Connection* pA = new Connection(GInfo, pSrcPin, pDstPin, *comp1, *comp2, numberOfInputPin);
+		pA = new Connection(GInfo, pSrcPin, pDstPin, *comp1, *comp2, numberOfInputPin);
 		if (comp2 != NULL && comp1 != NULL)
 		{
 			//Check the number of pins connected to the pressed output gate.
 			int fanoutValidity = (*comp2)->ConnectToOut(pA);
 			if (fanoutValidity)
 			{
+				
 				pManager->AddComponent(pA);
+				pManager->setValidityofAction(true);
+			
+				
 				//Set this pin High.
 				(*comp1)->setInputPinStatus(numberOfInputPin + 1, HIGH);
 			}
-				
 			else
 			{
 				pOut->PrintMsg("This Output pin has max number of connections! To reconnect press on connection.");
+				pManager->setValidityofAction(false);
 			}
+
 				
 		}
+		else
+			pManager->setValidityofAction(false);
 		
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
 	}
 	
 }
 
 void AddConnection::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddConnection::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

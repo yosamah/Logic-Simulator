@@ -1,5 +1,6 @@
 #include "AddORgate2.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddORgate2::AddORgate2(ApplicationManager* pApp) :Action(pApp)
 {
@@ -42,16 +43,28 @@ void AddORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	OR2* pA = new OR2(GInfo, AND2_FANOUT);
+	pA = new OR2(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddORgate2::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddORgate2::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

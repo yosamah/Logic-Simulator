@@ -1,5 +1,7 @@
 #include "AddANDgate2.h"
 #include "..\ApplicationManager.h"
+#include "stack"
+#include "Delete.h"
 
 AddANDgate2::AddANDgate2(ApplicationManager *pApp ):Action(pApp)
 {
@@ -43,17 +45,31 @@ void AddANDgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	AND2* pA = new AND2(GInfo, AND2_FANOUT);
+	pA = new AND2(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
-
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
+		
 }
 
 
 void AddANDgate2::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+
+	
+}
 
 void AddANDgate2::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

@@ -1,5 +1,6 @@
 #include "AddINVERTER.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddINVERTER::AddINVERTER(ApplicationManager* pApp) :Action(pApp)
 {
@@ -43,16 +44,29 @@ void AddINVERTER::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	INVERTER* pA = new INVERTER(GInfo, AND2_FANOUT);
+	pA = new INVERTER(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddINVERTER::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+
+}
 
 void AddINVERTER::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

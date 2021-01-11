@@ -13,7 +13,7 @@ private:
 	GraphicsInfo GInfo; //Two points of connection.
 	OutputPin* pSrcPin;
 	InputPin* pDstPin;
-
+	Connection* pA;
 	Component* SrcCmpnt;
 	Component* DstCmpnt;
 	int PinNo;

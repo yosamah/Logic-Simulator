@@ -1,5 +1,6 @@
 #include "AddNANDgate2.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddNANDgate2::AddNANDgate2(ApplicationManager* pApp) :Action(pApp)
 {
@@ -42,16 +43,28 @@ void AddNANDgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	NAND2* pA = new NAND2(GInfo, AND2_FANOUT);
+	pA = new NAND2(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddNANDgate2::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddNANDgate2::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

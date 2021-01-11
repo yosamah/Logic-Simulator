@@ -1,5 +1,6 @@
 #include "AddNORgate2.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddNORgate2::AddNORgate2(ApplicationManager* pApp) :Action(pApp)
 {
@@ -40,15 +41,26 @@ void AddNORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	NOR2* pA = new NOR2(GInfo, AND2_FANOUT);
+	pA = new NOR2(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
+}
+void AddNORgate2::Undo()
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
 }
 
-void AddNORgate2::Undo()
-{}
-
 void AddNORgate2::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

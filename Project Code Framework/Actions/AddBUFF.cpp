@@ -1,5 +1,6 @@
 #include "AddBUFF.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddBUFFER::AddBUFFER(ApplicationManager* pApp) :Action(pApp)
 {
@@ -42,16 +43,29 @@ void AddBUFFER::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	BUFFER* pA = new BUFFER(GInfo, AND2_FANOUT);
+	pA = new BUFFER(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddBUFFER::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+
+}
 
 void AddBUFFER::Redo()
-{}
+ {
+	pManager->AddComponent(pA);
+}
 

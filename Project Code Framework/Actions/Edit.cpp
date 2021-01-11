@@ -27,21 +27,24 @@ void Edit::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	ReadActionParameters();
-	Component** comp = pManager->getComponent(x1, y1);
+	comp = pManager->getComponent(x1, y1);
 	if (comp != NULL)
 	{
-		Component* testConnection = dynamic_cast<Connection*>(*comp);
+		testConnection = dynamic_cast<Connection*>(*comp);
 		if (!testConnection)
 		{
+			oldLabel = (*comp)->GetLabel();
 			string l = pIn->GetSrting(pOut, "", "");
 			(*comp)->SetLabel(l);
 			pOut->ClearStatusBar();
+			
 		}
 		else
 		{
-			string testLabel = pIn->GetSrting(pOut, "Do you want edit a label? (y/n)");
+			testLabel = pIn->GetSrting(pOut, "Do you want edit a label? (y/n)");
 			if (testLabel == "y")
 			{
+				oldLabel = (*comp)->GetLabel();
 				string l = pIn->GetSrting(pOut, "", "");
 				(*comp)->SetLabel(l);
 				pOut->ClearStatusBar();
@@ -50,15 +53,15 @@ void Edit::Execute()
 			{
 				pOut->PrintMsg("Choose whether source gate or destination gate!");
 				pIn->GetPointClicked(x1, y1);
-				Component* comp2 = (*comp)->GetSourceGate();
-				Component* comp1 = (*comp)->GetDestinationGate();
-				bool checkSourceGate = comp1->drawArea(x1, y1);
-				bool checkDestGate = comp2->drawArea(x1, y1);
+				comp2 = (*comp)->GetSourceGate();
+				comp1 = (*comp)->GetDestinationGate();
+				checkSourceGate = comp1->drawArea(x1, y1);
+				checkDestGate = comp2->drawArea(x1, y1);
 				if (checkSourceGate)
 				{
 					pOut->PrintMsg("Click on the new source pin.");
 					pIn->GetPointClicked(x1, y1);
-					Component** newComp = pManager->getComponent(x1, y1);
+					newComp = pManager->getComponent(x1, y1);
 					if (newComp != NULL)
 					{
 						int checkChange = (*comp)->changeSrc(*newComp);
@@ -77,7 +80,7 @@ void Edit::Execute()
 				{
 					pOut->PrintMsg("Click on the new destenation pin.");
 					pIn->GetPointClicked(x1, y1);
-					Component** newComp = pManager->getComponent(x1, y1);
+					newComp = pManager->getComponent(x1, y1);
 					if (newComp != NULL)
 					{
 						int numberPins = (*newComp)->getNoOfInPins();
@@ -109,7 +112,19 @@ void Edit::Execute()
 }
 void Edit::Undo()
 {
+	if (!testConnection)
+	{
 
+		(*comp)->SetLabel(oldLabel);
+	}
+	else if (testLabel == "y")
+	{
+		(*comp)->SetLabel(oldLabel);
+	}
+	else if (checkSourceGate)
+	{
+		int checkChange = (*comp)->changeSrc(comp1);
+	}
 }
 void Edit::Redo()
 {

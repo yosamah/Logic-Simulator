@@ -1,5 +1,6 @@
 #include "AddXORgate2.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddXORgate2::AddXORgate2(ApplicationManager* pApp) :Action(pApp)
 {
@@ -43,16 +44,28 @@ void AddXORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	XOR2* pA = new XOR2(GInfo, AND2_FANOUT);
+	pA = new XOR2(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddXORgate2::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddXORgate2::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

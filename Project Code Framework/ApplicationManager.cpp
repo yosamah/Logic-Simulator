@@ -19,6 +19,7 @@
 #include "Actions\Edit.h"
 #include "Actions\Paste.h"
 #include "Actions\Cut.h"
+#include "Actions/Select.h"
 #include <fstream>
 
 
@@ -33,7 +34,22 @@ ApplicationManager::ApplicationManager()
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
+	//lastAction = NULL;
 }
+
+
+
+void ApplicationManager::setDelArray(Component**& delArray, int& count)
+{
+	count = countDelArray;
+	delArray = new Component * [count];
+	for (int i = 0; i < count; i++)
+		delArray[i] = ArrayDeleted[i];
+
+	delete[]ArrayDeleted;
+}
+
+
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 {
@@ -62,40 +78,29 @@ void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 	else
 	{
 		CompList[CompCount] = pComp;
-		CompList[CompCount++]->SetID(CompCount);
+		CompList[CompCount]->SetID(CompCount+1);
+		CompCount++;
 	}
 }
 
-////////////////////////////////////////////////////////////////////
-//int ApplicationManager::getGateNumber(Component* comp)
-//{
-//	for (int i = 0; i < CompCount; i++)
-//	{
-//		if (comp == CompList[i])
-//			return i;
-//	}
-//	return -1;
-//}
-////////////////////////////////////////////////////////////////////
-
-
-void ApplicationManager::SelectComponent() {
-	
-	//Farah: 
-	int x, y;
-	InputInterface->GetPointClicked(x, y);
-	Component** pComp=getComponent(x,y); 
-	if (pComp != NULL) {
-		if ((*pComp)->getSelected() == 0) {
-			(*pComp)->setSelected(1);
-		}
-		else {
-			(*pComp)->setSelected(0);
-		}
-		UpdateInterface();
+//////////////////////////////////////////////////////////////////
+int ApplicationManager::getGateNumber(Component* comp)
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (comp == CompList[i])
+			return i;
 	}
+	return -1;
 }
+//////////////////////////////////////////////////////////////////
 
+
+
+void ApplicationManager::setValidityofAction(bool valid)
+{
+	actionValid = valid;
+}
 
 
 void ApplicationManager::RemoveConnection(Component** c1)
@@ -113,6 +118,7 @@ void ApplicationManager::RemoveConnection(Component** c1)
 void ApplicationManager::RemoveComponent(Component** c1)
 {
 	bool checkExist = 0;
+	countDelArray = 0;
 	for (int i = 0;i < CompCount;i++) {
 		if (*c1 == CompList[i]) {
 			checkExist = 1;
@@ -125,6 +131,9 @@ void ApplicationManager::RemoveComponent(Component** c1)
 		Component* removedComp = dynamic_cast<Connection*>(*c1);
 		if (removedComp != NULL)
 		{
+			countDelArray = 1;
+			ArrayDeleted = new Component * [countDelArray];
+			ArrayDeleted[0] = *c1;
 			RemoveConnection(c1);
 		}
 		else
@@ -137,6 +146,26 @@ void ApplicationManager::RemoveComponent(Component** c1)
 				{
 					if ((*c1) == CompList[i]->GetDestinationGate() || (*c1) == CompList[i]->GetSourceGate())
 					{
+						countDelArray++;
+						
+					}
+				}
+				i++;
+			}
+			ArrayDeleted = new Component * [countDelArray + 1];
+			countDelArray++;
+			ArrayDeleted[0] = *c1;
+			int k = 1;
+			i = 0;
+			while (i < CompCount)
+			{
+				Component* ConnectionGate = dynamic_cast<Connection*>(CompList[i]);
+				if (ConnectionGate)
+				{
+					if ((*c1) == CompList[i]->GetDestinationGate() || (*c1) == CompList[i]->GetSourceGate())
+					{
+						ArrayDeleted[k] = CompList[i];
+						k++;
 						RemoveConnection(&CompList[i]);
 						i = -1;
 					}
@@ -148,6 +177,8 @@ void ApplicationManager::RemoveComponent(Component** c1)
 			CompList[--CompCount] = NULL;
 		}
 	}
+	Action* pAction = new Delete(this);
+	//pAction->
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -180,59 +211,86 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		case ADD_AND_GATE_2:
 			pAct= new AddANDgate2(this);
-	
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_OR_GATE_2:
 			pAct = new AddORgate2(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_NAND_GATE_2:
 			pAct = new AddNANDgate2(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_NOR_GATE_2:
 			pAct = new AddNORgate2(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_XOR_GATE_2:
 			pAct = new AddXORgate2(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_XNOR_GATE_2:
 			pAct = new AddXNORgate2(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_AND_GATE_3:
 			pAct = new AddANDgate3(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_NOR_GATE_3:
 			pAct = new AddNORgate3(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_XOR_GATE_3:
 			pAct = new AddXORgate3(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_Buff:
 			pAct = new AddBUFFER(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_INV:
 			pAct = new AddINVERTER(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_LED:
 			pAct = new AddLED(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_Switch:
 			pAct = new AddSWITCH(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_CONNECTION:
 			pAct = new AddConnection(this);
+			while (!stackOfActionsUndo.empty())
+				stackOfActionsUndo.pop();
 			break;
 
 		case ADD_Label:
@@ -268,13 +326,27 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 	
 		case SELECT:
-			SelectComponent();
-			break;
+			pAct = new Select(this);
+			break;	
 		case UNDO:
-			
+			if (!stackOfActionsList.empty())
+			{
+				stackOfActionsUndo.push(stackOfActionsList.top());
+				pAct = stackOfActionsList.top();
+				pAct->Undo();
+				stackOfActionsList.pop();
+				pAct = NULL;
+			}
 			break;				
 		case REDO:
-			
+			if (!stackOfActionsUndo.empty())
+			{
+				pAct = stackOfActionsUndo.top();
+				stackOfActionsList.push(stackOfActionsUndo.top());
+				stackOfActionsUndo.pop();
+				pAct->Redo();
+				pAct = NULL;
+			}
 			break;
 
 		case EXIT:
@@ -283,9 +355,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 	if(pAct)
 	{
-
 		pAct->Execute();
-		delete pAct;
+		if (actionValid)
+			stackOfActionsList.push(pAct); 
 		pAct = NULL;
 	}
 }

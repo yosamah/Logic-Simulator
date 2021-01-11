@@ -5,6 +5,7 @@
 #include "GUI\Output.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include<stack>
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -20,9 +21,11 @@ private:
 	Input* InputInterface; //pointer to the Input Clase Interface
 
 	Component* CopyComp; //pointer to the copied component
-
-public:
-
+	stack<Action*> stackOfActionsList;
+	stack<Action*> stackOfActionsUndo;
+	bool actionValid;
+	Component** ArrayDeleted;
+	int countDelArray;
 
 public:	
 	ApplicationManager(); //constructor
@@ -35,12 +38,14 @@ public:
 	
 	void UpdateInterface();	//Redraws all the drawing window
 
+	void setValidityofAction(bool valid);
+	void setDelArray(Component**& delArray, int& count);
 
 	void RemoveConnection(Component** c1);
 	
 
 	//string getString();
-	//int getGateNumber(Component* comp);
+	int getGateNumber(Component* comp);
 
 
 	Component** getComponent(int x, int y);
@@ -61,7 +66,6 @@ public:
 	Component* GetCopiedComponent();
 	Component** GetSelectedComponent(int& count);
 	//Selects a component in the list of components
-	void SelectComponent();
 
 	//destructor
 	~ApplicationManager();

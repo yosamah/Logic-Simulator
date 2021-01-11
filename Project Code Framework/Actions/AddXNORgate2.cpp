@@ -1,5 +1,6 @@
 #include "AddXNORgate2.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddXNORgate2::AddXNORgate2(ApplicationManager* pApp) :Action(pApp)
 {
@@ -44,16 +45,28 @@ void AddXNORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	XNOR2* pA = new XNOR2(GInfo, AND2_FANOUT);
+	pA = new XNOR2(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddXNORgate2::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddXNORgate2::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

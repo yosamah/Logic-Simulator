@@ -1,5 +1,6 @@
 #include "AddLED.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddLED::AddLED(ApplicationManager* pApp) :Action(pApp)
 {
@@ -41,16 +42,28 @@ void AddLED::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	LED* pA = new LED(GInfo);
+	pA = new LED(GInfo);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddLED::Undo()
-{}
+{
+	Action* p = new Delete(pManager, pA);
+	p->Execute();
+}
 
 void AddLED::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 

@@ -1,5 +1,6 @@
 #include "AddSWITCH.h"
 #include "..\ApplicationManager.h"
+#include "Delete.h"
 
 AddSWITCH::AddSWITCH(ApplicationManager* pApp) :Action(pApp)
 {
@@ -41,16 +42,28 @@ void AddSWITCH::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	SWITCH* pA = new SWITCH(GInfo, AND2_FANOUT);
+	pA = new SWITCH(GInfo, AND2_FANOUT);
 
 	if (pA->InDrawingArea(Cx, Cy))
+	{
 		pManager->AddComponent(pA);
+		pManager->setValidityofAction(true);
+	}
+	else
+	{
+		pManager->setValidityofAction(false);
+	}
 
 }
 
 void AddSWITCH::Undo()
-{}
+{
+	Action* pAction = new Delete(pManager, pA);
+	pAction->Execute();
+}
 
 void AddSWITCH::Redo()
-{}
+{
+	pManager->AddComponent(pA);
+}
 
