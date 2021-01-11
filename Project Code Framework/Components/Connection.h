@@ -12,6 +12,7 @@ class Connection :	public Component
 	//int OutputGateIndex;  //The index of the output gate
 	OutputPin* SrcPin;	//The Source pin of this connection (an output pin of certain Component)
 	InputPin* DstPin;	//The Destination pin of this connection (an input pin of certain Component)
+	bool Active;
 	
 public:
 	//Connection(const GraphicsInfo &r_GfxInfo, Component *pS=NULL,Component *pD=NULL, int Pin=0);

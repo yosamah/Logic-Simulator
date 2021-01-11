@@ -46,6 +46,11 @@ int SWITCH::GetOutPinStatus()
 }
 
 
+bool SWITCH::GetOutStatus()
+{
+	return m_OutputPin.getStatus();
+}
+
 //returns status of Inputpin #n
 int SWITCH::GetInputPinStatus(int n)
 {

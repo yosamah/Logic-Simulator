@@ -15,9 +15,13 @@ bool OutputPin::ConnectTo(Connection *r_Conn)
 	if(m_Conn < m_FanOut)
 	{
 		m_Connections[m_Conn++] = r_Conn;	//add a new connection the the array of connections
+		m_Status = HIGH;
 		return true;
 	}
-	
+	if (m_Conn == 0)
+	{
+		m_Status = LOW;
+	}
 	return false;	//can't connect to any more connections
 }
 
@@ -33,6 +37,8 @@ void OutputPin::removeConnection(Connection* r_Conn)
 			m_Conn--;
 		}
 	}
+	if (m_Conn == 0)
+		m_Status = LOW;
 }
 void OutputPin::setPinLocation(int a, int b)
 {

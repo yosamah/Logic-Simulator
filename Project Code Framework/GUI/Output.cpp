@@ -81,7 +81,8 @@ void Output::ClearDrawingArea() const
 {
 	pWind->SetPen(WHITE, 1);
 	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(UI.ToolItemWidth + 10, UI.ToolBarHeight + 30, UI.width, UI.height - UI.StatusBarHeight - 5);
+	pWind->DrawRectangle(UI.SimItemWidth - 6, UI.ToolBarHeight + 30, UI.width, UI.height - UI.StatusBarHeight - 5);
+	//UI.ToolItemWidth + 10
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -384,11 +385,12 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 //TODO: Add similar functions to draw all components
 
 
-void Output::DrawConnection(GraphicsInfo* points, int count,bool selected) const
+void Output::DrawConnection(GraphicsInfo* points, int count,bool selected, bool Active) const
 {
 	//TODO: Add code to draw connection
 
 	    if (selected) pWind->SetPen(RED, 3);
+		else if(Active && UI.AppMode == SIMULATION) pWind->SetPen(GREEN, 3);
 	    else pWind->SetPen(BLACK, 3);
 		for (int i = 0; i < count; i++)
 		{
