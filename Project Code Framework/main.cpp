@@ -15,7 +15,7 @@ int main()
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
-		//Exexute the action
+		//Execute the action
 		AppManager.ExecuteAction(ActType);
 
 		//Update the drawing window

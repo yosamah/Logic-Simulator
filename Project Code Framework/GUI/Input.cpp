@@ -49,8 +49,6 @@ string Input::GetSrting(Output* pOut , string msg , string ms)
 
 		case RETURN:
 
-			//pWind->DrawString(500, 500, m);
-
 			break;
 
 		default:
@@ -129,7 +127,6 @@ ActionType Input::GetUserAction() const
 			case (ITM_COPY + MODE_CNT): return COPY;
 			case (ITM_CUT + MODE_CNT): return CUT;
 			case (ITM_PASTE + MODE_CNT): return PASTE;
-			//case (ITM_SELECT + MODE_CNT): return SELECT;
 			case (ITM_DELETE + MODE_CNT): return DEL;
 			case (ITM_UNDO + MODE_CNT): return UNDO;
 			case (ITM_REDO + MODE_CNT): return REDO;
@@ -161,8 +158,6 @@ ActionType Input::GetUserAction() const
 			}
 		}
 		return Change_Switch;
-
-//		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 	}
 
 }

@@ -31,21 +31,14 @@ private:
 	MODE PrevMode;
 	MODE CurrMode;
 
-
 	stack<Action*> stackOfActionsList;
 	stack<Action*> stackOfActionsUndo;
 
 	stack<Component*>ArrayDelUndo;
 	stack<Component*>ArrayDelRedo;
 
-
-	stack<Component*>ArrayEditUndo;
-	stack<Component*>ArrayEditRedo;
-
 	stack<Component*>ArraySelUndo;
 	stack<Component*>ArraySelRedo;
-
-
 
 public:	
 	ApplicationManager(); //constructor
@@ -68,9 +61,10 @@ public:
 
 	void addDelCompStack(int count);
 	void remDelCompStack( int count);
-	void addEditCompStack(Component*);
 	void addSelecCompStack();
 	void remSelecCompStack();
+
+	void DeleteStack();
 
 	Component** getComponent(int x, int y);
 

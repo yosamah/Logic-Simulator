@@ -45,6 +45,7 @@ void Cut::Execute()
 		pManager->RemoveComponent(Comp);
 		pOut->PrintMsg("Component Cut!");
 	}
+	pManager->setValidityofAction(false);
 }
 
 //To undo this action (code depends on action type)

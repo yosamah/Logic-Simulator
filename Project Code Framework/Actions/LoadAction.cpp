@@ -26,7 +26,7 @@ void LoadAction::ReadActionParameters()
 	{
 		pOut->PrintMsg("File not found!");
 	}
-
+	pManager->setValidityofAction(false);
 }
 
 //Execute action (code depends on action type)

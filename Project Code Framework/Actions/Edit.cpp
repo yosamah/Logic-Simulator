@@ -35,6 +35,7 @@ void Edit::Execute()
 		{
 			oldLabel = (*comp)->GetLabel();
 			newLabel = pIn->GetSrting(pOut, "", "");
+			pManager->setValidityofAction(true);
 			(*comp)->SetLabel(newLabel);
 			pOut->ClearStatusBar();
 			
@@ -47,6 +48,7 @@ void Edit::Execute()
 				oldLabel = (*comp)->GetLabel();
 				newLabel = pIn->GetSrting(pOut, "", "");
 				(*comp)->SetLabel(newLabel);
+				pManager->setValidityofAction(true);
 				pOut->ClearStatusBar();
 			}
 			else
@@ -67,14 +69,30 @@ void Edit::Execute()
 					{
 						int checkChange = (*comp)->changeSrc(*newComp);
 						if (checkChange == 0)
+						{
 							pOut->PrintMsg("The source gate has max number of pins! ");
+							pManager->setValidityofAction(false);
+						}
 						else if (checkChange == -1)
+						{
 							pOut->PrintMsg("You didn't press on a gate! ");
+							pManager->setValidityofAction(false);
+						}
+							
 						else
+						{
+							pManager->setValidityofAction(true);
 							(comp1)->removeConToOut((Connection*)*comp);
+
+						}
+							
 					}
 					else
+					{
 						pOut->PrintMsg("You didn't press on a gate! ");
+						pManager->setValidityofAction(false);
+					}
+						
 					
 				}
 				else if (checkDestGate)
@@ -90,27 +108,40 @@ void Edit::Execute()
 						oldPin = (*comp)->GetDPin();
 						int checkChange = (*comp)->changeDst(*newComp, pinN);
 						if (checkChange == 0)
+						{
+							pManager->setValidityofAction(false);
 							pOut->PrintMsg("The pin has connection already! ");
+						}
 						else if (checkChange == -1)
+						{
+							pManager->setValidityofAction(false);
 							pOut->PrintMsg("You didn't press on a gate! ");
+						}
 						else
 						{
+							pManager->setValidityofAction(true);
 							(comp2)->setInputPinStatus(oldPin+1, LOW);
 						}
 							
 
 					}
 					else
+					{
 						pOut->PrintMsg("You didn't press on a gate! ");
-					
+						pManager->setValidityofAction(false);
+					}
+						
 				}
 				else
 				{
+					pManager->setValidityofAction(false);
 					pOut->PrintMsg("This is neither source gate nor destintation gate.");
 				}
 			}
 		}
 	}
+	else
+		pManager->setValidityofAction(false);
 }
 void Edit::Undo()
 {

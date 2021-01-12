@@ -26,9 +26,11 @@ void Label::Execute()
 	ReadActionParameters();
 	pOut->PrintMsg("Click on a component: ");
 	comp = pManager->getComponent(x1, y1);
-	oldLabel = (*comp)->GetLabel();
+
 	if (comp != NULL)
 	{
+		oldLabel = (*comp)->GetLabel();
+		pManager->setValidityofAction(true);
 		string l = pIn->GetSrting(pOut, "", "");
 		(*comp)->SetLabel(l);
 		newLabel = (*comp)->GetLabel();
@@ -37,6 +39,7 @@ void Label::Execute()
 	}
 	else
 	{
+		pManager->setValidityofAction(false);
 		newLabel = " ";
 		pOut->PrintMsg("No Clicked Component!");
 	}
