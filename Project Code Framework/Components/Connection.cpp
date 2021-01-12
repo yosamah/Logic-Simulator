@@ -7,20 +7,12 @@ Connection::Connection(const GraphicsInfo& r_GfxInfo, OutputPin* pSrcPin, InputP
 	SrcCmpnt = pS;
 	DstCmpnt = pD;
 	DestPin = Pin;
-	/*InputGateIndex = IGI;
-	OutputGateIndex = OGI;*/
 	Active = false;
 }
 
 Connection::Connection()
 {
 }
-//Connection::Connection(const GraphicsInfo& r_GfxInfo, Component* pS = NULL, Component* pD = NULL, int Pin = 0) :Component(r_GfxInfo)
-//{
-//	SrcCmpnt = pS;
-//	DstCmpnt = pD;	
-//	DestPin = Pin;
-//}
 
 void Connection::Draw_Label(Output* pOut)
 {
@@ -49,8 +41,6 @@ int Connection::changeSrc(Component* srcGate)
 		return 0;
 	}
 	
-
-
 }
 int Connection::changeDst(Component* dstGate, int pinDest)
 {
@@ -125,7 +115,6 @@ void Connection::Operate()
 
 void Connection::Draw(Output* pOut, bool selected)
 {
-	//pOut->DrawConnection(m_GfxInfo, selected);
 	computePoints();
 	pOut->DrawConnection(pointsArray, pointsCount,selected,Active);
 }
@@ -163,12 +152,6 @@ Component* Connection::GetDestinationGate()
 
 int Connection::GetDPin()
 { return DestPin; }
-//
-//int Connection::GetInputGateIndex()
-//{ return InputGateIndex; }
-//
-//int Connection::GetOutputGateIndex()
-//{ return OutputGateIndex; }
 
 void Connection::Save(ofstream& file)
 {
@@ -189,8 +172,6 @@ void Connection::Load(ifstream& file, int* IDgate1, int* IDgate2 , int* PinNo )
 	*IDgate1 = ID1;
 	*IDgate2 = ID2;
 
-	//SrcCmpnt->GetIDGate(ID1);
-	//DstCmpnt->GetIDGate(ID2);
 	int PinNumber;
 	file >> PinNumber;
 	*PinNo = PinNumber;

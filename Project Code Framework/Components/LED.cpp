@@ -19,11 +19,9 @@ void LED::Operate()
 {
 	//caclulate the output status as the ANDing of the two input pins
 	if (m_InputPin.getSIMStatus() == HIGH)
-		//setSelected(true);
 		Active = true;
 	else
 		Active = false;
-		//setSelected(false);
 	//Add you code here
 }
 

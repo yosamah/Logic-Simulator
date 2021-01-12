@@ -8,8 +8,6 @@ class Connection :	public Component
 	Component*	SrcCmpnt;	//Connection source component
 	Component*	DstCmpnt;	//Connection Destination component
 	int	DestPin;		//The Input pin to which this connection is linked
-	//int InputGateIndex;  //The index of the input gate
-	//int OutputGateIndex;  //The index of the output gate
 	OutputPin* SrcPin;	//The Source pin of this connection (an output pin of certain Component)
 	InputPin* DstPin;	//The Destination pin of this connection (an input pin of certain Component)
 	bool Active;
@@ -36,13 +34,9 @@ public:
 	OutputPin* getSourcePin();
 	InputPin* getDestPin();
 	
-
 	Component* GetSourceGate();
 	Component* GetDestinationGate();
 	int GetDPin();
-	/*int GetInputGateIndex();
-	int GetOutputGateIndex();*/
-
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1

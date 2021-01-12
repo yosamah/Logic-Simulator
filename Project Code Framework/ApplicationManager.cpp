@@ -41,9 +41,8 @@ ApplicationManager::ApplicationManager()
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
-	//lastAction = NULL;
 }
-
+////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::addDelCompStack(int count)
 {
@@ -54,6 +53,7 @@ void ApplicationManager::addDelCompStack(int count)
 		ArrayDelRedo.pop();
 	}
 }
+////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::remDelCompStack(int count)
 {
@@ -64,11 +64,8 @@ void ApplicationManager::remDelCompStack(int count)
 		ArrayDelUndo.pop();
 	}
 
-}
-void ApplicationManager::addEditCompStack(Component*)
-{
+}////////////////////////////////////////////////////////////////////
 
-}
 void ApplicationManager::addSelecCompStack()
 {
 	int count = 0;
@@ -89,6 +86,7 @@ void ApplicationManager::addSelecCompStack()
 
 	}
 }
+////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::remSelecCompStack()
 {
@@ -101,18 +99,6 @@ void ApplicationManager::remSelecCompStack()
 	
 
 }
-
-
-//void ApplicationManager::setDelArray(Component**& delArray, int& count)
-//{
-//	count = countDelArray;
-//	delArray = new Component * [count];
-//	for (int i = 0; i < count; i++)
-//		delArray[i] = ArrayDeleted[i];
-//
-//	delete[]ArrayDeleted;
-//}
-
 
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
@@ -416,7 +402,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EXIT:
-			///TODO: create ExitAction here
+			DeleteStack();
 			break;
 	}
 	if(pAct)
@@ -553,8 +539,7 @@ void ApplicationManager::Save(ofstream& file)
 
 void ApplicationManager::Load(ifstream& file)
 {
-	//ifstream file;   //clear drawing area
-	//file.open("Info.txt");
+
 	CompCount = 0;
 
 	Action* pAct = NULL;
@@ -672,13 +657,6 @@ void ApplicationManager::Load(ifstream& file)
 	OutputInterface->PrintMsg("File loaded!");
 }
 		
-	//	else
-		//{
-		//	OutputInterface->PrintMsg("File not found!");
-		//}
-	//}
-	//else
-	//	OutputInterface->PrintMsg("File not loaded!");
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::SetCopiedComponent(Component* Comp)
@@ -699,6 +677,35 @@ Component** ApplicationManager::GetSelectedComponent(int& count) {
 		if (CompList[i]->getSelected() && k<count) SelectedArr[k] = CompList[i], k++;
 	}
 	return SelectedArr;
+}
+
+////////////////////////////////////////////////////////////////////
+void ApplicationManager::DeleteStack()
+{
+	while (!stackOfActionsList.empty())
+	{
+		stackOfActionsList.pop();
+	}
+	while (!stackOfActionsUndo.empty())
+	{
+		stackOfActionsUndo.pop();
+	}
+	while (!ArrayDelUndo.empty())
+	{
+		ArrayDelUndo.pop();
+	}
+	while (!ArrayDelRedo.empty())
+	{
+		ArrayDelRedo.pop();
+	}
+	while (!ArraySelUndo.empty())
+	{
+		ArraySelUndo.pop();
+	}
+	while (!ArraySelRedo.empty())
+	{
+		ArraySelRedo.pop();
+	}
 }
 
 ////////////////////////////////////////////////////////////////////

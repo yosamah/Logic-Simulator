@@ -91,8 +91,6 @@ void Output::ClearDrawingArea() const
 	pWind->SetPen(WHITE, 1);
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(UI.SimItemWidth - 6, UI.ToolBarHeight + 30, UI.width, UI.height - UI.StatusBarHeight - 5);
-	//UI.ToolItemWidth + 10
-
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
@@ -101,15 +99,6 @@ void Output::CreateDesignToolBar() const
 	UI.AppMode = DESIGN;	//Design Mode
 
 	//You can draw the tool bar icons in any way you want.
-	/* ITM_NOR2,
-	ITM_XOR2,
-	ITM_XNOR2,
-	ITM_AND3,
-	ITM_NOR3,
-	ITM_XOR3,
-	ITM_BUFFER,
-	ITM_INVERTER,
-	ITM_SWITCH, */
 	//First prepare List of images for each menu item
 	string MenuItemImages[ITM_DSN_CNT];
 	MenuItemImages[ITM_AND2] = "images\\Gate\\Gate_AND2.jpg";
@@ -127,15 +116,12 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_LED] = "images\\Gate\\LED.jpg";
 	MenuItemImages[ITM_WIRE] = "images\\Menu\\Menu_Wire.jpg";
 
-	//MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
-
 
 	//TODO: Prepare image for each menu item and add it to the list
 
 	//Draw menu item one image at a time
 	pWind->SetPen(WHITE);
 	int tempx = 10;
-	//int tempy = UI.ToolBarHeight+30;
 	for (int i = 0; i < ITM_DSN_CNT; i++)
 	{
 		if (tempx + UI.ToolItemWidth < UI.width)
@@ -146,14 +132,7 @@ void Output::CreateDesignToolBar() const
 			tempx += 11;
 
 		}
-		/*else
-		{
-			pWind->DrawImage(MenuItemImages[i], 10, tempy, UI.ToolItemWidth, UI.ToolBarHeight);
-			tempy += UI.ToolBarHeight;
-			pWind->DrawRectangle(10, tempy, UI.ToolItemWidth, tempy+11, FILLED);
-			tempy += 11;
-
-		}*/
+		
 	}
 
 	//Draw a line under the toolbar
@@ -165,14 +144,11 @@ void Output::CreateDesignToolBar() const
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
 {
-	/*UI.AppMode = SIMULATION;*/	//Simulation Mode
-
 	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
 
 	string MenuItemImages[ITM_SIM_CNT+ MODE_CNT];
 	MenuItemImages[DESIGN] = "images\\Menu\\Menu_DES.jpg";
 	MenuItemImages[SIMULATION] = "images\\Menu\\Menu_SIM.jpg";
-	//MenuItemImages[ITM_SELECT + MODE_CNT] = "images\\Menu\\Menu_SELECT.jpg";
 	MenuItemImages[ITM_TRUTH + MODE_CNT] = "images\\Menu\\Menu_Truth.jpg";
 	MenuItemImages[ITM_LABEL + MODE_CNT] = "images\\Menu\\Menu_LABEL.jpg";
 	MenuItemImages[ITM_EDIT + MODE_CNT] = "images\\Menu\\Menu_EDIT.jpg";
@@ -187,13 +163,9 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_LOAD + MODE_CNT] = "images\\Menu\\Menu_LOAD.jpg";
 	MenuItemImages[ITM_EXIT + MODE_CNT] = "images\\Menu\\Menu_Exit.jpg";
 
-	//MenuItemImages[ITM_CUT] = "images	\\Menu\\Menu_CUT.jpg";
-
 	pWind->SetPen(WHITE);
 	int tempx = 10;
 	int tempy = UI.SimItemCoordinate;
-
-	//pWind->DrawImage(MenuItemImages[3], tempx, tempy + 20);
 
 	for (int i = 0; i < ITM_SIM_CNT+MODE_CNT; i++)
 	{
@@ -232,7 +204,7 @@ void Output::DrawOR2(GraphicsInfo r_GfxInfo, bool selected) const
 	else
 		GateImage = "Images\\Gate\\Gate_OR2.jpg";
 
-	//Draw AND2 Gate at Gfx_Info (1st corner)
+	//Draw OR2 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
