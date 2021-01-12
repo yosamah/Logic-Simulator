@@ -14,6 +14,7 @@ void SaveAction::Execute()
 	file.open("Info.txt");
 	file.clear();
 	pManager->Save(file);
+	pManager->setValidityofAction(false);
 }
 
 //To undo this action (code depends on action type)

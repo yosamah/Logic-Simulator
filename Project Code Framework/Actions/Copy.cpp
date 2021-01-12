@@ -44,6 +44,7 @@ void Copy::Execute()
 			pManager->SetCopiedComponent(*Comp);
 			pOut->PrintMsg("Component copied!");
 		}
+		pManager->setValidityofAction(false);
 }
 
 //To undo this action (code depends on action type)

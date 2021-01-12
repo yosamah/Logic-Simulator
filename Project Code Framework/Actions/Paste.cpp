@@ -93,6 +93,7 @@ void Paste::Execute()
 			}
 		}
 	}
+	pManager->setValidityofAction(false);
 }
 
 //To undo this action (code depends on action type)
