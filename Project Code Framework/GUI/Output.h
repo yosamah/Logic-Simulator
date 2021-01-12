@@ -19,7 +19,7 @@ public:
 	void ClearDrawingArea() const;	//Clears the drawing area
 
 	window* CreateWind(int wd, int h, int x, int y) const; //Creates user interface window
-
+	bool GetButton(int& x1, int& y1);
 
 	// Draws 2-input AND gate
 	void DrawAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;

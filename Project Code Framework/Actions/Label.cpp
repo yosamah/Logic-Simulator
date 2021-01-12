@@ -25,25 +25,27 @@ void Label::Execute()
 	Input* pIn = pManager->GetInput();
 	ReadActionParameters();
 	pOut->PrintMsg("Click on a component: ");
-	Component** c = pManager->getComponent(x1, y1);
-
-	if (c != NULL)
+	comp = pManager->getComponent(x1, y1);
+	oldLabel = (*comp)->GetLabel();
+	if (comp != NULL)
 	{
 		string l = pIn->GetSrting(pOut, "", "");
-		(*c)->SetLabel(l);
+		(*comp)->SetLabel(l);
+		newLabel = (*comp)->GetLabel();
 		pOut->ClearStatusBar();
 
 	}
 	else
 	{
+		newLabel = " ";
 		pOut->PrintMsg("No Clicked Component!");
 	}
 }
 void Label::Undo()
 {
-
+	(*comp)->SetLabel(oldLabel);
 }
 void Label::Redo()
 {
-
+	(*comp)->SetLabel(newLabel);
 }

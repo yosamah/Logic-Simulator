@@ -8,8 +8,7 @@ class Delete: public Action
 {
 	int x1, y1;
 	Component* pA;
-	Component** ArrayDeleted;
-	int numberDeletedItems;
+	int countDel;
 
 public:
 	Delete(ApplicationManager* pApp, Component* p = NULL);
@@ -18,7 +17,6 @@ public:
 	
 	virtual void Execute();
 
-	virtual void setArrayDel(Component** Array, int count);
 	
 	virtual void Undo();
 

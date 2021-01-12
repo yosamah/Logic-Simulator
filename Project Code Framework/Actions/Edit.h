@@ -15,6 +15,8 @@ class Edit : public Action
 	string testLabel;
 	Component* testConnection;
 	string oldLabel;
+	int pinN;
+	int oldPin;
 
 public:
 	Edit(ApplicationManager* pApp);	//constructor

@@ -37,7 +37,7 @@ ApplicationManager::ApplicationManager()
 
 	CurrMode = DESIGN;
 	PrevMode = DESIGN;
-
+	actionValid = false;
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
@@ -45,21 +45,80 @@ ApplicationManager::ApplicationManager()
 }
 
 
-
-void ApplicationManager::setDelArray(Component**& delArray, int& count)
+void ApplicationManager::addDelCompStack(int count)
 {
-	count = countDelArray;
-	delArray = new Component * [count];
-	for (int i = 0; i < count; i++)
-		delArray[i] = ArrayDeleted[i];
-
-	delete[]ArrayDeleted;
+	for(int i =0; i< count; i++)
+	{
+		RemoveComponent(&ArrayDelRedo.top());
+		ArrayDelUndo.push(ArrayDelRedo.top());
+		ArrayDelRedo.pop();
+	}
 }
+
+void ApplicationManager::remDelCompStack(int count)
+{
+	for(int i =0;i<count;i++)
+	{
+		AddComponent(ArrayDelUndo.top());
+		ArrayDelRedo.push(ArrayDelUndo.top());
+		ArrayDelUndo.pop();
+	}
+
+}
+void ApplicationManager::addEditCompStack(Component*)
+{
+
+}
+void ApplicationManager::addSelecCompStack()
+{
+	int count = 0;
+	Component** SelectedArr = GetSelectedComponent(count);
+	for (int i = 0; i < count; i++)
+	{
+		ArraySelUndo.push(SelectedArr[i]);
+		SelectedArr[i]->setSelected(0);
+	}
+	if (count == 0)
+	{
+		while (!ArraySelRedo.empty())
+		{
+			ArraySelUndo.push(ArraySelRedo.top());
+			ArraySelRedo.top()->setSelected(0);
+			ArraySelRedo.pop();
+		}
+
+	}
+}
+
+void ApplicationManager::remSelecCompStack()
+{
+	while (!ArraySelUndo.empty()) 
+	{
+		ArraySelRedo.push(ArraySelUndo.top());
+		ArraySelUndo.top()->setSelected(1);
+		ArraySelUndo.pop();
+	}
+	
+
+}
+
+
+//void ApplicationManager::setDelArray(Component**& delArray, int& count)
+//{
+//	count = countDelArray;
+//	delArray = new Component * [count];
+//	for (int i = 0; i < count; i++)
+//		delArray[i] = ArrayDeleted[i];
+//
+//	delete[]ArrayDeleted;
+//}
 
 
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp, bool IsLoad)
 {
+	for (int i = 0; i < CompCount; i++)
+		CompList[i]->setSelected(0);
 	if (IsLoad)
 	{
 		CompList[CompCount] = pComp;
@@ -141,6 +200,7 @@ void ApplicationManager::setValidityofAction(bool valid)
 
 void ApplicationManager::RemoveConnection(Component** c1)
 {
+	ArrayDelUndo.push(*c1);
 	Component* c2 = (*c1)->GetDestinationGate();
 	(c2)->removeConToOut((Connection*)*c1);
 	Component* c3 = (*c1)->GetSourceGate();
@@ -153,10 +213,12 @@ void ApplicationManager::RemoveConnection(Component** c1)
 }
 ////////////////////////////////////////////////////////////////////
 
-void ApplicationManager::RemoveComponent(Component** c1)
+
+
+int ApplicationManager::RemoveComponent(Component** c1)
 {
 	bool checkExist = 0;
-	countDelArray = 0;
+	int countOfRem = 0;
 	for (int i = 0;i < CompCount;i++) {
 		if (*c1 == CompList[i]) {
 			checkExist = 1;
@@ -169,14 +231,14 @@ void ApplicationManager::RemoveComponent(Component** c1)
 		Component* removedComp = dynamic_cast<Connection*>(*c1);
 		if (removedComp != NULL)
 		{
-			countDelArray = 1;
-			ArrayDeleted = new Component * [countDelArray];
-			ArrayDeleted[0] = *c1;
+			countOfRem++;
 			RemoveConnection(c1);
 		}
 		else
 		{
 			int i = 0;
+			ArrayDelUndo.push(*c1);
+			countOfRem++;
 			while (i < CompCount)
 			{
 				Component* ConnectionGate = dynamic_cast<Connection*>(CompList[i]);
@@ -184,26 +246,7 @@ void ApplicationManager::RemoveComponent(Component** c1)
 				{
 					if ((*c1) == CompList[i]->GetDestinationGate() || (*c1) == CompList[i]->GetSourceGate())
 					{
-						countDelArray++;
-						
-					}
-				}
-				i++;
-			}
-			ArrayDeleted = new Component * [countDelArray + 1];
-			countDelArray++;
-			ArrayDeleted[0] = *c1;
-			int k = 1;
-			i = 0;
-			while (i < CompCount)
-			{
-				Component* ConnectionGate = dynamic_cast<Connection*>(CompList[i]);
-				if (ConnectionGate)
-				{
-					if ((*c1) == CompList[i]->GetDestinationGate() || (*c1) == CompList[i]->GetSourceGate())
-					{
-						ArrayDeleted[k] = CompList[i];
-						k++;
+						countOfRem++;
 						RemoveConnection(&CompList[i]);
 						i = -1;
 					}
@@ -215,8 +258,7 @@ void ApplicationManager::RemoveComponent(Component** c1)
 			CompList[--CompCount] = NULL;
 		}
 	}
-	Action* pAction = new Delete(this);
-	//pAction->
+	return countOfRem;
 }
 
 ////////////////////////////////////////////////////////////////////

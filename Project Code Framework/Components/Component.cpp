@@ -28,8 +28,6 @@ void Component::SetLabel(string& label)
 {
 	if (!label.empty())
 		m_Label = label;
-	else
-		m_Label = "$";
 }
 
 string Component::GetLabel()

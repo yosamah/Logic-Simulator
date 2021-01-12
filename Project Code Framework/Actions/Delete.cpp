@@ -9,6 +9,7 @@ using namespace std;
 Delete::Delete(ApplicationManager* pApp, Component* p):Action(pApp)
 {
 	pA = p;
+	countDel = 0;
 }
 	
 void Delete::ReadActionParameters()
@@ -23,15 +24,6 @@ void Delete::ReadActionParameters()
 }
 
 
-void Delete::setArrayDel(Component** Array, int count)
-{
-	numberDeletedItems = count;
-	ArrayDeleted = new Component * [numberDeletedItems];
-	for (int i = 0; i < count; i++)
-		ArrayDeleted[i] = Array[i];
-
-}
-
 void Delete::Execute()
 {
 	Output* pOut = pManager->GetOutput();
@@ -39,14 +31,11 @@ void Delete::Execute()
 	Component** SelectedArr = pManager->GetSelectedComponent(count);
 	if (count) 
 	{
-		numberDeletedItems = count;
-		ArrayDeleted = new Component * [numberDeletedItems];
-		for(int i = 0;i<count;i++)
-			ArrayDeleted[i] = SelectedArr[i];
 		for (int i = 0;i < count;i++)
 		{
-			pManager->RemoveComponent(&SelectedArr[i]);
-			pManager->setDelArray(ArrayDeleted, numberDeletedItems);
+			int number = pManager->RemoveComponent(&SelectedArr[i]);
+			countDel  = countDel + number;
+
 		}
 		pManager->setValidityofAction(true);
 	}
@@ -63,8 +52,8 @@ void Delete::Execute()
 		}
 		if (c1 != NULL)
 		{
-			pManager->RemoveComponent(c1);
-			pManager->setDelArray(ArrayDeleted, numberDeletedItems);
+			int number = pManager->RemoveComponent(c1);
+			countDel = countDel + number;
 			pManager->setValidityofAction(true);
 		}
 		else
@@ -79,19 +68,11 @@ void Delete::Execute()
 
 void Delete::Undo()
 {
-	for(int i =0;i< numberDeletedItems;i++)
-		pManager->AddComponent(ArrayDeleted[i]);
-
-
+	pManager->remDelCompStack(countDel);
 }
 
 
 void Delete::Redo()
 {
-	for (int i = 0; i < numberDeletedItems; i++)
-	{
-		Action* dP =new Delete(pManager, ArrayDeleted[i]);
-		dP->Execute();
-	}
-		
+	pManager->addDelCompStack(countDel);
 }

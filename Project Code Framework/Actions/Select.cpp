@@ -23,15 +23,15 @@ void Select::ReadActionParameters()
 void Select::Execute()
 {
 	ReadActionParameters();
-
-	pComp = pManager->getComponent(x1, y1);
+	Component** pComponent = pManager->getComponent(x1, y1);
+	Component* pComp = (pComponent == NULL) ? NULL : *pComponent;
 	if (pComp != NULL) {
-		if ((*pComp)->getSelected() == 0) {
-			(*pComp)->setSelected(1);
+		if ((pComp)->getSelected() == 0) {
+			(pComp)->setSelected(1);
 			
 		}
 		else {
-			(*pComp)->setSelected(0);
+			(pComp)->setSelected(0);
 			
 		}
 		pManager->setValidityofAction(true);
@@ -44,34 +44,12 @@ void Select::Execute()
 //To undo this action (code depends on action type)
 void Select::Undo()
 {
-	if (pComp != NULL)
-	{
-		if ((*pComp)->getSelected() == 0)
-		{
-			(*pComp)->setSelected(1);
-		}
-		else
-		{
-			(*pComp)->setSelected(0);
-		}
-
-	}
+	pManager->addSelecCompStack();
 }
 
 //To redo this action (code depends on action type)
 void Select::Redo()
 {
-	if (pComp != NULL)
-	{
-		if ((*pComp)->getSelected() == 0)
-		{
-			(*pComp)->setSelected(1);
-		}
-		else
-		{
-			(*pComp)->setSelected(0);
-		}
-
-	}
+	pManager->remSelecCompStack();
 }
 

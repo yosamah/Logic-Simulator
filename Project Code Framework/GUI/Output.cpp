@@ -23,6 +23,15 @@ Output::Output()
 
 }
 
+
+bool Output::GetButton(int& x1, int& y1)
+{
+	if (pWind->GetButtonState(LEFT_BUTTON, x1, y1) == BUTTON_DOWN)
+		return true;
+
+	return false;
+}
+
 Input* Output::CreateInput() const
 {
 	//Create an Input Object & assign it to the Same Window

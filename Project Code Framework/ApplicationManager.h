@@ -22,13 +22,28 @@ private:
 
 
 	Component* CopyComp; //pointer to the copied component
-	stack<Action*> stackOfActionsList;
-	stack<Action*> stackOfActionsUndo;
+	
 	bool actionValid;
-	Component** ArrayDeleted;
-	int countDelArray;
+	/*Component** ArrayDeleted;
+	int countDelArray;*/
 	MODE PrevMode;
 	MODE CurrMode;
+
+
+	stack<Action*> stackOfActionsList;
+	stack<Action*> stackOfActionsUndo;
+
+	stack<Component*>ArrayDelUndo;
+	stack<Component*>ArrayDelRedo;
+
+
+	stack<Component*>ArrayEditUndo;
+	stack<Component*>ArrayEditRedo;
+
+	stack<Component*>ArraySelUndo;
+	stack<Component*>ArraySelRedo;
+
+
 
 public:	
 	ApplicationManager(); //constructor
@@ -42,14 +57,18 @@ public:
 	void UpdateInterface();	//Redraws all the drawing window
 
 	void setValidityofAction(bool valid);
-	void setDelArray(Component**& delArray, int& count);
+	//void setDelArray(Component**& delArray, int& count);
 
 	void RemoveConnection(Component** c1);
 	
-
 	//string getString();
 	int getGateNumber(Component* comp);
 
+	void addDelCompStack(int count);
+	void remDelCompStack( int count);
+	void addEditCompStack(Component*);
+	void addSelecCompStack();
+	void remSelecCompStack();
 
 	Component** getComponent(int x, int y);
 
@@ -59,7 +78,7 @@ public:
 
 	Component* GetIDGate(int ID);
 
-	void RemoveComponent(Component** c1);
+	int RemoveComponent(Component** c1);
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp,bool IsLoad = false);
 	void Save(ofstream& file);

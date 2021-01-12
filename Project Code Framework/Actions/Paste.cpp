@@ -97,8 +97,10 @@ void Paste::Execute()
 
 //To undo this action (code depends on action type)
 void Paste::Undo()
-{}
+{
+}
 
 //To redo this action (code depends on action type)
 void Paste::Redo()
-{}
+{
+}
