@@ -160,37 +160,6 @@ int ApplicationManager::getGateNumber(Component* comp)
 }
 //////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////
-//int ApplicationManager::getGateNumber(Component* comp)
-//{
-//	for (int i = 0; i < CompCount; i++)
-//	{
-//		if (comp == CompList[i])
-//			return i;
-//	}
-//	return -1;
-//}
-////////////////////////////////////////////////////////////////////
-
-
-//void ApplicationManager::SelectComponent() {
-//	
-//	//Farah: 
-//	int x, y;
-//	InputInterface->GetPointClicked(x, y);
-//	Component** pComp=getComponent(x,y); 
-//	if (pComp != NULL) {
-//		if ((*pComp)->getSelected() == 0) {
-//			(*pComp)->setSelected(1);
-//		}
-//		else {
-//			(*pComp)->setSelected(0);
-//		}
-//		UpdateInterface();
-//	}
-//}
-
-
 
 void ApplicationManager::setValidityofAction(bool valid)
 {
@@ -420,11 +389,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case Change_Switch:
 			CheckSimulation();
 			pAct = new ChangeSwitch(this);
-			/*for (int i = 0; i < CompCount; i++)
-			{
-				CompList[i]->Operate();
-			}
-			UpdateInterface();*/
 			break;
 	
 		case SELECT:
@@ -483,14 +447,46 @@ void ApplicationManager::UpdateInterface()
 
 void ApplicationManager::CheckSimulation()
 {
+	bool Valid = true;
+
+	for (int i = 0; i < CompCount; i++)
+	{
+		Component* comp = dynamic_cast<SWITCH*>(CompList[i]);
+		if (comp)
+		{
+			if (CompList[i]->GetOutStatus() == LOW)
+			{
+				Valid = false;
+				break;
+			}
+			else continue;
+		}
+
+		int NoPins = CompList[i]->getNoOfInPins();
+
+		for (int j = 1; j <= NoPins; j++)
+		{
+			if (CompList[i]->GetInputPinStatus(j) == LOW)
+			{
+				Valid = false;
+				break;
+			}
+		}
+	}
+	
+	if (!Valid)
+	{
+		OutputInterface->PrintMsg("Circuit is wrong! Switching to design mode ... ");
+		UI.AppMode = DESIGN;
+		return;
+	}
+
 	for (int i = 0; i < CompCount; i++)
 	{
 		for (int j = 0; j < CompCount; j++)
 		{
-			//CompList[i]->setSelected(0);
 			CompList[j]->Operate();
 		}
-		//CompList[i]->Operate();
 	}
 	UpdateInterface();
 }
@@ -521,10 +517,15 @@ Output* ApplicationManager::GetOutput()
 
 void ApplicationManager::Save(ofstream& file)
 {
-	//ofstream file;
+	int count = 0;
 
-	//file.open("Info.txt");
-	//file.clear();
+	for (int i = 0; i < CompCount; i++)
+	{
+		Component* c = dynamic_cast<Connection*>(CompList[i]);
+		if (c == NULL)
+			count++;
+	}
+	file << count << endl;
 
 	for (int i = 0; i < CompCount; i++)
 	{
@@ -564,13 +565,10 @@ void ApplicationManager::Load(ifstream& file)
 	GfxInfo.y1 = -1;
 	GfxInfo.x2 = -1;
 	GfxInfo.y2 = -1;
+	
+	int count;
+	file >> count;
 
-	// Check = InputInterface->GetSrting(OutputInterface, "All unsaved data will be removed. Do you want to continue (y/n):");
-
-	// (Check == "y")
-	//{
-		//if (file.is_open())
-		//{
 	while (file >> CompName && CompName != "-1")
 	{
 		if (CompName == "CONNECTIONS")

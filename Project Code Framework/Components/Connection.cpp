@@ -9,6 +9,7 @@ Connection::Connection(const GraphicsInfo& r_GfxInfo, OutputPin* pSrcPin, InputP
 	DestPin = Pin;
 	/*InputGateIndex = IGI;
 	OutputGateIndex = OGI;*/
+	Active = false;
 }
 
 Connection::Connection()
@@ -114,6 +115,10 @@ InputPin* Connection::getDestPin()
 
 void Connection::Operate()
 {
+	if (SrcPin->getSIMStatus() == HIGH)
+		Active = true;
+	else
+		Active = false;
 	//Status of connection destination pin = status of connection source pin
 	DstPin->setSIMStatus((STATUS)SrcPin->getSIMStatus());
 }
@@ -122,7 +127,7 @@ void Connection::Draw(Output* pOut, bool selected)
 {
 	//pOut->DrawConnection(m_GfxInfo, selected);
 	computePoints();
-	pOut->DrawConnection(pointsArray, pointsCount,selected);
+	pOut->DrawConnection(pointsArray, pointsCount,selected,Active);
 }
 
 int Connection::getPointsCount()

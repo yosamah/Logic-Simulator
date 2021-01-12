@@ -34,8 +34,8 @@ void Edit::Execute()
 		if (!testConnection)
 		{
 			oldLabel = (*comp)->GetLabel();
-			string l = pIn->GetSrting(pOut, "", "");
-			(*comp)->SetLabel(l);
+			newLabel = pIn->GetSrting(pOut, "", "");
+			(*comp)->SetLabel(newLabel);
 			pOut->ClearStatusBar();
 			
 		}
@@ -45,8 +45,8 @@ void Edit::Execute()
 			if (testLabel == "y")
 			{
 				oldLabel = (*comp)->GetLabel();
-				string l = pIn->GetSrting(pOut, "", "");
-				(*comp)->SetLabel(l);
+				newLabel = pIn->GetSrting(pOut, "", "");
+				(*comp)->SetLabel(newLabel);
 				pOut->ClearStatusBar();
 			}
 			else
@@ -138,11 +138,11 @@ void Edit::Redo()
 {
 	if (!testConnection)
 	{
-		(*comp)->SetLabel(testLabel);
+		(*comp)->SetLabel(newLabel);
 	}
 	else if (testLabel == "y")
 	{
-		(*comp)->SetLabel(testLabel);
+		(*comp)->SetLabel(newLabel);
 	}
 	else if (checkSourceGate)
 	{

@@ -139,16 +139,14 @@ void AddConnection::Execute()
 			//Return -1 for LED.
 			if (pinStatus != -1)
 			{
-				if (pinStatus == LOW)
-				{
-					//Set pSrcPin.
-					pSrcPin = (*comp2)->getOutputPin();
-				}
+				//Set pSrcPin.
+				pSrcPin = (*comp2)->getOutputPin();
 
 				GInfo.x1 = (*comp2)->getOutPinLocationX();
 				GInfo.y1 = (*comp2)->getOutPinLocationY();
 				(*comp2)->setXOutConnection(GInfo.x1);
 				(*comp2)->setYOutConnection(GInfo.y1);
+
 			}
 			else
 			{

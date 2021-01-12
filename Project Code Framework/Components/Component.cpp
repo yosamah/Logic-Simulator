@@ -137,6 +137,11 @@ int Component::GetDPin()
 	return -1;
 }
 
+bool Component::GetOutStatus()
+{
+	return true;
+}
+
 void Component::Draw_Label(Output* pOut)
 {
 	pOut->PrintString(m_GfxInfo, m_Label);

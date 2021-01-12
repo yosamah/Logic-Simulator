@@ -17,6 +17,7 @@ class Edit : public Action
 	string oldLabel;
 	int pinN;
 	int oldPin;
+	string newLabel;
 
 public:
 	Edit(ApplicationManager* pApp);	//constructor
