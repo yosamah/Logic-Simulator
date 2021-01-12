@@ -137,6 +137,7 @@ ActionType Input::GetUserAction() const
 			case (ITM_SAVE + MODE_CNT): return SAVE;
 			case (ITM_LOAD + MODE_CNT): return LOAD;
 			case (ITM_EXIT + MODE_CNT): return EXIT;
+			case (ITM_TRUTH + MODE_CNT): return TRUTH;
 			}
 		}
 		//[2] User clicks on the drawing area

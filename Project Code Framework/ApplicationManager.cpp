@@ -23,6 +23,7 @@
 #include "Actions\SaveAction.h"
 #include "Actions\LoadAction.h"
 #include "Actions\ChangeSwitch.h"
+#include "Actions/TruthTable.h"
 #include <fstream>
 
 
@@ -102,6 +103,42 @@ void ApplicationManager::remSelecCompStack()
 
 }
 
+
+SWITCH** ApplicationManager::GetSwitch(int &k) {
+	SWITCH** Switches;
+	int cnt=0;
+	for (int i = 0;i < CompCount;i++) {
+		Component* c = dynamic_cast<SWITCH*>(CompList[i]);
+		if (c) cnt++;
+	}
+	Switches = new SWITCH * [cnt];
+	for (int i = 0;i < CompCount;i++) {
+		SWITCH* c = dynamic_cast<SWITCH*>(CompList[i]);
+		if (c) {
+			Switches[k] = (SWITCH*)CompList[i];
+			//OutputInterface->PrintMsg(" ");
+			k++;
+		}
+	}
+	return Switches;
+}
+LED** ApplicationManager::GetLed(int& k) {
+	LED** Leds;
+	int cnt=0;
+	for (int i = 0;i < CompCount;i++) {
+		Component* c = dynamic_cast<LED*>(CompList[i]);
+		if (c) cnt++;
+	}
+	Leds = new LED * [cnt];
+	for (int i = 0;i < CompCount;i++) {
+		LED* c = dynamic_cast<LED*>(CompList[i]);
+		if (c) {
+			Leds[k] = (LED*)CompList[i];
+			k++;
+		}
+	}
+	return Leds;
+}
 
 //void ApplicationManager::setDelArray(Component**& delArray, int& count)
 //{
@@ -389,6 +426,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case Change_Switch:
 			CheckSimulation();
 			pAct = new ChangeSwitch(this);
+			break;
+
+		case TRUTH:
+			pAct = new TruthTable(this);
 			break;
 	
 		case SELECT:

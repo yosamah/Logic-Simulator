@@ -46,6 +46,14 @@ void OutputPin::setPinLocation(int a, int b)
 	y = b;
 }
 
+int OutputPin::getmConn() {
+	return m_Conn;
+}
+
+Connection* OutputPin::getConn(int i) {
+	return m_Connections[i];
+}
+
 int  OutputPin::getXPinLocation()
 {
 	return x;

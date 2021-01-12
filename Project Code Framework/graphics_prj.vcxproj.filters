@@ -296,6 +296,7 @@
     <ClCompile Include="Actions\LoadAction.cpp" />
     <ClCompile Include="Actions\ChangeSwitch.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
+    <ClCompile Include="Actions\TruthTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -535,6 +536,7 @@
     <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\ChangeSwitch.h" />
     <ClInclude Include="Actions\SaveAction.h" />
+    <ClInclude Include="Actions\TruthTable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

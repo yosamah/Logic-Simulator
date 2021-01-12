@@ -150,6 +150,7 @@
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\TruthTable.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Actions\Cut.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\Edit.h" />
+    <ClInclude Include="Actions\TruthTable.h" />
     <ClInclude Include="Actions\Label.h" />
     <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\Paste.h" />

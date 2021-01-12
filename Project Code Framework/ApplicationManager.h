@@ -5,6 +5,8 @@
 #include "GUI\Output.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include "Components/SWITCH.h"
+#include "Components/LED.h"
 #include<stack>
 
 //Main class that manages everything in the application.
@@ -71,6 +73,9 @@ public:
 	void remSelecCompStack();
 
 	Component** getComponent(int x, int y);
+
+	SWITCH** GetSwitch(int& k);
+	LED** GetLed(int& k);
 
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();

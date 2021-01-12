@@ -27,6 +27,8 @@ public:
 	void setPinLocation(int a, int b);
 	 int getXPinLocation();
 	 int getYPinLocation();
+	 int getmConn();
+	 Connection* getConn(int i);
 };
 
 #endif
